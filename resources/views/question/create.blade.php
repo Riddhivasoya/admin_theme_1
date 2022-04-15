@@ -29,15 +29,18 @@
              </div> 
              <div class="col-xs-12 col-sm-12 col-md-12"> 
              <div class="form-group">
-                     <label for="tags_list"><strong>Tags: <span class="text-danger">*</span></strong></label>
-                     
-                     <select id="tags" name="question_tag[]" class="form-control select2" multiple>
+                     <label for="tags"><strong>Tags <span class="text-danger">*</span></strong></label>
+                     <input type="text" id="tag" name="tag"  placeholder="Enter Tag" class="typeahead tm-input form-control tm-input-info"/>
                      @if ($errors->has('tags'))
                          <span class="text-danger">{{ $errors->first('tags') }}</span>
-                    </select>
                      @endif
                  </div>
              </div> 
+             <div class="col-xs-12 col-sm-12 col-md-12"> 
+             <div class="form-group">
+            </div>
+            </div>
+            
              <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <button type="submit" class="btn btn-primary">Review Your Question</button>
         </div>
