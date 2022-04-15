@@ -39,8 +39,8 @@
                                     
                                     @foreach ($tags as $tag)
                                     <tr>
-                                    <td>{{ ++$i }}</td>
-                                    <td>{{$tag->tag_name}}</td>
+                                    <td >{{ ++$i }}</td>
+                                    <td >{{$tag->tag_name}}</td>
                                     <td>
                                     <form action="{{ route('tags.destroy',$tag->id) }}" method="POST">
 

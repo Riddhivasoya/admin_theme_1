@@ -29,10 +29,12 @@
              </div> 
              <div class="col-xs-12 col-sm-12 col-md-12"> 
              <div class="form-group">
-                     <label for="tags"><strong>Tags <span class="text-danger">*</span></strong></label>
-                     <input type="text" id="tag" name="question_tag" class="form-control" placeholder="Enter Tag" >
+                     <label for="tags_list"><strong>Tags: <span class="text-danger">*</span></strong></label>
+                     
+                     <select id="tags" name="question_tag[]" class="form-control select2" multiple>
                      @if ($errors->has('tags'))
                          <span class="text-danger">{{ $errors->first('tags') }}</span>
+                    </select>
                      @endif
                  </div>
              </div> 
