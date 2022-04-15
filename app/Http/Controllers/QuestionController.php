@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Tag;
+use DB;
 
 use Illuminate\Http\Request;
 
@@ -23,7 +25,8 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        return view('question.create');
+        $tags=Tag::get()->pluck('tag_name','id');
+        return view('question.create',compact('tags'));
     }
 
     /**
@@ -34,7 +37,7 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

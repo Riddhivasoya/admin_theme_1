@@ -6,7 +6,8 @@
                         <a class="btn btn-primary" href="{{ route('questions.index') }}"> Back</a>
                         </ol>
                         <div class="card mb-4">
-
+                        <form  action=" {{ route('questions.store') }}" method="POST" enctype="multipart/form-data"> 
+                        @csrf
                         <div class="row">
              <div class="col-xs-12 col-sm-12 col-md-12"> 
              <div class="form-group">
@@ -29,13 +30,12 @@
              <div class="col-xs-12 col-sm-12 col-md-12"> 
              <div class="form-group">
                      <label for="tags"><strong>Tags <span class="text-danger">*</span></strong></label>
-                     <input type="text" id="tag" name="tag_name" class="form-control" placeholder="Enter Tag" >
-                     @if ($errors->has('title'))
-                         <span class="text-danger">{{ $errors->first('title') }}</span>
+                     <input type="text" id="tag" name="question_tag" class="form-control" placeholder="Enter Tag" >
+                     @if ($errors->has('tags'))
+                         <span class="text-danger">{{ $errors->first('tags') }}</span>
                      @endif
                  </div>
              </div> 
-
              <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <button type="submit" class="btn btn-primary">Review Your Question</button>
         </div>
