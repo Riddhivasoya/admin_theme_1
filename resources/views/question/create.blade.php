@@ -1,5 +1,17 @@
 @extends('layouts.layout')
 @section('pagecontent')
+<style>
+        .bootstrap-tagsinput .tag {
+            margin-right: 2px;
+            color: #ffffff;
+            background: #2196f3;
+            padding: 3px 7px;
+            border-radius: 3px;
+        }
+        .bootstrap-tagsinput {
+            width: 100%;
+        }
+    </style>
 <div class="container-fluid px-4">
                         <h1 class="mt-4">Ask Public Questions</h1>
                         <ol class="breadcrumb mb-4">
@@ -29,27 +41,39 @@
              </div> 
              <div class="col-xs-12 col-sm-12 col-md-12"> 
              <div class="form-group">
-                     <label for="question_tag"><strong>Tags <span class="text-danger">*</span></strong></label>
-                     <input type="text" id="tag" name="question_tag"  placeholder="Enter Tag" class="typeahead tm-input form-control tm-input-info" multiple/>
-                     @if ($errors->has('question_tags'))
-                         <span class="text-danger">{{ $errors->first('question_tags') }}</span>
+                     <label for="tags"><strong>Tags <span class="text-danger">*</span></strong></label>
+                     <input class="form-control" id="search"  type="text" data-role="tagsinput" name="tag">
+                     @if ($errors->has('tags'))
+                         <span class="text-danger">{{ $errors->first('tags') }}</span>
                      @endif
                  </div>
              </div> 
              
-             <div class="col-xs-12 col-sm-12 col-md-12"> 
-             <div class="form-group">
             </div>
             </div>
             
              <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <button type="submit" class="btn btn-primary">Review Your Question</button>
         </div>
-
+    </form>
 
 
 </div>
 </div>
+<script type="text/javascript">
+    var path = "{{ route('questions.store') }}";
+  
+    $('#search').typeahead({
+            source: function (query, process) {
+                return $.get(path, {
+                    query: query
+                }, function (data) {
+                    return process(data);
+                });
+            }
+        });
+  
+</script>
 
 <script type="text/javascript">
     $(document).ready(function() {

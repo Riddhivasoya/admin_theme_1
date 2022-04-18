@@ -6,11 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
+
 {
     use HasFactory;
+    use \Conner\Tagging\Taggable;
     protected $fillable = ['title', 
                             'body',
                             'question_tag'
+                            
                         ];
 
     public function tag()
