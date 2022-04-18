@@ -7,7 +7,7 @@
                 </ol>
 </div>
 <div class="container-fluid px-4">
-<a class="btn btn-primary" href="{{route('tags.create')}}"> Add Tags 234</a>
+<a class="btn btn-primary" href="{{route('tags.create')}}"> Add Tags </a>
 
                 <ol class="breadcrumb mb-4">
                 <!-- <li class="breadcrumb-item active">Dashboard</li> -->
