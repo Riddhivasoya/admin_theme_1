@@ -39,8 +39,8 @@ class TagsController extends Controller
         $request->validate([
             'tag_name'=>'required|max:20|unique:tags',
         ]);
-        $input=$request->all();
-        Tag::create($input);
+        $tag=$request->all();
+        Tag::create($tag);
         return redirect()->route('tags.index')
                         ->with('success','Tags created successfully.');
     }
@@ -79,7 +79,7 @@ class TagsController extends Controller
         $request->validate([
             'tag_name'=>'required|max:20|unique:tags',
         ]);
-        $input=$request->all();
+        $input=$request->all(); 
         $tag->update($input);
         return redirect()->route('tags.index')
                         ->with('success','Tags updated successfully.');

@@ -37,7 +37,13 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request->validate([
+            'title'=>'required',
+            'body'=>'required',
+            'question_tag'=>'required',
+        ]);
+
+
     }
 
     /**
@@ -48,7 +54,7 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**

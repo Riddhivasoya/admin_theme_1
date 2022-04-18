@@ -29,13 +29,14 @@
              </div> 
              <div class="col-xs-12 col-sm-12 col-md-12"> 
              <div class="form-group">
-                     <label for="tags"><strong>Tags <span class="text-danger">*</span></strong></label>
-                     <input type="text" id="tag" name="tag"  placeholder="Enter Tag" class="typeahead tm-input form-control tm-input-info"/>
-                     @if ($errors->has('tags'))
-                         <span class="text-danger">{{ $errors->first('tags') }}</span>
+                     <label for="question_tag"><strong>Tags <span class="text-danger">*</span></strong></label>
+                     <input type="text" id="tag" name="question_tag"  placeholder="Enter Tag" class="typeahead tm-input form-control tm-input-info" multiple/>
+                     @if ($errors->has('question_tags'))
+                         <span class="text-danger">{{ $errors->first('question_tags') }}</span>
                      @endif
                  </div>
              </div> 
+             
              <div class="col-xs-12 col-sm-12 col-md-12"> 
              <div class="form-group">
             </div>
