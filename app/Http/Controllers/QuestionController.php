@@ -41,7 +41,7 @@ class QuestionController extends Controller
         $request->validate([
             'title'=>'required',
             'body'=>'required',
-            'tag'=>'required',
+            'tags'=>'required',
         ]);
         // $data = Tag::select("tag_name")
         //             ->where('tag_name', 'LIKE', '%'. $request->get('query'). '%')

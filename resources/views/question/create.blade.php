@@ -60,20 +60,7 @@
 
 </div>
 </div>
-<script type="text/javascript">
-    var path = "{{ route('questions.store') }}";
-  
-    $('#search').typeahead({
-            source: function (query, process) {
-                return $.get(path, {
-                    query: query
-                }, function (data) {
-                    return process(data);
-                });
-            }
-        });
-  
-</script>
+
 
 <script type="text/javascript">
     $(document).ready(function() {

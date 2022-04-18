@@ -12,7 +12,7 @@ class Question extends Model
     use \Conner\Tagging\Taggable;
     protected $fillable = ['title', 
                             'body',
-                            'question_tag'
+                            
                             
                         ];
 
