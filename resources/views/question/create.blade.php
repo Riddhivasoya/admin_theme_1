@@ -15,7 +15,7 @@
 <div class="container-fluid px-4">
                         <h1 class="mt-4">Ask Public Questions</h1>
                         <ol class="breadcrumb mb-4">
-                        <a class="btn btn-primary" href="{{ route('questions.index') }}"> Back</a>
+                        <a class="btn btn-primary" href="{{ route('home') }}"> Back</a>
                         </ol>
                         <div class="card mb-4">
                         <form  action=" {{ route('questions.store') }}" method="POST" enctype="multipart/form-data"> 
@@ -41,15 +41,20 @@
              </div> 
              <div class="col-xs-12 col-sm-12 col-md-12"> 
              <div class="form-group">
-                     <label for="tags"><strong>Tags <span class="text-danger">*</span></strong></label>
-                     <input class="form-control" id="search"  type="text" data-role="tagsinput" name="tag">
-                     @if ($errors->has('tags'))
-                         <span class="text-danger">{{ $errors->first('tags') }}</span>
-                     @endif
-                 </div>
-             </div> 
+            
+             <label for="tag_name"><strong>Select Tags <span class="text-danger">*</span></strong></label> 
+             <select  class="js-example-basic-multiple form-control" name="tag_id[]" multiple="multiple" required>
+             <option value="" disabled>Select tag</option>
              
-            </div>
+            @foreach($tags as $tag=> $tag_id)
+           
+                <option value="{{$tag_id}}" >{{$tag}}</option>
+
+            @endforeach
+            </select>
+    </div>
+    </div>
+        </div>
             </div>
             
              <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -61,10 +66,6 @@
 </div>
 </div>
 
+<script src="{{ asset('Jquery/select2.js') }}?t={{time()}}"></script>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-       $('.ckeditor').ckeditor();
-    });
-</script>
 @endsection

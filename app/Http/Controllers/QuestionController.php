@@ -26,7 +26,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $tags=Tag::get()->pluck('tag_name','id');
+        $tags=Tag::get()->pluck('id','tag_name');
         return view('question.create',compact('tags'));
     }
 
@@ -40,20 +40,26 @@ class QuestionController extends Controller
     {
         $request->validate([
             'title'=>'required',
-            'body'=>'required',
-            'tags'=>'required',
+            'body'=>'required',            
         ]);
+        
+        
+        $input = $request->all();
+        // dd($input);
+        $question = Question::create($input);
+        $question->tag()->attach($request->input('tag_id'));
+
+
+        // dd($request->input('tag'));
+        // 
+    	// $question->question_tag($question_tag);
         // $data = Tag::select("tag_name")
         //             ->where('tag_name', 'LIKE', '%'. $request->get('query'). '%')
         //             ->get();
+
+
      
-        //return response()->json($data);
-        $input=$request->all();
-        $tags = explode(",", $request->tags);
-        $question = Question::create($input);
-        $question->tag()->sync((array)$request->input('tag'));
-    	// $question->question_tag($question_tag);
-        return redirect()->route('questions.index')
+        return redirect()->route('home')
                         ->with('success','Tags updated successfully.');
 
 
