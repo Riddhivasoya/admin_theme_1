@@ -47,8 +47,8 @@
              <option value="" disabled>Select tag</option>
              
             @foreach($tags as $tag=> $tag_id)
-           
-                <option value="{{$tag_id}}" >{{$tag}}</option>
+            
+          <option value="{{$tag_id}}" >{{$tag}}</option>
 
             @endforeach
             </select>

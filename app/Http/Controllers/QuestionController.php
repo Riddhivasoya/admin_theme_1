@@ -16,7 +16,8 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        return view('question.index');
+        $questions=Question::all();
+        return view('question.index',compact('questions'));
     }
 
     /**
@@ -59,7 +60,7 @@ class QuestionController extends Controller
 
 
      
-        return redirect()->route('home')
+        return redirect()->route('questions.index')
                         ->with('success','Tags updated successfully.');
 
 
