@@ -11,7 +11,7 @@ class Tag extends Model
     protected $fillable=['tag_name',
 ];
 
-public function getTagNameAttribute()
+            public function getTagNameAttribute()
             {
                 return ucfirst($this->attributes['tag_name']);
             }
@@ -19,5 +19,10 @@ public function getTagNameAttribute()
             {
                 return $this->attributes['tag_name'] = ucfirst($value);
             }
+            public function questions()
+            {
+                return $this->hasMany(Question::class, 'question_tag','question_id','tag_id');
+            }
+            
 
 }

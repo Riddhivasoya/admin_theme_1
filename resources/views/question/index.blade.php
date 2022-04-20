@@ -48,6 +48,7 @@
             </span>
         </div>
     </div>
+    
     <div class="s-post-summary--content">
         <div class="s-post-summary--content-type">
             <a href="…" class="s-link s-link__grayscale">
@@ -55,20 +56,21 @@
             </a>
         </div>
         <h3 class="s-post-summary--content-title">
-            <a href="…" class="s-link">{{$question->title}}</a>
+            <a href="{{ route('questions.show',$question->id) }}" class="s-link">{{$question->title}}</a>
         </h3>
         <p class="s-post-summary--content-excerpt">{{$question->body}}</p>
         <div class="s-post-summary--meta">
             <div class="s-post-summary--meta-tags">
-                <a class="s-tag" href="…">PHP</a>
-                <a class="s-tag" href="…">ASP</a>
+                @foreach($question->tag as $tag)
+                <a class="s-tag" href="#">{{$tag->tag_name}}</a>
+               @endforeach
             </div>
 
             <div class="s-user-card s-user-card__minimal">
-                <a href="…" class="s-avatar s-user-card--avatar">
-                    <img class="s-avatar--image" src="…" />
+                <a href="" class="s-avatar s-user-card--avatar">
+                    <img class="s-avatar--image" src="" />
                 </a>
-                <a href="…" class="s-user-card--link"> {{ Auth::user()->name }}</a>
+                <a href="" class="s-user-card--link"> {{ Auth::user()->name }}</a>
                 <ul class="s-user-card--awards">
                     <li class="s-user-card--rep">130k</li>
                 </ul>

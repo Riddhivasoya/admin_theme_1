@@ -1,21 +1,10 @@
 @extends('layouts.layout')
 @section('pagecontent')
-<style>
-        .bootstrap-tagsinput .tag {
-            margin-right: 2px;
-            color: #ffffff;
-            background: #2196f3;
-            padding: 3px 7px;
-            border-radius: 3px;
-        }
-        .bootstrap-tagsinput {
-            width: 100%;
-        }
-    </style>
+
 <div class="container-fluid px-4">
                         <h1 class="mt-4">Ask Public Questions</h1>
                         <ol class="breadcrumb mb-4">
-                        <a class="btn btn-primary" href="{{ route('home') }}"> Back</a>
+                        <a class="btn btn-primary" href="{{ route('questions.index') }}"> Back</a>                     
                         </ol>
                         <div class="card mb-4">
                         <form  action=" {{ route('questions.store') }}" method="POST" enctype="multipart/form-data"> 
@@ -59,6 +48,7 @@
             
              <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <button type="submit" class="btn btn-primary">Review Your Question</button>
+            
         </div>
     </form>
 
