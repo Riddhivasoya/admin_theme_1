@@ -40,7 +40,7 @@
                                     @foreach ($tags as $tag)
                                     <tr>
                                     <td >{{ ++$i }}</td>
-                                    <td > <a class="flex--item s-tag" href="#">{{$tag->tag_name}}</a></td>
+                                    <td > <a class="flex--item s-tag"  href="#" >{{$tag->tag_name}}</a></td>
                                     <td>
                                     <form action="{{ route('tags.destroy',$tag->id) }}" method="POST">
 

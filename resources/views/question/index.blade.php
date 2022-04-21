@@ -65,6 +65,8 @@
                 <a class="s-tag" href="#">{{$tag->tag_name}}</a>
                @endforeach
             </div>
+    
+        
 
             <div class="s-user-card s-user-card__minimal">
                 <a href="" class="s-avatar s-user-card--avatar">
@@ -77,12 +79,14 @@
                 <time class="s-user-card--time">{{$question->created_at}}</time>
             </div>
         </div>
+        <a class="s-link s-link__grayscale" href="#">Edit</a>
         
         <a href="…" class="s-btn s-btn__muted s-post-summary--content-menu-button">
             
         </a>
     </div>
 </div>
+
 @endforeach   
 
 

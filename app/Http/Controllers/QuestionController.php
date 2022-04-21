@@ -61,7 +61,7 @@ class QuestionController extends Controller
 
      
         return redirect()->route('questions.index')
-                        ->with('success','Tags updated successfully.');
+                        ->with('success','Questions updated successfully.');
 
 
     }

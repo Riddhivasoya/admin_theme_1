@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\QuestionController;
-
+use App\Http\Controllers\AnswerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,7 +43,7 @@ Route::resource('questions', QuestionController::class);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/create', [App\Http\Controllers\HomeController::class, 'create'])->name('create');
-// Route::post('/submit', [App\Http\Controllers\HomeController::class, 'store'])->name('submit');
+Route::post('/store', [App\Http\Controllers\AnswerController::class, 'storeanswer'])->name('submit');
 // // Route::get('/create', [CustomerController::class, 'create'])->name('create');
 // Route::put('/edit', [App\Http\Controllers\HomeController::class, 'edit'])->name('edit');
 // Route::delete('/destroy/{$id}', [App\Http\Controllers\HomeController::class, 'destroy'])->name('destroy');

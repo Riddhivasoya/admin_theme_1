@@ -18,4 +18,9 @@ class Question extends Model
     {
     return $this->belongsToMany(Tag::class,'question_tag','question_id','tag_id');
     }
+
+    public function answer()
+    {
+        return $this->belongsToMany(Answer::class,'question_id','id');
+    }
 }   
