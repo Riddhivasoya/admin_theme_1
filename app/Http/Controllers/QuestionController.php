@@ -16,7 +16,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions=Question::all();
+        $questions=Question::latest()->paginate(5);
         return view('question.index',compact('questions'));
     }
 
@@ -84,9 +84,9 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Question $question)
     {
-        //
+        return view('question.edit',compact('question'));
     }
 
     /**

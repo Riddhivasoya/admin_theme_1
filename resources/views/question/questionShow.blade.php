@@ -9,7 +9,7 @@
 
 
 
-<div class="container-fluid px-4">
+<!-- <div class="container-fluid px-4"> -->
 <div class="s-page-title">
     <h1 class="s-page-title--header">{{$question->title}}</h1>
     
@@ -36,7 +36,7 @@
            
     </div>
     
-         <p class="s-post-summary--content-excerpt">{{$question->body}}</p>
+         <p class="s-post-summary--content-excerpt">{!! $question->body  !!}</p>
             <div class="s-post-summary--meta">
                     <div class="s-post-summary--meta-tags">
                     @foreach($question->tag as $tag)
@@ -53,7 +53,7 @@
 
 <!--Answer Part-->
 
-<div class="container-fluid px-4">
+@foreach($question->answer as $ans)
 <div class="s-page-title">
     <h1 class="s-page-title--header">Answer</h1>
     
@@ -68,35 +68,29 @@
                             <button class="d-block s-btn s-btn__muted p4" type="submit" data-controller="s-tooltip" data-s-tooltip-placement="right" aria-describedby="--stacks-s-tooltip-04imtfgq"><svg aria-hidden="true" class="svg-icon iconArrowDownLg" width="36" height="36" viewBox="0 0 36 36"><path d="M2 11h32L18 27 2 11Z"></path></svg></button><div id="--stacks-s-tooltip-04imtfgq" class="s-popover s-popover__tooltip pe-none" aria-hidden="true" role="tooltip" style="">Quickly let us know that this page needs improvement<div class="s-popover--arrow" style=""></div></div>
                         </form>
 </div>
-
-
-
 <div class="s-post-summary">
 
     
     <div class="s-post-summary--content">
+    <p class="s-post-summary--content-excerpt">{!! $ans->answer !!}</p>
         <div class="s-post-summary--content-type">
            
-    </div>
-
-    {{dd($question )}}
+    
+    
+        
+       
+             
+       </div>
       
-         <p class="s-post-summary--content-excerpt">dssd</p>
-            <div class="s-post-summary--meta">
-              
-        </div>
-
-        </div>
-    </div>
+       </div>
+   </div>
 </div>
-
-
-
+@endforeach
 
 <!--Answer Part end--->
 
 <!---text editor part---->
-<div class="container-fluid px-4">
+<!-- <div class="container-fluid px-4"> -->
 <form  action=" {{ route('submit') }}" method="POST" enctype="multipart/form-data"> 
                         @csrf
 <div class="col-xs-12 col-sm-12 col-md-12"> 
@@ -109,12 +103,12 @@
                  </div>
              </div> 
              <input type="hidden" name="question_id" value="{{ $question->id }}" />
-{{--dd($question->id)--}}
+        {{--dd($question->id)--}}
              <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <button type="submit" class="btn btn-primary">Post Your Answer</button>
         </div>
 
-</form>
+    </form>
 
 </div>
 </div>

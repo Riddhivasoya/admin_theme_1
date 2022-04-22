@@ -33,7 +33,7 @@
         <div class="s-post-summary--stats-item has-answers has-accepted-answer">
             
             <span class="s-post-summary--stats-item-number">
-                1656
+       {{(count($question->answer))}}
             </span>
             <span class="s-post-summary--stats-item-unit">
                 answers
@@ -41,7 +41,6 @@
         </div>
         <div class="s-post-summary--stats-item is-supernova">
             <span class="s-post-summary--stats-item-number">
-            532k
             </span>
             <span class="s-post-summary--stats-item-unit">
                 views
@@ -58,7 +57,7 @@
         <h3 class="s-post-summary--content-title">
             <a href="{{ route('questions.show',$question->id) }}" class="s-link">{{$question->title}}</a>
         </h3>
-        <p class="s-post-summary--content-excerpt">{{$question->body}}</p>
+        <p class="s-post-summary--content-excerpt">{!! $question->body !!}</p>
         <div class="s-post-summary--meta">
             <div class="s-post-summary--meta-tags">
                 @foreach($question->tag as $tag)
@@ -66,7 +65,7 @@
                @endforeach
             </div>
     
-        
+
 
             <div class="s-user-card s-user-card__minimal">
                 <a href="" class="s-avatar s-user-card--avatar">
@@ -79,18 +78,26 @@
                 <time class="s-user-card--time">{{$question->created_at}}</time>
             </div>
         </div>
-        <a class="s-link s-link__grayscale" href="#">Edit</a>
         
-        <a href="…" class="s-btn s-btn__muted s-post-summary--content-menu-button">
+        
+        <!-- <a href="…" class="s-btn s-btn__muted s-post-summary--content-menu-button"> -->
             
         </a>
+
     </div>
+    <a class="s-anchors s-anchors__default" href="{{route('questions.edit',$question->id)}}">Edit</a>
+
 </div>
+
+
 
 @endforeach   
 
+{{ $questions->links() }}
 
-   
 
+<p>
+    Displaying {{$questions->count()}} of {{ $questions->total() }} Questions(s).
+</p>
 
 @endsection

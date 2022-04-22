@@ -16,6 +16,6 @@ class Answer extends Model
     ];
     public function question()
     {
-        return $this->belongsto(Question::class);
+        return $this->belongstoMany(Question::class);
     }
 }
