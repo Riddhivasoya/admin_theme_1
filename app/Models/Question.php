@@ -12,6 +12,7 @@ class Question extends Model
     // use \Conner\Tagging\Taggable;
     protected $fillable = ['title', 
                             'body',
+                            'created_by'
                         ];
 
     public function tag()
@@ -22,5 +23,13 @@ class Question extends Model
     public function answer()
     {
         return $this->hasMany(Answer::class);
+    }
+    public function createdby()
+    {
+        return $this->belongsTo(User::class,'created_by','id');
+    }
+    public function qview()
+    {
+        return $this->hasMany(View::class,'question_id','id');
     }
 }   

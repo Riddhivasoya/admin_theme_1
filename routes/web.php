@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\AnswerController;
+// use App\Http\Controllers\AnswerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,9 +41,13 @@ Route::resource('customers', CustomerController::class);
 Route::resource('tags', TagsController::class);
 Route::resource('questions', QuestionController::class);
 
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/create', [App\Http\Controllers\HomeController::class, 'create'])->name('create');
 Route::post('/store', [App\Http\Controllers\AnswerController::class, 'storeanswer'])->name('submit');
+Route::get('/answers/{id}/edit', [App\Http\Controllers\AnswerController::class, 'editanswer'])->name('answers');
+Route::put('/answersupdate/{id}',[App\Http\Controllers\AnswerController::class, 'updateanswer'])->name('answersupdate');
+
 // // Route::get('/create', [CustomerController::class, 'create'])->name('create');
 // Route::put('/edit', [App\Http\Controllers\HomeController::class, 'edit'])->name('edit');
 // Route::delete('/destroy/{$id}', [App\Http\Controllers\HomeController::class, 'destroy'])->name('destroy');

@@ -74,14 +74,29 @@
     <div class="s-post-summary--content">
     <p class="s-post-summary--content-excerpt">{!! $ans->answer !!}</p>
         <div class="s-post-summary--content-type">
-           
+        <div class="s-user-card s-user-card__minimal">
+    <a href="…" class="s-avatar s-user-card--avatar">
+        <img class="s-avatar--image" src="…" />
+    </a>
     
-    
+</div>
+   
+<div class="s-user-card--info">
+
+<span>Created By:</span>  <a href="#" class="s-user-card--link">{{$ans->createdby['name']}}</a>
+        <ul class="s-user-card--awards">
+            <li class="s-user-card--rep"></li>
+        </ul>
+    </div>
+    <time class="s-user-card--time">{{$ans->created_at}}</time>
         
        
              
        </div>
-      
+       <span>     <a class="s-anchors s-anchors__default" href="{{ url('answers/'.$ans->id.'/edit') }}">Edit</a>
+   </span>
+       <span>     <a class="s-anchors s-anchors__default" href="">Delete</a>
+        </span>
        </div>
    </div>
 </div>

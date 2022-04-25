@@ -33,7 +33,7 @@
         <div class="s-post-summary--stats-item has-answers has-accepted-answer">
             
             <span class="s-post-summary--stats-item-number">
-       {{(count($question->answer))}}
+        {{(count($question->answer))}}
             </span>
             <span class="s-post-summary--stats-item-unit">
                 answers
@@ -41,6 +41,7 @@
         </div>
         <div class="s-post-summary--stats-item is-supernova">
             <span class="s-post-summary--stats-item-number">
+        {{(count( $question->qview)) }}
             </span>
             <span class="s-post-summary--stats-item-unit">
                 views
@@ -71,9 +72,9 @@
                 <a href="" class="s-avatar s-user-card--avatar">
                     <img class="s-avatar--image" src="" />
                 </a>
-                <a href="" class="s-user-card--link"> {{ Auth::user()->name }}</a>
+                <a href="" class="s-user-card--link"> {{  $question->createdby['name'] }}</a>
                 <ul class="s-user-card--awards">
-                    <li class="s-user-card--rep">130k</li>
+                    <li class="s-user-card--rep"></li>
                 </ul>
                 <time class="s-user-card--time">{{$question->created_at}}</time>
             </div>
@@ -85,8 +86,10 @@
         </a>
 
     </div>
-    <a class="s-anchors s-anchors__default" href="{{route('questions.edit',$question->id)}}">Edit</a>
+    @if($question->created_by ==auth()->id())
 
+    <a class="s-anchors s-anchors__default" href="{{route('questions.edit',$question->id)}}">Edit</a>
+@endif
 </div>
 
 

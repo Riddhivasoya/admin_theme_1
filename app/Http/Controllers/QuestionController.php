@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Tag;
 use App\Models\Question;
+use App\Models\View as ModelView;
 use DB;
 
 use Illuminate\Http\Request;
@@ -47,6 +48,7 @@ class QuestionController extends Controller
         
         $input = $request->all();
         // dd($input);
+        $input['created_by'] = auth()->id();
         $question = Question::create($input);
         $question->tag()->attach($request->input('tag_id'));
 
@@ -61,7 +63,7 @@ class QuestionController extends Controller
 
      
         return redirect()->route('questions.index')
-                        ->with('success','Questions updated successfully.');
+                        ->with('success','Questions Added successfully.');
 
 
     }
@@ -75,7 +77,20 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
+        $mvArr =array(
+            'user_id'=>auth()->id(),
+            'question_id'=>$question['id'],
+        );
+        
+        $mv= ModelView::where($mvArr)->exists();
+        if($mv !== true){
+            ModelView::create(array(
+            'user_id'=>auth()->id(),
+            'question_id'=>$question['id'],
+            ));
+        }
         return view('question.questionShow',compact('question'));
+        
     }
 
     /**
@@ -86,7 +101,11 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        return view('question.edit',compact('question'));
+        if($question->created_by !==auth()->id()){     //this condition restrict user to maniplate URL
+            abort('403');
+        }
+        $tags=Tag::get()->pluck('id','tag_name');
+        return view('question.edit',compact('question', 'tags'));
     }
 
     /**
@@ -96,9 +115,14 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Question $question)
     {
-        //
+        $input = $request->all();
+        // dd($input);
+        $question->update($input);
+        $question->tag()->sync($request->input('tag_id'));
+        return redirect()->route('questions.index')
+        ->with('success','Questions updated successfully.');
     }
 
     /**
@@ -109,6 +133,6 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+    
     }
 }

@@ -23,7 +23,7 @@
              <div class="col-xs-12 col-sm-12 col-md-12"> 
              <div class="form-group">
              <label for="body"><strong>Body <span class="text-danger">*</span></strong></label>
-             <textarea class="ckeditor form-control" name="body">&lt;p&gt;&lt;/p&gt;</textarea>
+             <textarea class="ckeditor form-control" name="body"></textarea>
                      @if ($errors->has('body'))
                          <span class="text-danger">{{ $errors->first('body') }}</span>
                      @endif

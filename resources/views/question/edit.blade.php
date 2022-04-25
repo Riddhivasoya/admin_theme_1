@@ -24,7 +24,7 @@
              <div class="col-xs-12 col-sm-12 col-md-12"> 
              <div class="form-group">
              <label for="body"><strong>Body <span class="text-danger">*</span></strong></label>
-             <textarea class="ckeditor form-control" id="body" name="body"  value=" {{($question->body)}} ">&lt;p&gt;&lt;/p&gt;</textarea>
+             <textarea class="ckeditor form-control" id="body" name="body"  value=" "> {{($question->body)}}</textarea>
             
              @if ($errors->has('body'))
                          <span class="text-danger">{{ $errors->first('body') }}</span>
@@ -33,11 +33,18 @@
              </div> 
              <div class="col-xs-12 col-sm-12 col-md-12"> 
              <div class="form-group">
-            
+            <?php $dbtag= $question->tag->pluck('id')->toArray()?>
              <label for="tag_name"><strong>Select Tags <span class="text-danger">*</span></strong></label> 
              <select  class="js-example-basic-multiple form-control" name="tag_id[]" multiple="multiple" required>
              <option value="" disabled>Select tag</option>
-             
+             @foreach($tags as $tagkey => $tag)
+             <option value="{{$tag}}"
+             @if(in_array($tag,$dbtag))
+             selected
+             @endif>
+             {{$tagkey}}</option>
+             @endforeach
+</select>
            
             
           <option value="" ></option>
@@ -46,8 +53,6 @@
             </select>
     </div>
     </div>
-        </div>
-            </div>
             
              <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <button type="submit" class="btn btn-primary">Review Your Question</button>
@@ -59,6 +64,6 @@
 </div>
 </div>
 
-<script src="{{ asset('Jquery/select2.js') }}?t={{time()}}"></script>
+
 
 @endsection
