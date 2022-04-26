@@ -54,12 +54,7 @@ class QuestionController extends Controller
 
 
         // dd($request->input('tag'));
-        // 
-    	// $question->question_tag($question_tag);
-        // $data = Tag::select("tag_name")
-        //             ->where('tag_name', 'LIKE', '%'. $request->get('query'). '%')
-        //             ->get();
-
+       
 
      
         return redirect()->route('questions.index')
@@ -133,6 +128,6 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-    
+        
     }
 }

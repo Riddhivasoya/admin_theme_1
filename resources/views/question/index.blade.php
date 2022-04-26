@@ -57,7 +57,9 @@
         </div>
         <h3 class="s-post-summary--content-title">
             <a href="{{ route('questions.show',$question->id) }}" class="s-link">{{$question->title}}</a>
+ 
         </h3>
+      
         <p class="s-post-summary--content-excerpt">{!! $question->body !!}</p>
         <div class="s-post-summary--meta">
             <div class="s-post-summary--meta-tags">
@@ -72,12 +74,14 @@
                 <a href="" class="s-avatar s-user-card--avatar">
                     <img class="s-avatar--image" src="" />
                 </a>
+              
                 <a href="" class="s-user-card--link"> {{  $question->createdby['name'] }}</a>
                 <ul class="s-user-card--awards">
                     <li class="s-user-card--rep"></li>
                 </ul>
                 <time class="s-user-card--time">{{$question->created_at}}</time>
             </div>
+          
         </div>
         
         
@@ -86,12 +90,18 @@
         </a>
 
     </div>
+ 
+         <span>
     @if($question->created_by ==auth()->id())
+         
+         <a class="s-anchors s-anchors__default" href="{{route('questions.edit',$question->id)}}">Edit</a>
+             <a class="s-anchors s-anchors__default" href="">Delete</a>
+            
+         @endif
+         </span>    
+   
 
-    <a class="s-anchors s-anchors__default" href="{{route('questions.edit',$question->id)}}">Edit</a>
-@endif
-</div>
-
+    </div>
 
 
 @endforeach   

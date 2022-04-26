@@ -93,11 +93,15 @@
        
              
        </div>
-       <span>     <a class="s-anchors s-anchors__default" href="{{ url('answers/'.$ans->id.'/edit') }}">Edit</a>
-   </span>
-       <span>     <a class="s-anchors s-anchors__default" href="">Delete</a>
+      @if($ans->created_by ==auth()->id())
+      
+       <span><a class="s-anchors s-anchors__default" href="{{ url('answers/'.$ans->id.'/edit') }}">Edit</a>
+      <a class="s-anchors s-anchors__default" href="">Delete</a>
         </span>
+      
+        @endif
        </div>
+      
    </div>
 </div>
 @endforeach

@@ -26,15 +26,15 @@ class AnswerController extends Controller
     ->with('success','Answer updated successfully.');
    }
 
-   public function editanswer($id)
+   public function editanswer(Answer $ans,$id)
    {
     // $input=$request->all();
     // dd($request->toArray);
+    
     $ans = Answer::where('id', $id)->firstOrFail();
-    // dd($ans);
-
-    // $ans=Answer::get()->pluck('answer');
-    // dd($ans);
+    if($ans->created_by !==auth()->id()){     //this condition restrict user to maniplate URL
+        abort('403');
+    }
     return view('answer.edit',compact('ans'));
 
    }
@@ -46,11 +46,12 @@ class AnswerController extends Controller
         'answer'=>'required',
                 
     ]);
+
     $ans = Answer::where('id', $id)->firstOrFail();
     $input = $request->all();
     $ans->update($input);
     return redirect()->route('questions.index')
-    ->with('success','Questions Updated successfully.');
+    ->with('success','Answer Updated successfully.');
    }
    
 }
