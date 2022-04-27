@@ -40,7 +40,10 @@ Auth::routes();
 Route::resource('customers', CustomerController::class);
 Route::resource('tags', TagsController::class);
 Route::resource('questions', QuestionController::class);
-
+ // /vote-up/question/2
+Route::post('vote-up/{uptype}/{qid}',[App\Http\Controllers\QuestionController::class,'questionup']);
+Route::post('vote-down/{uptype}/{qid}',[App\Http\Controllers\QuestionController::class,'questiondown']);
+// Route::get('/search', [App\Http\Controllers\QuestionController::class, 'search'])->name('search');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/create', [App\Http\Controllers\HomeController::class, 'create'])->name('create');

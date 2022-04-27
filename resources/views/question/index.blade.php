@@ -15,7 +15,6 @@
                 <a class="btn btn-primary" href="{{route('questions.create')}}"> Ask Question</a>
                 </ol>
 </div>
-              
 
      
 @foreach($questions as $question)
@@ -56,11 +55,13 @@
             </a>
         </div>
         <h3 class="s-post-summary--content-title">
-            <a href="{{ route('questions.show',$question->id) }}" class="s-link">{{$question->title}}</a>
+            <a title="{{$question->title}}" href="{{ route('questions.show',$question->id) }}" class="s-link">{{$question->title}}</a>
  
         </h3>
-      
+      <!-- <details> -->
+          <!-- <summary>Click here</summary> -->
         <p class="s-post-summary--content-excerpt">{!! $question->body !!}</p>
+        <!-- </details> -->
         <div class="s-post-summary--meta">
             <div class="s-post-summary--meta-tags">
                 @foreach($question->tag as $tag)
@@ -94,9 +95,14 @@
          <span>
     @if($question->created_by ==auth()->id())
          
-         <a class="s-anchors s-anchors__default" href="{{route('questions.edit',$question->id)}}">Edit</a>
-             <a class="s-anchors s-anchors__default" href="">Delete</a>
-            
+         <a class="btn btn-link" title="you can edit your question" href="{{route('questions.edit',$question->id)}}">Edit</a>
+
+           <form action="{{ route('questions.destroy',$question->id) }}" method="POST">
+           <button title="your question will be deleted permenantly "type="submit" class="btn btn-link">Delete</button>
+
+                 @csrf
+                @method('DELETE')
+           </form>
          @endif
          </span>    
    

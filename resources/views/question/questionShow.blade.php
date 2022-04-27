@@ -16,14 +16,25 @@
 </div>
 
 <div class="d-flex my48">
+
                     <div class="flex--item mr8">
-                        <form action="/success" class="js-feedback-form" method="POST" name="quick-positive-feedback-activity-indicator"><input type="hidden" name="form-name" value="quick-positive-feedback-activity-indicator">
+                        
+                        <form action="{{ url('vote-up/question/'. $question->id) }}" class="js-feedback-form" method="POST" name="quick-positive-feedback-activity-indicator"><input type="hidden" name="form-name" value="quick-positive-feedback-activity-indicator">
+                        @csrf
                             <button class="d-block s-btn s-btn__muted p4" type="submit" data-controller="s-tooltip" data-s-tooltip-placement="right" aria-describedby="--stacks-s-tooltip-5674vum3"><svg aria-hidden="true" class="svg-icon iconArrowUpLg" width="36" height="36" viewBox="0 0 36 36"><path d="M2 25h32L18 9 2 25Z"></path></svg></button><div id="--stacks-s-tooltip-5674vum3" class="s-popover s-popover__tooltip pe-none" aria-hidden="true" role="tooltip" style="">Quickly let the team know that this page is workin’<div class="s-popover--arrow" style=""></div></div>
                         </form>
-
-                        <form action="/nosuccess" class="js-feedback-form" method="POST" name="quick-negative-feedback-activity-indicator"><input type="hidden" name="form-name" value="quick-negative-feedback-activity-indicator">
+                      
+                     
+                        <div class="js-vote-count flex--item d-flex fd-column ai-center fc-black-500 fs-title" itemprop="upvoteCount" data-value="0">
+            0
+        </div>
+      
+     
+                        <form action="{{ url('vote-down/question/'. $question->id) }}" class="js-feedback-form" method="POST" name="quick-negative-feedback-activity-indicator"><input type="hidden" name="form-name" value="quick-negative-feedback-activity-indicator">
+                        @csrf
                             <button class="d-block s-btn s-btn__muted p4" type="submit" data-controller="s-tooltip" data-s-tooltip-placement="right" aria-describedby="--stacks-s-tooltip-04imtfgq"><svg aria-hidden="true" class="svg-icon iconArrowDownLg" width="36" height="36" viewBox="0 0 36 36"><path d="M2 11h32L18 27 2 11Z"></path></svg></button><div id="--stacks-s-tooltip-04imtfgq" class="s-popover s-popover__tooltip pe-none" aria-hidden="true" role="tooltip" style="">Quickly let us know that this page needs improvement<div class="s-popover--arrow" style=""></div></div>
                         </form>
+        
 </div>
 
 
@@ -35,7 +46,7 @@
         <div class="s-post-summary--content-type">
            
     </div>
-    
+
          <p class="s-post-summary--content-excerpt">{!! $question->body  !!}</p>
             <div class="s-post-summary--meta">
                     <div class="s-post-summary--meta-tags">

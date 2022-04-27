@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use App\Models\Question;
 use App\Models\View as ModelView;
+use App\Models\Vote;
+
 use DB;
 
 use Illuminate\Http\Request;
@@ -120,14 +122,52 @@ class QuestionController extends Controller
         ->with('success','Questions updated successfully.');
     }
 
+    public function questionup($qtype,$qid)
+    {
+        if($qtype === "question"){
+        
+        }
+    
+            Vote::create(array(
+                'user_id' => auth()->id(),
+                'question_id'=> $qid,
+                
+                'type' => "up",
+            ));
+            
+        return redirect()->back();
+  
+    }
+    public function questiondown($qtype,$qid)
+    {
+        if($qtype === "question"){
+        
+        }
+    
+            Vote::create(array(
+                'user_id' => auth()->id(),
+                'question_id'=> $qid,
+                'type' => "down",
+            ));
+            
+        return redirect()->back();
+  
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Question $question)
     {
-        
+        if($question->created_by ==auth()->id()){     //this condition restrict user to maniplate URL
+
+        $question->delete();
+        return redirect()->route('questions.index')
+                    ->with('success','questions deleted successfully');
+        }
     }
+    
 }

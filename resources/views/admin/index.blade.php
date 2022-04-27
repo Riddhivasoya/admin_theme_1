@@ -32,10 +32,12 @@
     </div> 
 
 </div>
-<!------>
 
 
-
-
-
+<div id="the-id" class="upvotejs">
+    <a class="upvote"></a>
+    <span class="count">0</span>
+    <a class="downvote"></a>
+  
+</div>
 @endsection

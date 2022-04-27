@@ -16,7 +16,10 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset( 'dist/upvotejs/upvotejs.css' )}}">
+
         <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
+        <script src="{{asset('dist/upvotejs/upvotejs.vanilla.js')}}"></script>
 
 
         <!-- Scripts -->
@@ -65,6 +68,6 @@
   
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
-
+      
     </body>
 </html>
