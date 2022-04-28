@@ -1,5 +1,9 @@
 @extends('layouts.layout')
 @section('pagecontent')
+
+
+
+
 <div class="container-fluid px-4">
 <h1 class="mt-4">Review Question</h1>
                 <ol class="breadcrumb mb-4">
@@ -17,24 +21,26 @@
 
 <div class="d-flex my48">
 
-                    <div class="flex--item mr8">
-                        
-                        <form action="{{ url('vote-up/question/'. $question->id) }}" class="js-feedback-form" method="POST" name="quick-positive-feedback-activity-indicator"><input type="hidden" name="form-name" value="quick-positive-feedback-activity-indicator">
-                        @csrf
-                            <button class="d-block s-btn s-btn__muted p4" type="submit" data-controller="s-tooltip" data-s-tooltip-placement="right" aria-describedby="--stacks-s-tooltip-5674vum3"><svg aria-hidden="true" class="svg-icon iconArrowUpLg" width="36" height="36" viewBox="0 0 36 36"><path d="M2 25h32L18 9 2 25Z"></path></svg></button><div id="--stacks-s-tooltip-5674vum3" class="s-popover s-popover__tooltip pe-none" aria-hidden="true" role="tooltip" style="">Quickly let the team know that this page is workin’<div class="s-popover--arrow" style=""></div></div>
-                        </form>
+<div class="flex--item mr8">
                       
-                     
-                        <div class="js-vote-count flex--item d-flex fd-column ai-center fc-black-500 fs-title" itemprop="upvoteCount" data-value="0">
-            0
-        </div>
-      
-     
-                        <form action="{{ url('vote-down/question/'. $question->id) }}" class="js-feedback-form" method="POST" name="quick-negative-feedback-activity-indicator"><input type="hidden" name="form-name" value="quick-negative-feedback-activity-indicator">
-                        @csrf
-                            <button class="d-block s-btn s-btn__muted p4" type="submit" data-controller="s-tooltip" data-s-tooltip-placement="right" aria-describedby="--stacks-s-tooltip-04imtfgq"><svg aria-hidden="true" class="svg-icon iconArrowDownLg" width="36" height="36" viewBox="0 0 36 36"><path d="M2 11h32L18 27 2 11Z"></path></svg></button><div id="--stacks-s-tooltip-04imtfgq" class="s-popover s-popover__tooltip pe-none" aria-hidden="true" role="tooltip" style="">Quickly let us know that this page needs improvement<div class="s-popover--arrow" style=""></div></div>
-                        </form>
+                       <form action="{{ url('vote-up/question/'. $question->id) }}" class="js-feedback-form" method="POST" name="quick-positive-feedback-activity-indicator"><input type="hidden" name="form-name" value="quick-positive-feedback-activity-indicator">
+                       @csrf
+                           <button class="d-block s-btn s-btn__muted p4" type="submit" data-controller="s-tooltip" data-s-tooltip-placement="right" aria-describedby="--stacks-s-tooltip-5674vum3"><svg aria-hidden="true" class="svg-icon iconArrowUpLg" width="36" height="36" viewBox="0 0 36 36"><path d="M2 25h32L18 9 2 25Z"></path></svg></button><div id="--stacks-s-tooltip-5674vum3" class="s-popover s-popover__tooltip pe-none" aria-hidden="true" role="tooltip" style="">Quickly let the team know that this page is workin’<div class="s-popover--arrow" style=""></div></div>
+                       </form>
+                    
+                      
+                       <div class="js-vote-count flex--item d-flex fd-column ai-center fc-black-500 fs-title" itemprop="upvoteCount" data-value="0">
+           0
+       </div>
+    
+   
+                       <form action="{{ url('vote-down/question/'. $question->id) }}" class="js-feedback-form" method="POST" name="quick-negative-feedback-activity-indicator"><input type="hidden" name="form-name" value="quick-negative-feedback-activity-indicator">
+                       @csrf
+                           <button class="d-block s-btn s-btn__muted p4" type="submit" data-controller="s-tooltip" data-s-tooltip-placement="right" aria-describedby="--stacks-s-tooltip-04imtfgq"><svg aria-hidden="true" class="svg-icon iconArrowDownLg" width="36" height="36" viewBox="0 0 36 36"><path d="M2 11h32L18 27 2 11Z"></path></svg></button><div id="--stacks-s-tooltip-04imtfgq" class="s-popover s-popover__tooltip pe-none" aria-hidden="true" role="tooltip" style="">Quickly let us know that this page needs improvement<div class="s-popover--arrow" style=""></div></div>
+                       </form>
+
         
+                
 </div>
 
 
@@ -104,12 +110,14 @@
        
              
        </div>
-      @if($ans->created_by ==auth()->id())
-      
-       <span><a class="s-anchors s-anchors__default" href="{{ url('answers/'.$ans->id.'/edit') }}">Edit</a>
-      <a class="s-anchors s-anchors__default" href="">Delete</a>
-        </span>
-      
+      @if($ans->created_by ==auth()->id())      
+       <a class="s-anchors s-anchors__default" href="{{ url('answers/'.$ans->id.'/edit') }}">Edit</a>
+       <form action="{{ url('deleteanswer/'. $ans->id) }}" method="POST">
+       <button title="your question will be deleted permenantly "type="submit" class="btn btn-link">Delete</button>
+            @csrf
+            @method('DELETE')
+        </form>   
+
         @endif
        </div>
       
@@ -138,21 +146,6 @@
             <button type="submit" class="btn btn-primary">Post Your Answer</button>
         </div>
 
-    </form>
-
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
+</form>
 
 @endsection

@@ -26,7 +26,7 @@ class AnswerController extends Controller
     ->with('success','Answer updated successfully.');
    }
 
-   public function editanswer(Answer $ans,$id)
+   public function editanswer($id)
    {
     // $input=$request->all();
     // dd($request->toArray);
@@ -40,18 +40,37 @@ class AnswerController extends Controller
    }
 
 
-   public function updateanswer(Request $request,Answer $ans,$id)
+   public function updateanswer(Request $request,$id)
    {
     $request->validate([
         'answer'=>'required',
                 
     ]);
+    // $input['created_by']=auth()->id();
 
     $ans = Answer::where('id', $id)->firstOrFail();
-    $input = $request->all();
+    $input = $request->all();   
     $ans->update($input);
-    return redirect()->route('questions.index')
-    ->with('success','Answer Updated successfully.');
+    // return redirect()->route('questions.index')
+    // ->with('success','Answer Updated successfully.');
+
+    return redirect()->route('questions.show',$id)
+    ->with('success','Answer updated successfully.');
+
    }
+
+   public function answerdelete($id)
+   {
+    
+       $ans = Answer::where('id', $id)->firstOrFail();
+  
+       if($ans->created_by !==auth()->id()){     //this condition restrict user to maniplate URL
+        abort('403');
+    }
+       $ans->delete();
+     
+       return redirect()->route('questions.index')
+                        ->with('success','Answers Deleted successfully.');
+  }
    
 }

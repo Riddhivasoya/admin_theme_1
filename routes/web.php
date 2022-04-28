@@ -50,6 +50,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/store', [App\Http\Controllers\AnswerController::class, 'storeanswer'])->name('submit');
 Route::get('/answers/{id}/edit', [App\Http\Controllers\AnswerController::class, 'editanswer'])->name('answers');
 Route::put('/answersupdate/{id}',[App\Http\Controllers\AnswerController::class, 'updateanswer'])->name('answersupdate');
+Route::delete('/deleteanswer/{id}',[App\Http\Controllers\AnswerController::class, 'answerdelete'])->name('deleteanswer');
 
 // // Route::get('/create', [CustomerController::class, 'create'])->name('create');
 // Route::put('/edit', [App\Http\Controllers\HomeController::class, 'edit'])->name('edit');

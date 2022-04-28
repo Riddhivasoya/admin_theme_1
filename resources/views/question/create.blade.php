@@ -29,7 +29,11 @@
                      @endif
                  </div>
              </div> 
-             <div class="col-xs-12 col-sm-12 col-md-12"> 
+             
+        </div>
+          
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12"> 
              <div class="form-group">
             
              <label for="tag_name"><strong>Select Tags <span class="text-danger">*</span></strong></label> 
@@ -44,19 +48,12 @@
             </select>
     </div>
     </div>
-        </div>
-            </div>
-            
+
              <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <button type="submit" class="btn btn-primary">Review Your Question</button>
             
         </div>
     </form>
-
-
-</div>
-</div>
-
 <script src="{{ asset('Jquery/select2.js') }}?t={{time()}}"></script>
 
 @endsection

@@ -29,15 +29,53 @@
                     </div>
                 </div>
             <!-- </div> -->
-    </div> 
+    
+            <style type="text/css">
+        <!--
+        .hidden {
+            display: none;
+        }
 
-</div>
+        .examples {
+            overflow: auto;
+        }
+
+        .examples div.upvotejs {
+            float: left;
+        }
+
+        #footer {
+            height: 60px;
+            background-color: #f5f5f5;
+        }
+
+        .credit {
+            margin: 20px 0;
+        }
+        -->
+    </style>
 
 
-<div id="the-id" class="upvotejs">
-    <a class="upvote"></a>
-    <span class="count">0</span>
-    <a class="downvote"></a>
-  
-</div>
+
+
+    
+    <div class="row">
+        <div class="span6">
+            
+            <div class="examples" id="examples"></div>
+        </div>
+
+
+        <div id="templates" class="hidden">
+            <div class="upvotejs">
+                <a class="upvote" title="This is good stuff. Vote it up! (Click again to undo)"></a>
+                <span class="count" title="Total number of votes"></span>
+                <a class="downvote" title="This is not useful. Vote it down. (Click again to undo)"></a>
+            </div>
+        </div>
+        
+
+
+        
 @endsection
+

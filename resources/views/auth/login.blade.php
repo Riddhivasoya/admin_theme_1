@@ -24,57 +24,49 @@
                                             <!--</div>-->
                                             <label for="password"><b>Password</b></label>
                                              
-                                                <input class="form-control form-control-sm @error('password') is-invalid @enderror" id="password" name="password" value="{{ old('password') }}" type="password">
-                                                 @error('password')
+                                                    <input class="form-control form-control-sm @error('password') is-invalid @enderror" id="password" name="password" value="{{ old('password') }}" type="password">
+                                                    @error('password')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
-                                                @enderror
+                                                    @enderror
                                                  
-                                            <br>
-                                            <div class="form-check mb-3">
+                                                <br>
+                                                <div class="form-check mb-3">
                                                 <!--<input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
                                                 <label class="form-check-label" for="inputRememberPassword">Remember Password</label>-->
                                                 <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
  
-                                                <label class="form-check-label" for="remember">
+                                            <label class="form-check-label" for="remember">
                                                     {{ __('Remember Me') }}
                                                 </label>
-                                            </div>
-                                            
-                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <a href="{{ url('auth/linkedin') }}" class="btn btn-primary">
-                                            Login With Linkedin
-                                            </a>
-                                            </div>
-                                            @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
+                                                </div>
+                                           
+                                                @if (Route::has('password.request'))
+                                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                {{ __('Forgot Your Password?') }}
+                                                </a>
+                                                @endif
 
                                                 <button type="submit" class="btn btn-primary">
                                                     {{ __('Login') }}
                                                 </button>
+                                                        </div>
+                                                    </form>
+                                                     </div>
+                                                </div>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
-                                    <!--<div class="card-footer text-center py-3">
-                                        <div class="small"><a href="/register">Need an account? Sign up!</a></div>
-                                    </div>-->
-                                </div>
+                                </main>
                             </div>
-                        </div>
+                            @include('layouts.footer')
+                         </div>
                     </div>
-                </main>
-            </div>
-            @include('layouts.footer')
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
+                </div>
+            </footer>
         </div>
-    </body>
+    </div>
+</body>
 </html>
 @endsection

@@ -59,18 +59,15 @@
                 </div>
            
 
-            <div class="sb-sidenav-footer">
+        <div class="sb-sidenav-footer">
                 <div class="small">Logged in as:</div>
                 {{ Auth::user()->name }}
             </div>
-        </nav>
-    </div>
-    <div id="layoutSidenav_content">
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
         <main>
             @yield('pagecontent')
         </main> 
-    </div>              
-</div>
-
 
 @include('layouts.footer')  

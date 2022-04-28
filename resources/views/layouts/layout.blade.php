@@ -16,10 +16,14 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset( 'dist/upvotejs/upvotejs.css' )}}">
 
-        <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
+        <!-- Upvote Down--->
+        <link rel="stylesheet" href="{{ asset( 'dist/upvotejs/upvotejs.css' )}}">
         <script src="{{asset('dist/upvotejs/upvotejs.vanilla.js')}}"></script>
+<!--stackoverflow-->
+        <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
+   
+        
 
 
         <!-- Scripts -->
@@ -67,7 +71,32 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script> -->
   
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+        
+        
+        <!--Upvote Down Script-->
+        
+        <script type="text/javascript">
+            (function () {
+                const proto = document.getElementById('templates').getElementsByClassName('upvotejs')[0];
+                const gen = function () {
+                    var idcount = 0;
+                    return (target, cssClass, params) => {
+                        const obj = proto.cloneNode(true);
+                        obj.className += ' ' + cssClass;
+                        obj.id = 'u' + (idcount++);
+                        document.getElementById(target.substr(1)).appendChild(obj);
+                        return Upvote.create(obj.id, params);
+                    };
+                }();
 
+                [
+                    params => gen('#examples', '', params),
+
+                ].forEach(fun => {
+                    fun({ count: 1, downvoted: true });
+                });
+            })();
+        </script>
       
     </body>
 </html>
