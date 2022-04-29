@@ -7,13 +7,21 @@
         </div>
     @endif
 </div>
+
+
 <div class="container-fluid px-4">
                 <h1 class="mt-4">All Question</h1>
                 <ol class="breadcrumb mb-4">
                 </ol>
+                <div class="ps-relative">
+    <input class="s-input s-input__search" type="text" placeholder="Search…" />
+   
+</div>
+<ol class="breadcrumb mb-4">
+                </ol>
     <div class="container-fluid px-4">
         <a class="btn  btn-primary" href="{{route('questions.create')}}"> Ask Question</a>
-
+      
                 <ol class="breadcrumb mb-4">
                 </ol>
             <div class="card mb-4">
@@ -73,9 +81,5 @@
                 <a class="downvote" title="This is not useful. Vote it down. (Click again to undo)"></a>
             </div>
         </div>
-        
-
-
-        
 @endsection
 

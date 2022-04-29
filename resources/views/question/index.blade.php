@@ -12,7 +12,21 @@
 <div class="container-fluid px-4">
                 <h1 class="mt-4">All Question</h1>
                 <ol class="breadcrumb mb-4">
-                <a class="btn btn-primary" href="{{route('questions.create')}}"> Ask Question</a>
+</ol>
+                <div class="ps-relative">
+             
+                <form action="{{ route('questions.index') }}" method="GET">
+
+    <input class="s-input s-input__search"  type="text" name="search" placeholder="Search....." value="{!! request('search') !!}" />
+    <div class="text-center">
+    <button  class="btn btn-dark" type="submit">Search</button>
+</form>
+</div>
+</div>
+
+<ol class="breadcrumb mb-4">
+                </ol>
+                <a  class="btn btn-primary" href="{{route('questions.create')}}"> Ask Question</a>
                 </ol>
 </div>
 
@@ -60,7 +74,7 @@
         </h3>
       <!-- <details> -->
           <!-- <summary>Click here</summary> -->
-        <p class="s-post-summary--content-excerpt">{!! $question->body !!}</p>
+        <p class="s-post-summary--content-excerpt ">{!! Str::limit($question->body,100) !!}</p>
         <!-- </details> -->
         <div class="s-post-summary--meta">
             <div class="s-post-summary--meta-tags">
@@ -75,7 +89,7 @@
                 <a href="" class="s-avatar s-user-card--avatar">
                     <img class="s-avatar--image" src="" />
                 </a>
-              
+                Created By:
                 <a href="" class="s-user-card--link"> {{  $question->createdby['name'] }}</a>
                 <ul class="s-user-card--awards">
                     <li class="s-user-card--rep"></li>
@@ -112,11 +126,11 @@
 
 @endforeach   
 
-{{ $questions->links() }}
+{{$questions->links() }}
 
 
 <p>
-    Displaying {{$questions->count()}} of {{ $questions->total() }} Questions(s).
+    Displaying {{$questions->count()}} of {{$questions->total()}} Questions(s).
 </p>
 
 @endsection

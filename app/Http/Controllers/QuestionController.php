@@ -5,7 +5,7 @@ use App\Models\Tag;
 use App\Models\Question;
 use App\Models\View as ModelView;
 use App\Models\Vote;
-
+use App\Models\User;
 use DB;
 
 use Illuminate\Http\Request;
@@ -17,9 +17,23 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $questions=Question::latest()->paginate(5);
+    public function index(Request $request)
+    { 
+        
+        $questions= $request->input('search');
+
+        // Search in the title and body columns from the posts table
+            $questions = Question:: query()
+            ->where('title', 'LIKE', "%{$questions}%")
+            ->orWhere('body', 'LIKE', "%{$questions}%") 
+            ->orWhere('created_by', 'LIKE', "%{$questions}%") 
+            ->latest()->paginate(5);
+           // ->get();
+           
+            // dd($questions->pluck('created_by'));
+        // $questions=Question::latest()->paginate(5);
+            
+        // dd($questions->pluck('name'));
         return view('question.index',compact('questions'));
     }
 
@@ -30,7 +44,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $tags=Tag::get()->pluck('id','tag_name');
+        $tags=Tag::get()->pluck('id','tag_name'); /// we created object of tags to get data of tag table using relations
         return view('question.create',compact('tags'));
     }
 
@@ -116,6 +130,9 @@ class QuestionController extends Controller
     {
         $input = $request->all();
         // dd($input);
+        if($question->created_by !==auth()->id()){     //this condition restrict user to maniplate URL
+            abort('403');
+        }
         $question->update($input);
         $question->tag()->sync($request->input('tag_id'));
         return redirect()->route('questions.index')

@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
+
 
 class Question extends Model
 
@@ -17,7 +20,7 @@ class Question extends Model
 
     public function tag()
     {
-    return $this->belongsToMany(Tag::class,'question_tag','question_id','tag_id');
+        return $this->belongsToMany(Tag::class,'question_tag','question_id','tag_id');
     }
 
     public function answer()

@@ -93,7 +93,7 @@
                     params => gen('#examples', '', params),
 
                 ].forEach(fun => {
-                    fun({ count: 1, downvoted: true });
+                    fun({ count: 0 });
                 });
             })();
         </script>

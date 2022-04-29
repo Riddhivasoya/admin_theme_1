@@ -49,6 +49,9 @@ class AnswerController extends Controller
     // $input['created_by']=auth()->id();
 
     $ans = Answer::where('id', $id)->firstOrFail();
+    if($ans->created_by !==auth()->id()){     //this condition restrict user to maniplate URL
+        abort('403');
+    }
     $input = $request->all();   
     $ans->update($input);
     // return redirect()->route('questions.index')
