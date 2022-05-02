@@ -20,20 +20,35 @@ class QuestionController extends Controller
     public function index(Request $request)
     { 
         
-        $questions= $request->input('search');
-
+    $search = $request->input('search');
+        //$user=User::get()->pluck('id','name');
+        // dd($user);
+      
+        $questions = Question::whereHas('createdby', function ($q) use ($search) {
+            $q->where('name','like','%'.$search.'%');
+        })
+        ->orwhereHas('tag', function ($q) use ($search){
+            $q->where('tag_name','like','%'.$search.'%');
+        })
+        ->orwhere('title', 'LIKE', "%{$search}%")
+        ->orWhere('body', 'LIKE', "%{$search}%")
+        ->latest()->paginate(5);
+        //dd($questions->pluck('name')); 
+        // dd($search);
+//  
         // Search in the title and body columns from the posts table
-            $questions = Question:: query()
-            ->where('title', 'LIKE', "%{$questions}%")
-            ->orWhere('body', 'LIKE', "%{$questions}%") 
-            ->orWhere('created_by', 'LIKE', "%{$questions}%") 
-            ->latest()->paginate(5);
-           // ->get();
+            // $questions = Question:: query()
+            // ->where('title', 'LIKE', "%{$questions}%")
+            // ->orWhere('body', 'LIKE', "%{$questions}%")
+            // ->orWhere('created_by', 'LIKE', "%{$questions}%")
+            // ->latest()->paginate(5);
+        //    ->get();
+        //    dd($questions->createdby());
+          
            
-            // dd($questions->pluck('created_by'));
         // $questions=Question::latest()->paginate(5);
             
-        // dd($questions->pluck('name'));
+   
         return view('question.index',compact('questions'));
     }
 

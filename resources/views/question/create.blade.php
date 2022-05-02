@@ -55,6 +55,6 @@
             
         </div>
     </form>
-<script src="{{ asset('Jquery/select2.js') }}?t={{time()}}"></script>
+<!-- <script src="{{ asset('Jquery/select2.js') }}?t={{time()}}"></script> -->
 
 @endsection

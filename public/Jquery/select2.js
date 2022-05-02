@@ -1,6 +1,5 @@
-$(document).ready(function() {
+
+$(document).ready(function () {
     $('.js-example-basic-multiple').select2();
+    $('.ckeditor').ckeditor();
 });
-$(document).ready(function() {
-$('.ckeditor').ckeditor();
- });

@@ -24,6 +24,25 @@
       
                 <ol class="breadcrumb mb-4">
                 </ol>
+                <header class="s-topbar">
+    
+
+    <form id="search" class="s-topbar--searchbar" autocomplete="off">
+        <div class="s-select">
+            <select>
+                <option value="disabled">All</option>
+                <option value="hobby">Cricket</option>
+
+            </select>
+        </div>
+        <div class="s-topbar--searchbar--input-group">
+            <input type="text" placeholder="Search…" value="" autocomplete="off" class="s-input s-input__search" />
+           
+        </div>
+    </form>
+
+    <ol class="s-topbar--content"></ol>
+</header>
             <div class="card mb-4">
                 <!-- <div class="card"> -->
                     <div class="card-body">
@@ -36,6 +55,7 @@
                         This is some text within a card body.
                     </div>
                 </div>
+                
             <!-- </div> -->
     
             <style type="text/css">

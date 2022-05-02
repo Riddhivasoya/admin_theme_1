@@ -39,9 +39,8 @@
     </head>
 
 
-    <body class="sb-nav-fixed">    
-        @include('layouts.sidenav')
-            
+    <body class="sb-nav-fixed">  
+        @include('layouts.sidenav')          
         <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <!-- <script src="https://code.jquery.com/jquery-2.2.4.js"></script> -->
@@ -54,13 +53,13 @@
         <!---Jquery va;lidation plugin-->
         <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
-        <!--Custom jquery for add-edit--->
-        <script type="text/javascript" src="{{ asset('Jquery/crud_validation.js') }}?t={{time()}}"></script>
-        <script type="text/javascript" src="{{ asset('Jquery/select2.js') }}?t={{time()}}"></script>
-
         <!--- CK editor---->
         <script src="//cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
 
+        <!--Custom jquery for add-edit--->
+        <script type="text/javascript" src="{{ asset('Jquery/crud_validation.js') }}?t={{time()}}"></script>
+        <script type="text/javascript" src="{{ asset('Jquery/select2.js') }}?t={{time()}}"></script>
+        
         <!--select tag---->
         <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> -->
@@ -96,7 +95,6 @@
                     fun({ count: 0 });
                 });
             })();
-        </script>
-      
+        </script>      
     </body>
 </html>

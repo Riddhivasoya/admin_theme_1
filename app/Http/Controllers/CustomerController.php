@@ -23,8 +23,9 @@ class CustomerController extends Controller
     {
                     
         $customers = Customer::all();
+        // dd($customers);
         return view('customers.index',compact('customers'))->with ('i',(request()->input('page',1)-1));
-        
+       
     }
 
     /**
