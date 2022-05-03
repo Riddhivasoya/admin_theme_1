@@ -22,5 +22,5 @@ class Answer extends Model
     public function createdby()
     {
         return $this->belongsTo(User::class,'created_by','id');
-    }
+    }   
 }

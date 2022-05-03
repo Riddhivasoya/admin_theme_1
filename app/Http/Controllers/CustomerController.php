@@ -84,8 +84,9 @@ class CustomerController extends Controller
         $customer=Customer::create($input);  // this is for join  $customer is object(variable)
         // dd($customer);
         $input['customer_id']=$customer->id;// pass krava mate $input 
-        // dd($input);  
+        // // dd($input);  
         Mobile::create($input);
+        // $input['mobile'] = Mobile::create($input);
         // dd($input);
         // Post::create($input);
         return redirect()->route('customers.index')

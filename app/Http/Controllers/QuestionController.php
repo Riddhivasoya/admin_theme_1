@@ -20,22 +20,19 @@ class QuestionController extends Controller
     public function index(Request $request)
     { 
         
-    $search = $request->input('search');
-        //$user=User::get()->pluck('id','name');
-        // dd($user);
-      
-        $questions = Question::whereHas('createdby', function ($q) use ($search) {
-            $q->where('name','like','%'.$search.'%');
+    $search = $request->input('search');      
+    $questions = Question::whereHas('createdby', function ($q) use ($search) {
+    $q->where('name','like','%'.$search.'%')->orderBy('name');                                                                                                                                                                                                                  
         })
-        ->orwhereHas('tag', function ($q) use ($search){
+            ->orwhereHas('tag', function ($q) use ($search){
             $q->where('tag_name','like','%'.$search.'%');
         })
-        ->orwhere('title', 'LIKE', "%{$search}%")
-        ->orWhere('body', 'LIKE', "%{$search}%")
-        ->latest()->paginate(5);
+            ->orwhere('title', 'LIKE', "%{$search}%")
+            ->orWhere('body', 'LIKE', "%{$search}%")
+            ->latest()->paginate(5);
         //dd($questions->pluck('name')); 
         // dd($search);
-//  
+
         // Search in the title and body columns from the posts table
             // $questions = Question:: query()
             // ->where('title', 'LIKE', "%{$questions}%")
@@ -60,7 +57,9 @@ class QuestionController extends Controller
     public function create()
     {
         $tags=Tag::get()->pluck('id','tag_name'); /// we created object of tags to get data of tag table using relations
+         
         return view('question.create',compact('tags'));
+
     }
 
     /**
@@ -78,7 +77,7 @@ class QuestionController extends Controller
         
         
         $input = $request->all();
-        // dd($input);
+        dd($input);
         $input['created_by'] = auth()->id();
         $question = Question::create($input);
         $question->tag()->attach($request->input('tag_id'));

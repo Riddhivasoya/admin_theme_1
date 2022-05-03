@@ -33,6 +33,7 @@
         </div>
           
 </div>
+
 <div class="col-xs-12 col-sm-12 col-md-12"> 
              <div class="form-group">
             
@@ -41,7 +42,7 @@
              <option value="" disabled>Select tag</option>
              
             @foreach($tags as $tag=> $tag_id)
-            
+        
           <option value="{{$tag_id}}" >{{$tag}}</option>
 
             @endforeach

@@ -132,7 +132,7 @@
              
        </div>
       @if($ans->created_by ==auth()->id())      
-       <a class="s-anchors s-anchors__default" href="{{ url('answers/'.$ans->id.'/edit') }}">Edit</a>
+      <a class="s-anchors s-anchors__default" href="{{ url('answers/'.$ans->id.'/edit') }}">Edit</a>
        <form action="{{ url('deleteanswer/'. $ans->id) }}" method="POST">
        <button title="your question will be deleted permenantly "type="submit" class="btn btn-link">Delete</button>
             @csrf
