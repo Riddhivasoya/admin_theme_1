@@ -7,15 +7,12 @@
         </div>
     @endif
 </div>
-
-
 <div class="container-fluid px-4">
-                <h1 class="mt-4">All Question</h1>
-                <ol class="breadcrumb mb-4">
-                </ol>
-                <div class="ps-relative">
-    <input class="s-input s-input__search" type="text" placeholder="Search…" />
-   
+        <h1 class="mt-4">All Question</h1>
+        <ol class="breadcrumb mb-4">
+        </ol>
+    <div class="ps-relative">
+        <input class="s-input s-input__search" type="text" placeholder="Search…" />
 </div>
 <ol class="breadcrumb mb-4">
                 </ol>
@@ -24,21 +21,17 @@
       
                 <ol class="breadcrumb mb-4">
                 </ol>
-                <header class="s-topbar">
-    
-
+<header class="s-topbar">
     <form id="search" class="s-topbar--searchbar" autocomplete="off">
-        <div class="s-select">
-            <select>
-                <option value="disabled">All</option>
-                <option value="hobby">Cricket</option>
-
-            </select>
-        </div>
-        <div class="s-topbar--searchbar--input-group">
-            <input type="text" placeholder="Search…" value="" autocomplete="off" class="s-input s-input__search" />
-           
-        </div>
+                <div class="s-select">
+                    <select>
+                        <option value="asc">A-Z</option>
+                        <option value="hobby">Z-A</option>
+                    </select>
+                </div>
+                <div class="s-topbar--searchbar--input-group">
+                    <input type="text" placeholder="Search…" value="" autocomplete="off" class="s-input s-input__search" />
+                </div>
     </form>
 
     <ol class="s-topbar--content"></ol>
@@ -89,7 +82,6 @@
     
     <div class="row">
         <div class="span6">
-            
             <div class="examples" id="examples"></div>
         </div>
 

@@ -22,7 +22,7 @@ class CustomerController extends Controller
     public function index()  // this grab data from database directly
     {
                     
-        $customers = Customer::all();
+        $customers = Customer::latest()->paginate();
         // dd($customers);
         return view('customers.index',compact('customers'))->with ('i',(request()->input('page',1)-1));
        

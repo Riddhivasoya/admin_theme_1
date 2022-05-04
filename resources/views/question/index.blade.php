@@ -37,7 +37,7 @@
     <div class="s-post-summary--stats">
         <div class="s-post-summary--stats-item s-post-summary--stats-item__emphasized">
             <span class="s-post-summary--stats-item-number">
-                98
+            {{(count($question->questionvotes))}}
             </span>
             <span class="s-post-summary--stats-item-unit">
                 votes

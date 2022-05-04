@@ -15,12 +15,12 @@
 
    function insert_image($image)
    {
-      // dd($image);
-    $destinationPath = 'customer_image/';
-    $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-    $image->move($destinationPath, $profileImage);
-    $input['image'] = "$profileImage";
-    return "$profileImage";
+         // dd($image);
+         $destinationPath = 'customer_image/';
+         $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+         $image->move($destinationPath, $profileImage);
+         $input['image'] = "$profileImage";
+         return "$profileImage";
    }
    
 //   

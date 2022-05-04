@@ -42,7 +42,7 @@ class TagsController extends Controller
         $input=$request->all();
         Tag::create($input);
         return redirect()->route('tags.index')
-                        ->with('success','Tags created successfully.');
+        ->with('success','Tags created successfully.');
     }
 
     /**

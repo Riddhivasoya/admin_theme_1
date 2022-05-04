@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('votes', function (Blueprint $table) {
+        Schema::create('question_votes', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('question_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('question_id')->unsigned()->nullable();
-            $table->bigInteger('answer_id')->unsigned()->nullable();
-            $table->enum('type',['up','down']);
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->enum('vote_type', ['upvote','downvote','unupvote','undownvote']);
+            //$table->integer('counter');
             $table->foreign('question_id')->references('id')->on('questions')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('answer_id')->references('id')->on('answers')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('votes');
+        Schema::dropIfExists('question_votes');
     }
 };

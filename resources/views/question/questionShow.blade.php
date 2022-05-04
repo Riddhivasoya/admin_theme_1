@@ -1,32 +1,5 @@
 @extends('layouts.layout')
 @section('pagecontent')
-
-<style type="text/css">
-        <!--
-        .hidden {
-            display: none;
-        }
-
-        .examples {
-            overflow: auto;
-        }
-
-        .examples div.upvotejs {
-            float: left;
-        }
-
-        #footer {
-            height: 60px;
-            background-color: #f5f5f5;
-        }
-
-        .credit {
-            margin: 20px 0;
-        }
-        -->
-    </style>
-
-
 <div class="container-fluid px-4">
 <h1 class="mt-4">Review Question</h1>
                 <ol class="breadcrumb mb-4">
@@ -48,20 +21,56 @@
                       
 <div class="row">
         <div class="span6">
-            
-            <div class="examples" id="examples"></div>
-        </div>
-
-
-        <div id="templates" class="hidden">
-            <div class="upvotejs">
-                <a class="upvote" title="This is good stuff. Vote it up! (Click again to undo)"></a>
-                <span class="count" title="Total number of votes"></span>
-                <a class="downvote" title="This is not useful. Vote it down. (Click again to undo)"></a>
+    <div class="examples" id="questionvotes"></div>
+    <div id="templates" class="hidden">
+        <div class="upvotejs">
+                    <a class="upvote" title="This is good stuff. Vote it up! (Click again to undo)"></a>
+                    <span class="count" title="Total number of votes"></span>                    
+                    <a class="downvote" title="This is not useful. Vote it down. (Click again to undo)"></a>                    
+                    <!-- <a class="star" title="Mark as favorite. (Click again to undo)"></a> -->
             </div>
         </div>
         
+        <script type="text/javascript">    
+                $(document).ready(function(){
+                    var params = [];
+                    params['vote_for'] = 'question';
+                    params['url'] = @if(count($questionvotes))'{{ route("questions.votes", $questionvotes[0]->id) }}'@else'{{ route("questions.votes") }}'@endif;
+                    params['headers'] = {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')};        
+                    params['type'] = 'GET';
                 
+                    params['count'] = {{ $question->count }};                                      
+                    params['data'] = {'question_id' : '{{ $question->id }}', 'user_id' : '{{ auth()->user()->id }}'};
+                    var callback = function(data) {
+                        data.question_id = params.data.question_id;
+                        data.user_id = params.data.user_id
+                        //data._method = 'PUT';
+                        $.ajax({                        
+                            url: params.url,
+                            headers: params.headers,
+                            type: params.type,
+                            data: data,
+                            success: function (data, status, xhr) {
+                                //$("#examples").load(location.href + " #examples > *");
+                                //$("#templates").load(location.href + " #templates > *");
+                                location.reload();
+                            },
+                        });
+                    };
+                    params['callback'] = callback;
+                    @if(count($questionvotes))
+                        @if($questionvotes[0]->vote_type=='upvote')
+                            params['upvoted'] = true;
+                        @elseif($questionvotes[0]->vote_type=='downvote')
+                            params['downvoted'] = true;
+                        @endif
+                    @endif
+                    $questionobj = initupvotejsobject('templates','upvotejs','{{ $question->id }}','#questionvotes','',params);
+                    //console.log($questionobj);
+                    //console.log($questionobj.upvote());
+                });    
+            </script>
+    </div>             
 </div>
 
 
@@ -80,13 +89,30 @@
                     @foreach($question->tag as $tag)
                     <a class="s-tag" href="#">{{$tag->tag_name}}</a>
                     @endforeach
+
+                    
             </div>
 
         </div>
-     
+        Created By:
+                <a href="" class="s-user-card--link"> {{  $question->createdby['name'] }}</a>
+       
+    @if($question->created_by ==auth()->id())
+         
+       <a class="btn btn-link" title="you can edit your question" href="{{route('questions.edit',$question->id)}}">Edit</a>
+
+           <form action="{{ route('questions.destroy',$question->id) }}" method="POST">
+           <button title="your question will be deleted permenantly "type="submit" class="btn btn-link">Delete</button></span>
+
+                 @csrf
+                @method('DELETE')
+           </form>
+         @endif
+         </span>    
         </div>
     </div>
 </div>
+
 <!---end of question part----->
 
 <!--Answer Part-->
@@ -168,5 +194,28 @@
         </div>
 
 </form>
+<style type="text/css">
+        <!--
+        .hidden {
+            display: none;
+        }
 
+        .questionvotes {
+            overflow: auto;
+        }
+
+        .questionvotes div.upvotejs {
+            float: left;
+        }
+
+        #footer {
+            height: 60px;
+            background-color: #f5f5f5;
+        }
+
+        .credit {
+            margin: 20px 0;
+        }
+        -->
+    </style>
 @endsection

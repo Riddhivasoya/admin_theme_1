@@ -46,22 +46,21 @@
                                         </tr>
                                         </thead>
                                     
-                                    @foreach ($customers as $customer)
-                                    <tr>
-                                    <td>{{ ++$i }}</td>
-                                    <td>{{$customer->first_name}}</td>
-                                    <td>{{$customer->last_name}}</td>
-                                    <td>{{$customer->full_name}}</td>
-                                    <td>{{ date('d/m/Y',strtotime($customer->birthdate)) }}</td>
-                                    <td>{{$customer->email}}</td>
-                                    <td>{{$customer->address}}</td>
-                                    <td>{{$customer->gender}}</td>
-                                    <td>{{$customer->hobby}}</td>
-                                    <td>{{$customer->mobile['mobile']}}</td>
-                                    <td><img src="/customer_image/{{ $customer->image }}" width="100px"></td>
-                                    <td>
+                                @foreach ($customers as $customer)
+                                        <tr>
+                                        <td>{{ ++$i }}</td>
+                                        <td>{{$customer->first_name}}</td>
+                                        <td>{{$customer->last_name}}</td>
+                                        <td>{{$customer->full_name}}</td>
+                                        <td>{{ date('d/m/Y',strtotime($customer->birthdate)) }}</td>
+                                        <td>{{$customer->email}}</td>
+                                        <td>{{$customer->address}}</td>
+                                        <td>{{$customer->gender}}</td>
+                                        <td>{{$customer->hobby}}</td>
+                                        <td>{{$customer->mobile['mobile']}}</td>
+                                        <td><img src="/customer_image/{{ $customer->image }}" width="100px"></td>
+                                        <td>
                                     <form action="{{ route('customers.destroy',$customer->id) }}" method="POST">
-
                                     <a class="btn btn-info" href="{{ route('customers.show',$customer->id) }}">Show</a>
 
                                     <a class="btn btn-primary" href="{{ route('customers.edit',$customer->id) }}">Edit</a>
@@ -69,11 +68,11 @@
                                         @csrf
                                         @method('DELETE')
 
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </td>
-                 </tr>
-                @endforeach
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                    </td>
+                                    </tr>
+                                @endforeach
             </table>
         </div>
 </div>

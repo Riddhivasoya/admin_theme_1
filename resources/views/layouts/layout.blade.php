@@ -19,8 +19,11 @@
 
         <!-- Upvote Down--->
         <link rel="stylesheet" href="{{ asset( 'dist/upvotejs/upvotejs.css' )}}">
+        <script src="{{asset('dist/upvotejs/upvotejs.jquery.js')}}"></script>
         <script src="{{asset('dist/upvotejs/upvotejs.vanilla.js')}}"></script>
-<!--stackoverflow-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+        <!--stackoverflow-->
         <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
    
         
@@ -41,7 +44,6 @@
 
     <body class="sb-nav-fixed">  
         @include('layouts.sidenav')          
-        <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <!-- <script src="https://code.jquery.com/jquery-2.2.4.js"></script> -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -75,26 +77,28 @@
         <!--Upvote Down Script-->
         
         <script type="text/javascript">
-            (function () {
-                const proto = document.getElementById('templates').getElementsByClassName('upvotejs')[0];
-                const gen = function () {
-                    var idcount = 0;
-                    return (target, cssClass, params) => {
-                        const obj = proto.cloneNode(true);
-                        obj.className += ' ' + cssClass;
-                        obj.id = 'u' + (idcount++);
-                        document.getElementById(target.substr(1)).appendChild(obj);
-                        return Upvote.create(obj.id, params);
-                    };
-                }();
+            function initupvotejsobject(templateid, templatedivclass, idcount, target, cssClass, params)
+             {              
+             const proto = document.getElementById(templateid).getElementsByClassName(templatedivclass)[0];
+        
+        const gen = function() {
+            //var idcount = 0;
+            return (target, cssClass, params) => {                
+                const obj = proto.cloneNode(true);
+                obj.className += ' ' + cssClass;
+                obj.id = params.vote_for + idcount;
+                //console.log(obj);
+                //console.log(target);
+                //console.log(document.getElementById(target.substr(1)));
+                document.getElementById(target.substr(1)).appendChild(obj);                                
+                //console.log(params); return false;
+                return Upvote.create(obj.id, params);
+            };
+        }();
 
-                [
-                    params => gen('#examples', '', params),
+        return gen(target, cssClass, params);        
+    }
+</script>
 
-                ].forEach(fun => {
-                    fun({ count: 0 });
-                });
-            })();
-        </script>      
     </body>
 </html>

@@ -39,6 +39,8 @@ Route::get('/admin', function()
 Auth::routes();
 Route::resource('customers', CustomerController::class);
 Route::resource('tags', TagsController::class);
+
+Route::get('/questions/votes/{id?}', [App\Http\Controllers\QuestionController::class,'questioncastvote'])->name('questions.votes');
 Route::resource('questions', QuestionController::class);
  // /vote-up/question/2
 Route::post('vote-up/{uptype}/{qid}',[App\Http\Controllers\QuestionController::class,'questionup']);
@@ -51,7 +53,6 @@ Route::post('/store', [App\Http\Controllers\AnswerController::class, 'storeanswe
 Route::get('/answers/{id}/edit', [App\Http\Controllers\AnswerController::class, 'editanswer'])->name('answers');
 Route::put('/answersupdate/{id}',[App\Http\Controllers\AnswerController::class, 'updateanswer'])->name('answersupdate');
 Route::delete('/deleteanswer/{id}',[App\Http\Controllers\AnswerController::class, 'answerdelete'])->name('deleteanswer');
-
 // // Route::get('/create', [CustomerController::class, 'create'])->name('create');
 // Route::put('/edit', [App\Http\Controllers\HomeController::class, 'edit'])->name('edit');
 // Route::delete('/destroy/{$id}', [App\Http\Controllers\HomeController::class, 'destroy'])->name('destroy');
@@ -60,3 +61,6 @@ Route::delete('/deleteanswer/{id}',[App\Http\Controllers\AnswerController::class
 
 Route::get('auth/linkedin', [App\Http\Controllers\Auth\AuthController::class,'redirectToLinkedin']);
 Route::get('auth/linkedin/callback', [App\Http\Controllers\Auth\AuthController::class,'handleLinkedinCallback']);
+
+
+Route::get('/answers/votes/{id?}', [App\Http\Controllers\QuestionController::class,'answercastvote'])->name('answers.votes');

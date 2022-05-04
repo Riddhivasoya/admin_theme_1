@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Tag;
 use App\Models\Question;
 use App\Models\View as ModelView;
 use App\Models\Vote;
 use App\Models\User;
+use App\Models\AnswerVote;
+use App\Models\QuestionVote;
 use DB;
 
 use Illuminate\Http\Request;
@@ -20,16 +23,16 @@ class QuestionController extends Controller
     public function index(Request $request)
     { 
         
-    $search = $request->input('search');      
-    $questions = Question::whereHas('createdby', function ($q) use ($search) {
-    $q->where('name','like','%'.$search.'%')->orderBy('name');                                                                                                                                                                                                                  
+        $search = $request->input('search');      
+        $questions = Question::whereHas('createdby', function ($q) use ($search) {
+        $q->where('name','like','%'.$search.'%')->orderBy('name');                                                                                                                                                                                                                  
         })
-            ->orwhereHas('tag', function ($q) use ($search){
-            $q->where('tag_name','like','%'.$search.'%');
+        ->orwhereHas('tag', function ($q) use ($search){
+        $q->where('tag_name','like','%'.$search.'%');
         })
-            ->orwhere('title', 'LIKE', "%{$search}%")
-            ->orWhere('body', 'LIKE', "%{$search}%")
-            ->latest()->paginate(5);
+        ->orwhere('title', 'LIKE', "%{$search}%")
+        ->orWhere('body', 'LIKE', "%{$search}%")
+        ->latest()->paginate(5);
         //dd($questions->pluck('name')); 
         // dd($search);
 
@@ -44,8 +47,7 @@ class QuestionController extends Controller
           
            
         // $questions=Question::latest()->paginate(5);
-            
-   
+        
         return view('question.index',compact('questions'));
     }
 
@@ -56,10 +58,8 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $tags=Tag::get()->pluck('id','tag_name'); /// we created object of tags to get data of tag table using relations
-         
+        $tags=Tag::get()->pluck('id','tag_name'); /// we created object of tags to get data of tag table using relations         
         return view('question.create',compact('tags'));
-
     }
 
     /**
@@ -71,26 +71,17 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'=>'required',
-            'body'=>'required',            
+        'title'=>'required',
+        'body'=>'required',            
         ]);
-        
-        
         $input = $request->all();
-        dd($input);
+        // dd($input);
         $input['created_by'] = auth()->id();
         $question = Question::create($input);
         $question->tag()->attach($request->input('tag_id'));
-
-
         // dd($request->input('tag'));
-       
-
-     
         return redirect()->route('questions.index')
-                        ->with('success','Questions Added successfully.');
-
-
+        ->with('success','Questions Added successfully.');
     }
 
    
@@ -102,6 +93,9 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
+
+       
+        
         $mvArr =array(
             'user_id'=>auth()->id(),
             'question_id'=>$question['id'],
@@ -113,8 +107,13 @@ class QuestionController extends Controller
             'user_id'=>auth()->id(),
             'question_id'=>$question['id'],
             ));
+
+
         }
-        return view('question.questionShow',compact('question'));
+        
+        $questionvotes = QuestionVote::where("question_id","=",$question['id'])->where("user_id","=",auth()->user()->id)->get();
+
+        return view('question.questionShow',compact('question','questionvotes'));
         
     }
 
@@ -153,36 +152,78 @@ class QuestionController extends Controller
         ->with('success','Questions updated successfully.');
     }
 
-    public function questionup($qtype,$qid)
+    public function answercastvote(Request $request, $voteid=null)
     {
-        if($qtype === "question"){
-        
-        }
-    
-            Vote::create(array(
-                'user_id' => auth()->id(),
-                'question_id'=> $qid,
-                
-                'type' => "up",
-            ));
-            
-        return redirect()->back();
-  
+        //dd($voteid);
+        //dd($request->all());
+        //return $request;        
+        $request->validate([
+            'question_id' => 'required',
+            'answer_id' => 'required',            
+            'user_id' => 'required',
+            'action' => 'required',
+            'newState.count' => 'required',                        
+        ]);
+
+        $input['answer_id'] = $request['answer_id'];
+        $input['user_id'] = $request['user_id'];
+        $input['vote_type'] = $request['action'];
+        $input['count'] = $request['newState.count'];
+        //dd($input);
+        $answervotedetails = AnswerVote::updateOrCreate([
+            'id' => $voteid],                
+            //['title' => $request->name,],
+            $input
+        );
+        //dd($input['question_id']);
+        $answerdetails = Answer::find($input['answer_id']);
+        //dd($answerdetails['votes']);
+        $answerdetails['count'] = $input['count'];
+        $answerdetails->save();
+
+        return redirect()->view('question.questionShow',$request['question_id']);
     }
-    public function questiondown($qtype,$qid)
+
+
+    public function questioncastvote(Request $request, $voteid=null)
     {
-        if($qtype === "question"){
+        //dd($voteid);
+        //dd($request->all());
+        //return $request;        
+        $request->validate([
+            'question_id' => 'required',
+            'user_id' => 'required',
+            'action' => 'required',
+            'newState.count' => 'required',                        
+        ]);
         
-        }
-    
-            Vote::create(array(
-                'user_id' => auth()->id(),
-                'question_id'=> $qid,
-                'type' => "down",
-            ));
-            
-        return redirect()->back();
-  
+        $input['question_id'] = $request['question_id'];
+        $input['user_id'] = $request['user_id'];
+        $input['vote_type'] = $request['action'];
+        $input['count'] = $request['newState.count'];
+        //dd($input);
+        $questionvotedetails = QuestionVote::updateOrCreate([
+            'id' => $voteid],                
+            //['title' => $request->name,],
+            $input
+        );
+        //dd($input['question_id']);
+        $questiondetails = Question::find($input['question_id']);
+        //dd($questiondetails['votes']);
+        /*if($questionvotedetails['vote_type']=='upvote')
+        {            
+            $questiondetails['votes'] += 1;
+        }elseif($questionvotedetails['vote_type']=='downvote'){
+            $questiondetails['votes'] -= 1;
+        }elseif($questionvotedetails['vote_type']=='unupvote'){
+            $questiondetails['votes'] -= 1;
+        }elseif($questionvotedetails['vote_type']=='undownvote'){
+            $questiondetails['votes'] += 1;
+        }*/
+        $questiondetails['count'] = $input['count'];
+        $questiondetails->save();
+
+        return redirect()->route('questions.show',$request['question_id']);
     }
 
     /**
@@ -194,10 +235,9 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
         if($question->created_by ==auth()->id()){     //this condition restrict user to maniplate URL
-
-        $question->delete();
+            $question->delete();
         return redirect()->route('questions.index')
-                    ->with('success','questions deleted successfully');
+        ->with('success','questions deleted successfully');
         }
     }
     

@@ -15,7 +15,8 @@ class Question extends Model
     // use \Conner\Tagging\Taggable;
     protected $fillable = ['title', 
                             'body',
-                            'created_by'
+                            'created_by',
+                            'count'
                         ];
 
     public function tag()
@@ -35,4 +36,9 @@ class Question extends Model
     {
         return $this->hasMany(View::class,'question_id','id');
     }
+    public function questionvotes()
+    {
+        return $this->hasMany(QuestionVote::class);
+    }
+
 }   

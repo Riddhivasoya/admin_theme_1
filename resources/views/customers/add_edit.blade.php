@@ -22,10 +22,10 @@
                      @method('PUT')
                 @endif
           <div class="row">
-             <div class="col-xs-12 col-sm-12 col-md-12">
-                 <div class="form-group">
-                 <label for="first_name"> <strong> first_name <span class="text-danger">*</span></strong></label>
-                     <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Enter your First_Name" value="@if(isset($customer)){{ $customer->first_name }}@else{{ old('first_name') }}@endif">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+            <label for="first_name"> <strong> first_name <span class="text-danger">*</span></strong></label>
+            <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Enter your First_Name" value="@if(isset($customer)){{ $customer->first_name }}@else{{ old('first_name') }}@endif">
                      @if ($errors->has('first_name')) 
                          <span class="text-danger">{{ $errors->first('first_name') }}</span>
                      @endif
@@ -58,13 +58,13 @@
                      @endif
                  </div>
                  </div>
-                 <div class="col-xs-12 col-sm-12 col-md-12">
-                 <div class="form-group">
-                 <label for="address"><strong>address <span class="text-danger">*</span></strong></label>
-                     <input type="text" name="address" id="address" class="form-control" placeholder="Enter Address" value="@if(isset($customer)){{$customer->address}}@else{{ old('address') }}@endif">
-                     @if ($errors->has('address'))
-                         <span class="text-danger">{{ $errors->first('address') }}</span>
-                     @endif
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                <label for="address"><strong>address <span class="text-danger">*</span></strong></label>
+                <input type="text" name="address" id="address" class="form-control" placeholder="Enter Address" value="@if(isset($customer)){{$customer->address}}@else{{ old('address') }}@endif">
+                        @if ($errors->has('address'))
+                        <span class="text-danger">{{ $errors->first('address') }}</span>
+                        @endif
                  </div>
              </div>
              <div class="col-xs-12 col-sm-12 col-md-12">
@@ -73,7 +73,7 @@
                      <input type="radio"  name="gender" id="gender" value="male" @if(isset($customer)) {{(old('gender',$customer->gender) == 'male') ? "checked" : ""}} @else {{ (old('gender')=="male")?"checked":"" }} @endif> Male&nbsp;&nbsp;
                      <input type="radio"  name="gender" id="gender" value="female" @if(isset($customer)){{(old('gender',$customer->gender) == 'female') ? "checked" : ""}} @else {{ (old('gender')=="female")?"checked":"" }} @endif> Female&nbsp;&nbsp;
                      @if ($errors->has('gender'))
-                         <span class="text-danger">{{ $errors->first('gender') }}</span>
+                        <span class="text-danger">{{ $errors->first('gender') }}</span>
                      @endif
                  </div>
              </div>
