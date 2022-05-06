@@ -13,17 +13,25 @@
                 <h1 class="mt-4">All Question</h1>
                 <ol class="breadcrumb mb-4">
 </ol>
-                <div class="ps-relative">
-             
-                <form action="{{ route('questions.index') }}" method="GET">
 
-    <input class="s-input s-input__search"  type="text" name="search" placeholder="Search....." value="{!! request('search') !!}" />
-    <div class="text-center">
-    <button  class="btn btn-dark" type="submit">Search</button>
-</form>
-</div>
-</div>
+<!-- Serach bar and sorting-->
+<header class="s-topbar">
 
+<form id="search" class="s-topbar--searchbar" action="{{ route('questions.index') }}" method="GET" autocomplete="off">
+<div class="s-select">
+                    <select>
+                        <option value="asc">A-Z</option>
+                        <option value="des">Z-A</option>
+                    </select>
+                </div>
+                <div class="s-topbar--searchbar--input-group">
+<input class="s-input s-input__search"  type="text" name="search" placeholder="Search....." value="{!! request('search') !!}" />
+                </div>
+    </form>
+
+    <ol class="s-topbar--content"></ol>
+</header>
+<!--create Question Start---->
 <ol class="breadcrumb mb-4">
                 </ol>
                 <a  class="btn btn-primary" href="{{route('questions.create')}}"> Ask Question</a>
@@ -89,7 +97,7 @@
                 <a href="" class="s-avatar s-user-card--avatar">
                     <img class="s-avatar--image" src="" />
                 </a>
-                Created By:
+                <strong> Created By:</strong>
                 <a href="" class="s-user-card--link"> {{  $question->createdby['name'] }}</a>
                 <ul class="s-user-card--awards">
                     <li class="s-user-card--rep"></li>
@@ -109,10 +117,12 @@
          <span>
     @if($question->created_by ==auth()->id())
          
-         <a class="btn btn-link" title="you can edit your question" href="{{route('questions.edit',$question->id)}}">Edit</a>
-
+         <a class="btn btn-primary" title="you can edit your question" href="{{route('questions.edit',$question->id)}}">Edit</a>
+         <ol class="breadcrumb mb-4">
+                </ol>
            <form action="{{ route('questions.destroy',$question->id) }}" method="POST">
-           <button title="your question will be deleted permenantly "type="submit" class="btn btn-link">Delete</button>
+           <input name="_method" type="hidden" value="DELETE">
+           <button title="your question will be deleted permenantly "type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Delete</button>
 
                  @csrf
                 @method('DELETE')

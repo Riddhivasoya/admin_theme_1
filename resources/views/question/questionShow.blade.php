@@ -94,20 +94,23 @@
             </div>
 
         </div>
-        Created By:
+        <ol class="breadcrumb mb-4">
+            </ol>
+        <strong> Created By:</strong>
                 <a href="" class="s-user-card--link"> {{  $question->createdby['name'] }}</a>
        
-    @if($question->created_by ==auth()->id())
+    <!-- @if($question->created_by ==auth()->id())
          
        <a class="btn btn-link" title="you can edit your question" href="{{route('questions.edit',$question->id)}}">Edit</a>
 
            <form action="{{ route('questions.destroy',$question->id) }}" method="POST">
-           <button title="your question will be deleted permenantly "type="submit" class="btn btn-link">Delete</button></span>
+           <input name="_method" type="hidden" value="DELETE">
+           <button title="your question will be deleted permenantly "type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Delete</button>
 
                  @csrf
                 @method('DELETE')
            </form>
-         @endif
+         @endif -->
          </span>    
         </div>
     </div>
@@ -116,26 +119,59 @@
 <!---end of question part----->
 
 <!--Answer Part-->
-
+{{--dd($question->createdby)--}}
+{{--dd($question->answer)--}}
+{{--($ans)--}}
 @foreach($question->answer as $ans)
 <div class="s-page-title">
     <h1 class="s-page-title--header">Answer</h1>
     
 </div>
 <div class="d-flex my48">
-                    <div class="flex--item mr8">
-                        <form action="/success" class="js-feedback-form" method="POST" name="quick-positive-feedback-activity-indicator"><input type="hidden" name="form-name" value="quick-positive-feedback-activity-indicator">
-                            <button class="d-block s-btn s-btn__muted p4" type="submit" data-controller="s-tooltip" data-s-tooltip-placement="right" aria-describedby="--stacks-s-tooltip-5674vum3"><svg aria-hidden="true" class="svg-icon iconArrowUpLg" width="36" height="36" viewBox="0 0 36 36"><path d="M2 25h32L18 9 2 25Z"></path></svg></button><div id="--stacks-s-tooltip-5674vum3" class="s-popover s-popover__tooltip pe-none" aria-hidden="true" role="tooltip" style="">Quickly let the team know that this page is workin’<div class="s-popover--arrow" style=""></div></div>
-                        </form>
 
-                        <form action="/nosuccess" class="js-feedback-form" method="POST" name="quick-negative-feedback-activity-indicator"><input type="hidden" name="form-name" value="quick-negative-feedback-activity-indicator">
-                            <button class="d-block s-btn s-btn__muted p4" type="submit" data-controller="s-tooltip" data-s-tooltip-placement="right" aria-describedby="--stacks-s-tooltip-04imtfgq"><svg aria-hidden="true" class="svg-icon iconArrowDownLg" width="36" height="36" viewBox="0 0 36 36"><path d="M2 11h32L18 27 2 11Z"></path></svg></button><div id="--stacks-s-tooltip-04imtfgq" class="s-popover s-popover__tooltip pe-none" aria-hidden="true" role="tooltip" style="">Quickly let us know that this page needs improvement<div class="s-popover--arrow" style=""></div></div>
-                        </form>
+
+
+                      
+<div class="row">
+        <div class="span6">
+    <div class="examples" id="answervotes"></div>
+    <div id="templates" class="hidden">
+        <div class="upvotejs">
+                    <a class="upvote" title="This is good stuff. Vote it up! (Click again to undo)"></a>
+                    <span class="count" title="Total number of votes"></span>                    
+                    <a class="downvote" title="This is not useful. Vote it down. (Click again to undo)"></a>                    
+                    <!-- <a class="star" title="Mark as favorite. (Click again to undo)"></a> -->
+            </div>
+        </div>
+        <div class="d-flex my48">
+
+
+                      
+<div class="row">
+        <div class="span6">
+    <div class="examples" id="answervotes"></div>
+    <div id="templates" class="hidden">
+        <div class="upvotejs">
+                    <a class="upvote" title="This is good stuff. Vote it up! (Click again to undo)"></a>
+                    <span class="count" title="Total number of votes"></span>                    
+                    <a class="downvote" title="This is not useful. Vote it down. (Click again to undo)"></a>                    
+                    <!-- <a class="star" title="Mark as favorite. (Click again to undo)"></a> -->
+            </div>
+        </div>
+        
+        
+            
 </div>
+
+</div>
+
+
 <div class="s-post-summary">
 
-    
-    <div class="s-post-summary--content">
+    <div class="s-post-summary--content"> 
+        @if($question->created_by==auth()->id()) 
+    <button class="s-btn s-btn__outlined"  type="submit">Accept Answer</button>
+    @endif
     <p class="s-post-summary--content-excerpt">{!! $ans->answer !!}</p>
         <div class="s-post-summary--content-type">
         <div class="s-user-card s-user-card__minimal">
@@ -152,22 +188,22 @@
             <li class="s-user-card--rep"></li>
         </ul>
     </div>
-    <time class="s-user-card--time">{{$ans->created_at}}</time>
-        
-       
-             
+    <time class="s-user-card--time">{{$ans->created_at}}</time>    
        </div>
+
       @if($ans->created_by ==auth()->id())      
-      <a class="s-anchors s-anchors__default" href="{{ url('answers/'.$ans->id.'/edit') }}">Edit</a>
+ <a class="s-anchors s-anchors__default" href="{{ url('answers/'.$ans->id.'/edit') }}">Edit</a>
        <form action="{{ url('deleteanswer/'. $ans->id) }}" method="POST">
-       <button title="your question will be deleted permenantly "type="submit" class="btn btn-link">Delete</button>
+       <input name="_method" type="hidden" value="DELETE">
+           <button title="your question will be deleted permenantly "type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Delete</button>
             @csrf
             @method('DELETE')
         </form>   
 
         @endif
        </div>
-      
+       
+
    </div>
 </div>
 @endforeach

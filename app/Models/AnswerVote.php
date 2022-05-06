@@ -10,8 +10,8 @@ class AnswerVote extends Model
     use HasFactory;
     protected $fillable = ['answer_id', 'user_id', 'vote_type'];    
 
-    public function replyvote($replyid)
+    public function replyvote($answerid)
     {
-        return $this->where('answer_id','=',$replyid)->where('user_id','=',auth()->id())->get();
+        return $this->where('answer_id','=',$answerid)->where('user_id','=',auth()->id())->get();
     }
 }

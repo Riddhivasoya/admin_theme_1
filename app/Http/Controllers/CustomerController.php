@@ -61,7 +61,7 @@ class CustomerController extends Controller
 
         ]);
         // dump($input);
-        $input = $request->all();
+            $input = $request->all();
        // $input['profession']=$request->{'profession'};
 // dd($input);
            

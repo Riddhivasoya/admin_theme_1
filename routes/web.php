@@ -36,13 +36,15 @@ Route::get('/admin', function()
 //     }
      
 // });
+
 Auth::routes();
 Route::resource('customers', CustomerController::class);
 Route::resource('tags', TagsController::class);
-
+    
 Route::get('/questions/votes/{id?}', [App\Http\Controllers\QuestionController::class,'questioncastvote'])->name('questions.votes');
+Route::get('/answers/votes/{id?}', [App\Http\Controllers\QuestionController::class,'answercastvote'])->name('answers.votes');
 Route::resource('questions', QuestionController::class);
- // /vote-up/question/2
+ // /vote-up/question/2 
 Route::post('vote-up/{uptype}/{qid}',[App\Http\Controllers\QuestionController::class,'questionup']);
 Route::post('vote-down/{uptype}/{qid}',[App\Http\Controllers\QuestionController::class,'questiondown']);
 // Route::get('/search', [App\Http\Controllers\QuestionController::class, 'search'])->name('search');
@@ -63,4 +65,5 @@ Route::get('auth/linkedin', [App\Http\Controllers\Auth\AuthController::class,'re
 Route::get('auth/linkedin/callback', [App\Http\Controllers\Auth\AuthController::class,'handleLinkedinCallback']);
 
 
-Route::get('/answers/votes/{id?}', [App\Http\Controllers\QuestionController::class,'answercastvote'])->name('answers.votes');
+// Route::get('/answers/votes/{id?}', [App\Http\Controllers\QuestionController::class,'answercastvote'])->name('answers.votes');
+           

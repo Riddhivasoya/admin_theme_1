@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\Question;
-use App\Models\View as ModelView;
+use App\Models\View as ModelView;   
 use App\Models\Vote;
 use App\Models\User;
+use App\Models\Answer;
 use App\Models\AnswerVote;
 use App\Models\QuestionVote;
 use DB;
@@ -76,6 +77,7 @@ class QuestionController extends Controller
         ]);
         $input = $request->all();
         // dd($input);
+        
         $input['created_by'] = auth()->id();
         $question = Question::create($input);
         $question->tag()->attach($request->input('tag_id'));
@@ -91,11 +93,11 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Question $question)
+    public function show(Question $question,Answer $ans)
     {
 
-       
-        
+  
+        // dd($question->answer);
         $mvArr =array(
             'user_id'=>auth()->id(),
             'question_id'=>$question['id'],
@@ -110,10 +112,13 @@ class QuestionController extends Controller
 
 
         }
-        
+        // $ans = Answer::find($id);  
+        $ans=Answer::get()->pluck('id');
+        // dd($ans);
+        $ans= null;      
         $questionvotes = QuestionVote::where("question_id","=",$question['id'])->where("user_id","=",auth()->user()->id)->get();
-
-        return view('question.questionShow',compact('question','questionvotes'));
+        $answervotes = new AnswerVote; 
+        return view('question.questionShow',compact('question','ans','questionvotes','answervotes')); //
         
     }
 
@@ -155,7 +160,7 @@ class QuestionController extends Controller
     public function answercastvote(Request $request, $voteid=null)
     {
         //dd($voteid);
-        //dd($request->all());
+        dd($request->all());
         //return $request;        
         $request->validate([
             'question_id' => 'required',
@@ -181,7 +186,7 @@ class QuestionController extends Controller
         $answerdetails['count'] = $input['count'];
         $answerdetails->save();
 
-        return redirect()->view('question.questionShow',$request['question_id']);
+        return redirect()->route('questions.show',$request['question_id']);
     }
 
 
@@ -234,7 +239,8 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        if($question->created_by ==auth()->id()){     //this condition restrict user to maniplate URL
+        if($question->created_by ==auth()->id())//this condition restrict user to maniplate URL
+        {     
             $question->delete();
         return redirect()->route('questions.index')
         ->with('success','questions deleted successfully');

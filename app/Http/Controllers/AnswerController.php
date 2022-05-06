@@ -29,7 +29,7 @@ class AnswerController extends Controller
         $ans = Answer::where('id', $id)->firstOrFail();
         if($ans->created_by !== auth()->id())  //this condition restrict user to maniplate URL
         {    
-        abort('403');
+               abort('403');
         }
         return view('answer.edit',compact('ans'));
    }
@@ -41,14 +41,14 @@ class AnswerController extends Controller
         'answer'=>'required',          
         ]);
         $ans = Answer::where('id', $id)->firstOrFail();
-        if($ans->created_by !==auth()->id()){     //this condition restrict user to maniplate URL
-          abort('403');
+        if($ans->created_by !==auth()->id())
+        {     //this condition restrict user to maniplate URL
+               abort('403');
           }
         $input = $request->all();   
         $ans->update($input);
         return redirect()->route('questions.index',$id)
         ->with('success','Answer updated successfully.');
-
    }
 
    public function answerdelete($id)

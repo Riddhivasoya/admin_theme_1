@@ -13,6 +13,7 @@ class Answer extends Model
         'question_id',  
         'answer',
         'created_by',
+        'count',
 
     ];
     public function question()
@@ -23,4 +24,8 @@ class Answer extends Model
     {
         return $this->belongsTo(User::class,'created_by','id');
     }   
+    public function answervotes()
+    {
+        return $this->hasMany(AnswerVote::class);
+    }
 }

@@ -23,6 +23,4 @@ class Tag extends Model
             {
                 return $this->hasMany(Question::class, 'question_tag','question_id','tag_id');
             }
-            
-
 }
