@@ -43,6 +43,8 @@ Route::resource('tags', TagsController::class);
     
 Route::get('/questions/votes/{id?}', [App\Http\Controllers\QuestionController::class,'questioncastvote'])->name('questions.votes');
 Route::get('/answers/votes/{id?}', [App\Http\Controllers\QuestionController::class,'answercastvote'])->name('answers.votes');
+Route::post('accept-answer/{type}/{id}', [App\Http\Controllers\AnswerController::class, 'acceptAnswer'])->name('accept-answer');
+
 Route::resource('questions', QuestionController::class);
  // /vote-up/question/2 
 Route::post('vote-up/{uptype}/{qid}',[App\Http\Controllers\QuestionController::class,'questionup']);

@@ -1,5 +1,11 @@
 @extends('layouts.layout')
 @section('pagecontent')
+
+<style>
+    .button-clicked {
+    background:green;
+}
+</style>
 <div class="container-fluid px-4">
 <h1 class="mt-4">Review Question</h1>
                 <ol class="breadcrumb mb-4">
@@ -127,50 +133,75 @@
     <h1 class="s-page-title--header">Answer</h1>
     
 </div>
-<div class="d-flex my48">
-
-
-
-                      
+<div class="d-flex my48">               
 <div class="row">
         <div class="span6">
-    <div class="examples" id="answervotes"></div>
-    <div id="templates" class="hidden">
-        <div class="upvotejs">
-                    <a class="upvote" title="This is good stuff. Vote it up! (Click again to undo)"></a>
-                    <span class="count" title="Total number of votes"></span>                    
-                    <a class="downvote" title="This is not useful. Vote it down. (Click again to undo)"></a>                    
-                    <!-- <a class="star" title="Mark as favorite. (Click again to undo)"></a> -->
-            </div>
-        </div>
-        <div class="d-flex my48">
-
-
-                      
-<div class="row">
-        <div class="span6">
-    <div class="examples" id="answervotes"></div>
-    <div id="templates" class="hidden">
-        <div class="upvotejs">
-                    <a class="upvote" title="This is good stuff. Vote it up! (Click again to undo)"></a>
-                    <span class="count" title="Total number of votes"></span>                    
-                    <a class="downvote" title="This is not useful. Vote it down. (Click again to undo)"></a>                    
-                    <!-- <a class="star" title="Mark as favorite. (Click again to undo)"></a> -->
-            </div>
-        </div>
-        
-        
-            
+    <div class="examples" id="answervotes{{$ans->id}}"></div>
+    
+    
+        <script type="text/javascript">    
+                $(document).ready(function(){
+                    var params = [];
+                    params['vote_for'] = 'answer';
+                    params['url'] = @if(count($answervotes->replyvote($ans->id)))'{{ route("answers.votes", $answervotes->replyvote($ans->id)[0]->id) }}'@else'{{ route("answers.votes") }}'@endif;
+                    params['headers'] = {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')};        
+                    params['type'] = 'GET';
+                
+                    params['count'] = {{ $ans->count }};                                      
+                    params['data'] = {'question_id' : '{{ $question->id }}','answer_id' : '{{ $ans->id }}', 'user_id' : '{{ auth()->user()->id }}'};
+                    var callback = function(data) {
+                        data.question_id = params.data.question_id;
+                        data.answer_id = params.data.answer_id;
+                        data.user_id = params.data.user_id
+                        //data._method = 'PUT';
+                        $.ajax({                        
+                            url: params.url,
+                            headers: params.headers,
+                            type: params.type,
+                            data: data,
+                            success: function (data, status, xhr) {
+                                //$("#examples").load(location.href + " #examples > *");
+                                //$("#templates").load(location.href + " #templates > *");
+                                location.reload();
+                            },
+                        });
+                    };
+                    params['callback'] = callback;
+                    @if(count($answervotes->replyvote($ans->id)))
+                        @if($answervotes->replyvote($ans->id)[0]->vote_type=='upvote')
+                            params['upvoted'] = true;
+                        @elseif($answervotes->replyvote($ans->id)[0]->vote_type=='downvote')
+                            params['downvoted'] = true;
+                        @endif
+                    @endif
+                    $answerobj = initupvotejsobject('templates','upvotejs','{{ $ans->id }}','#answervotes{{ $ans->id }}','',params);
+                    //console.log($answerobj);
+                    //console.log($answerobj.upvote());
+                });    
+            </script>
+            <div class="ta-center">
+                
+            <button class=".s btn" id="button"> <svg  class="svg-icon iconCheckmarkLg" width="36" height="36" viewBox="0 0 36 36"><path d="m6 14 8 8L30 6v8L14 30l-8-8v-8Z"></path></svg> 
+</button>
+                </div>
+    </div>             
 </div>
 
-</div>
+
 
 
 <div class="s-post-summary">
-
+{{--dump($ans->id)--}}
     <div class="s-post-summary--content"> 
-        @if($question->created_by==auth()->id()) 
-    <button class="s-btn s-btn__outlined"  type="submit">Accept Answer</button>
+        @if($question->created_by == auth()->id()) 
+        <form action=" {{ url('accept-answer/{type}/{id}') }}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="question_id" value="{{ $question->id }}" />
+        <input type="hidden" name="answer_id" value="{{ $ans->id }}" />
+        <input  class="s-btn s-btn__outlined" type="submit" name="type" value="Accept" />
+        <!-- <input  class="s-btn s-btn__outlined" type="button" name="type" value="Un-Accept" /> -->
+    @csrf
+            @method('POST')
+    </form>
     @endif
     <p class="s-post-summary--content-excerpt">{!! $ans->answer !!}</p>
         <div class="s-post-summary--content-type">
@@ -195,7 +226,7 @@
  <a class="s-anchors s-anchors__default" href="{{ url('answers/'.$ans->id.'/edit') }}">Edit</a>
        <form action="{{ url('deleteanswer/'. $ans->id) }}" method="POST">
        <input name="_method" type="hidden" value="DELETE">
-           <button title="your question will be deleted permenantly "type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Delete</button>
+           <button title="your question will be deleted permenantly "type="submit" class="s-btn s-btn__outlined s-btn__danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Delete</button>
             @csrf
             @method('DELETE')
         </form>   
@@ -230,6 +261,13 @@
         </div>
 
 </form>
+
+<script>
+    $("#button").click(function() {
+  $("#button").addClass('button-clicked');
+});
+</script>
+
 <style type="text/css">
         <!--
         .hidden {

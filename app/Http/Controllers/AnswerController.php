@@ -34,6 +34,19 @@ class AnswerController extends Controller
         return view('answer.edit',compact('ans'));
    }
 
+   public function acceptAnswer(Request $request,$id)
+   {
+     
+     $input['answer_id'] = $request['answer_id'];
+
+     $input = Answer::find($input['answer_id']);
+     $input['type']=$request['type'];
+     $input->save();
+     return redirect()->route('questions.show',$input['question_id'])
+          ->with('success','Answer updated successfully.');
+    
+
+   }
 
    public function updateanswer(Request $request,$id)
    {

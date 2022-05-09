@@ -19,9 +19,13 @@
 
 <form id="search" class="s-topbar--searchbar" action="{{ route('questions.index') }}" method="GET" autocomplete="off">
 <div class="s-select">
-                    <select>
-                        <option value="asc">A-Z</option>
-                        <option value="des">Z-A</option>
+    
+    <input type="hidden" id="orderby" name="sort">
+                    <select id="ordering" >
+                        
+                    <option value="Slect" disabled>select sortng</option>
+                        <option value="asc" @if($sort == 'Asc') ? selected : null @endif >A-Z</option>
+                        <option value="desc" @if($sort == 'desc') ? selected : null @endif>Z-A</option>
                     </select>
                 </div>
                 <div class="s-topbar--searchbar--input-group">
@@ -142,5 +146,15 @@
 <p>
     Displaying {{$questions->count()}} of {{$questions->total()}} Questions(s).
 </p>
+<script>
+
+    $(document).ready(function()
+    {
+        $('#ordering').on("change",function(){
+            $('#orderby').val($(this).val())
+            $('#search').submit()
+        });
+    });
+</script>
 
 @endsection

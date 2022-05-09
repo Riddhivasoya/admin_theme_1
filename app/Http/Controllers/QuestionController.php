@@ -24,7 +24,14 @@ class QuestionController extends Controller
     public function index(Request $request)
     { 
         
-        $search = $request->input('search');      
+        $search = $request->input('search');  
+
+        $sort = $request->input('sort'); 
+        if($sort==null)
+        {
+            $sort="asc";
+        }
+        // dd($sort);
         $questions = Question::whereHas('createdby', function ($q) use ($search) {
         $q->where('name','like','%'.$search.'%')->orderBy('name');                                                                                                                                                                                                                  
         })
@@ -33,6 +40,7 @@ class QuestionController extends Controller
         })
         ->orwhere('title', 'LIKE', "%{$search}%")
         ->orWhere('body', 'LIKE', "%{$search}%")
+        ->orderBy('title',$sort)
         ->latest()->paginate(5);
         //dd($questions->pluck('name')); 
         // dd($search);
@@ -49,7 +57,7 @@ class QuestionController extends Controller
            
         // $questions=Question::latest()->paginate(5);
         
-        return view('question.index',compact('questions'));
+        return view('question.index',compact('questions','sort'));
     }
 
     /**
@@ -113,7 +121,7 @@ class QuestionController extends Controller
 
         }
         // $ans = Answer::find($id);  
-        $ans=Answer::get()->pluck('id');
+        // $ans=Answer::get()->pluck('id');
         // dd($ans);
         $ans= null;      
         $questionvotes = QuestionVote::where("question_id","=",$question['id'])->where("user_id","=",auth()->user()->id)->get();
@@ -157,11 +165,15 @@ class QuestionController extends Controller
         ->with('success','Questions updated successfully.');
     }
 
+
+
+    
     public function answercastvote(Request $request, $voteid=null)
     {
         //dd($voteid);
-        dd($request->all());
-        //return $request;        
+        // dd($request->all());
+        //return $request;   
+             
         $request->validate([
             'question_id' => 'required',
             'answer_id' => 'required',            
