@@ -36,15 +36,25 @@ class AnswerController extends Controller
 
    public function acceptAnswer(Request $request,$id)
    {
+
      
      $input['answer_id'] = $request['answer_id'];
-
+     
      $input = Answer::find($input['answer_id']);
      $input['type']=$request['type'];
+     dd($input);
      $input->save();
-     return redirect()->route('questions.show',$input['question_id'])
-          ->with('success','Answer updated successfully.');
-    
+      return response()->json(['success'=>'Status change successfully.']);
+
+     // return redirect()->route('questions.show',$input['question_id'])
+     //      ->with('success','Answer updated successfully.');
+// dd($request);
+     // $input = Answer::find($request->answer_id);
+   
+     //    $input->type = $request->type;
+     //    $input->save();
+     
+     //      return response()->json(['success'=>'Status change successfully.']);
 
    }
 
@@ -66,7 +76,6 @@ class AnswerController extends Controller
 
    public function answerdelete($id)
    {
-    
         $ans = Answer::where('id', $id)->firstOrFail();
         if($ans->created_by !==auth()->id()){     //this condition restrict user to maniplate URL
         abort('403');

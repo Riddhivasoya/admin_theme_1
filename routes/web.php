@@ -43,7 +43,7 @@ Route::resource('tags', TagsController::class);
     
 Route::get('/questions/votes/{id?}', [App\Http\Controllers\QuestionController::class,'questioncastvote'])->name('questions.votes');
 Route::get('/answers/votes/{id?}', [App\Http\Controllers\QuestionController::class,'answercastvote'])->name('answers.votes');
-Route::post('accept-answer/{type}/{id}', [App\Http\Controllers\AnswerController::class, 'acceptAnswer'])->name('accept-answer');
+// Route::get('accept-answer/{type}/{id}', [App\Http\Controllers\AnswerController::class, 'acceptAnswer'])->name('accept-answer');
 
 Route::resource('questions', QuestionController::class);
  // /vote-up/question/2 
@@ -55,6 +55,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Route::get('/create', [App\Http\Controllers\HomeController::class, 'create'])->name('create');
 Route::post('/store', [App\Http\Controllers\AnswerController::class, 'storeanswer'])->name('submit');
 Route::get('/answers/{id}/edit', [App\Http\Controllers\AnswerController::class, 'editanswer'])->name('answers');
+Route::post('accept-answer/{type}/{id}', [App\Http\Controllers\AnswerController::class, 'acceptAnswer'])->name('accept-answer');
 Route::put('/answersupdate/{id}',[App\Http\Controllers\AnswerController::class, 'updateanswer'])->name('answersupdate');
 Route::delete('/deleteanswer/{id}',[App\Http\Controllers\AnswerController::class, 'answerdelete'])->name('deleteanswer');
 // // Route::get('/create', [CustomerController::class, 'create'])->name('create');

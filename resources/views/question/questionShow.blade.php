@@ -181,8 +181,8 @@
             </script>
             <div class="ta-center">
                 
-            <button class=".s btn" id="button"> <svg  class="svg-icon iconCheckmarkLg" width="36" height="36" viewBox="0 0 36 36"><path d="m6 14 8 8L30 6v8L14 30l-8-8v-8Z"></path></svg> 
-</button>
+             <!--<button class=".s btn" id="button"> <svg  class="svg-icon iconCheckmarkLg" width="36" height="36" viewBox="0 0 36 36"><path d="m6 14 8 8L30 6v8L14 30l-8-8v-8Z"></path></svg> 
+            </button> -->
                 </div>
     </div>             
 </div>
@@ -193,21 +193,28 @@
 <div class="s-post-summary">
 {{--dump($ans->id)--}}
     <div class="s-post-summary--content"> 
-        @if($question->created_by == auth()->id()) 
-        <form action=" {{ url('accept-answer/{type}/{id}') }}" method="POST" enctype="multipart/form-data">
+        {{--@if($question->created_by == auth()->id()) 
+        <form action=" {{ route('accept-answer',['type' =>'Accept', 'id' => $ans->id]) }}" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="question_id" value="{{ $question->id }}" />
         <input type="hidden" name="answer_id" value="{{ $ans->id }}" />
-        <input  class="s-btn s-btn__outlined" type="submit" name="type" value="Accept" />
-        <!-- <input  class="s-btn s-btn__outlined" type="button" name="type" value="Un-Accept" /> -->
-    @csrf
-            @method('POST')
+        <input  class="s-btn s-btn__outlined" type="submit" name="type" value="Accept" /> 
+
+        @csrf
+        @method('POST')
+        
     </form>
+    @endif--}}
+   @if($question->created_by == auth()->id()) 
+
+    <input id="$ans->id" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Accept" data-off="UnAccept" {{ $ans->type ? '' : 'checked' }}> 
+   
     @endif
+
     <p class="s-post-summary--content-excerpt">{!! $ans->answer !!}</p>
         <div class="s-post-summary--content-type">
         <div class="s-user-card s-user-card__minimal">
-    <a href="…" class="s-avatar s-user-card--avatar">
-        <img class="s-avatar--image" src="…" />
+    <a href="#" class="s-avatar s-user-card--avatar">
+        <img class="s-avatar--image" src="#" />
     </a>
     
 </div>
@@ -224,9 +231,9 @@
 
       @if($ans->created_by ==auth()->id())      
  <a class="s-anchors s-anchors__default" href="{{ url('answers/'.$ans->id.'/edit') }}">Edit</a>
-       <form action="{{ url('deleteanswer/'. $ans->id) }}" method="POST">
+    <form action="{{ url('deleteanswer/'. $ans->id) }}" method="POST">
        <input name="_method" type="hidden" value="DELETE">
-           <button title="your question will be deleted permenantly "type="submit" class="s-btn s-btn__outlined s-btn__danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Delete</button>
+           <button title="your question will be deleted permenantly" type="submit" class="s-btn s-btn__outlined s-btn__danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Delete</button>
             @csrf
             @method('DELETE')
         </form>   
@@ -261,13 +268,31 @@
         </div>
 
 </form>
-
+{{--dd($question->answer)--}}
+{{--dd($ans)--}}
 <script>
     $("#button").click(function() {
   $("#button").addClass('button-clicked');
 });
 </script>
-
+<script>    
+   $(document).ready(function(){ 
+        $('.toggle-class').change(function() {
+            var type = $(this).prop('checked') == true ? Accept : Un-Accept;  
+            var answer_id = $(this).data('$ans->id'); 
+            var question_id=$(this).data('$question->id') ;
+            $.ajax({ 
+                type: "POST", 
+                dataType: "json", 
+                url: "{{ route('accept-answer',['type' =>'Accept', 'id' => $ans->id]) }}", 
+                data: {'question_id' : '{{ $question->id }}','type': type, 'answer_id': "$ans->id"}, 
+                success: function(data){ 
+                console.log(data.success) 
+                } 
+            }); 
+        }); 
+   }); 
+</script>
 <style type="text/css">
         <!--
         .hidden {

@@ -18,9 +18,11 @@
 <header class="s-topbar">
 
 <form id="search" class="s-topbar--searchbar" action="{{ route('questions.index') }}" method="GET" autocomplete="off">
+
 <div class="s-select">
-    
+
     <input type="hidden" id="orderby" name="sort">
+    
                     <select id="ordering" >
                         
                     <option value="Slect" disabled>select sortng</option>

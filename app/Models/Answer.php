@@ -14,6 +14,7 @@ class Answer extends Model
         'answer',
         'created_by',
         'count',
+        'type',
 
     ];
     public function question()
