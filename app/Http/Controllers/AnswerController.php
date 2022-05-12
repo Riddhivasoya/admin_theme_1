@@ -42,7 +42,8 @@ class AnswerController extends Controller
      
      $input = Answer::find($input['answer_id']);
      $input['type']=$request['type'];
-     dd($input);
+     
+     // dd($input);
      $input->save();
       return response()->json(['success'=>'Status change successfully.']);
 

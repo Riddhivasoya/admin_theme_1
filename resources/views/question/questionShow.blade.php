@@ -186,10 +186,6 @@
                 </div>
     </div>             
 </div>
-
-
-
-
 <div class="s-post-summary">
 {{--dump($ans->id)--}}
     <div class="s-post-summary--content"> 
@@ -206,8 +202,35 @@
     @endif--}}
    @if($question->created_by == auth()->id()) 
 
-    <input id="$ans->id" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Accept" data-off="UnAccept" {{ $ans->type ? '' : 'checked' }}> 
-   
+    <input  data-id="$ans->id" id="textbox1" class="toggle-class" type="checkbox"  data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Accept" data-off="UnAccept" {{ $ans->type ? '' : 'checked' }}> 
+
+    
+            
+    <script>    
+  $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+   $(document).ready(function(){
+        $('.toggle-class ').change(function() { alert("true")
+            var type = $(this).prop('checked') == true ? Accept : Un-Accept;  
+            var answer_id = $(this).data('$ans->id'); 
+            var question_id=$(this).data('$question->id') ;
+            var headers= {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')};
+                                
+            $.ajax({ 
+                type: "POST", 
+                dataType: "json", 
+                url: "{{ route('accept-answer',['type' =>'Accept', 'id' => $ans->id]) }}", 
+                data: {'headers':'{{ csrf_token() }}','question_id' : '{{ $question->id }}', 'type': type, 'answer_id': "$ans->id"}, 
+                success: function(data){ 
+                console.log(data.success) 
+                } 
+            }); 
+        }); 
+});
+</script>
     @endif
 
     <p class="s-post-summary--content-excerpt">{!! $ans->answer !!}</p>
@@ -275,24 +298,7 @@
   $("#button").addClass('button-clicked');
 });
 </script>
-<script>    
-   $(document).ready(function(){ 
-        $('.toggle-class').change(function() {
-            var type = $(this).prop('checked') == true ? Accept : Un-Accept;  
-            var answer_id = $(this).data('$ans->id'); 
-            var question_id=$(this).data('$question->id') ;
-            $.ajax({ 
-                type: "POST", 
-                dataType: "json", 
-                url: "{{ route('accept-answer',['type' =>'Accept', 'id' => $ans->id]) }}", 
-                data: {'question_id' : '{{ $question->id }}','type': type, 'answer_id': "$ans->id"}, 
-                success: function(data){ 
-                console.log(data.success) 
-                } 
-            }); 
-        }); 
-   }); 
-</script>
+
 <style type="text/css">
         <!--
         .hidden {

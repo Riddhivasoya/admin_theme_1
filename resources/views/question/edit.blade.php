@@ -33,7 +33,7 @@
              </div> 
              <div class="col-xs-12 col-sm-12 col-md-12"> 
              <div class="form-group">
-            <?php $dbtag= $question->tag->pluck('id')->toArray()?>
+             <?php $dbtag= $question->tag->pluck('id')->toArray()?>
              <label for="tag_name"><strong>Select Tags <span class="text-danger">*</span></strong></label> 
              <select  class="js-example-basic-multiple form-control" name="tag_id[]" multiple="multiple" required>
              <option value="" disabled>Select tag</option>

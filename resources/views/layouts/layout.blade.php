@@ -18,10 +18,10 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         <!-- Upvote Down--->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="{{ asset( 'dist/upvotejs/upvotejs.css' )}}">
         <script src="{{asset('dist/upvotejs/upvotejs.jquery.js')}}"></script>
         <script src="{{asset('dist/upvotejs/upvotejs.vanilla.js')}}"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
         <!--stackoverflow-->
         <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
