@@ -20,7 +20,7 @@
 <form id="search" class="s-topbar--searchbar" action="{{ route('questions.index') }}" method="GET" autocomplete="off">
 
 <div class="s-select">
-
+{{--dd($_REQUEST)--}} 
     <input type="hidden" id="orderby" name="sort">
     
                     <select id="ordering" >
@@ -31,12 +31,26 @@
                     </select>
                 </div>
                 <div class="s-topbar--searchbar--input-group">
+           
+      
 <input class="s-input s-input__search"  type="text" name="search" placeholder="Search....." value="{!! request('search') !!}" />
-                </div>
+  
+</div>
+
     </form>
 
     <ol class="s-topbar--content"></ol>
 </header>
+<script>
+
+    $(document).ready(function()
+    {
+        $('#ordering').on("change",function(){
+            $('#orderby').val($(this).val())
+            $('#search').submit()
+        });
+    });
+</script>
 <!--create Question Start---->
 <ol class="breadcrumb mb-4">
                 </ol>
@@ -84,11 +98,10 @@
         </div>
         <h3 class="s-post-summary--content-title">
             <a title="{{$question->title}}" href="{{ route('questions.show',$question->id) }}" class="s-link">{{$question->title}}</a>
- 
         </h3>
       <!-- <details> -->
           <!-- <summary>Click here</summary> -->
-        <p class="s-post-summary--content-excerpt ">{!! Str::limit($question->body,100) !!}</p>
+        <p class="s-post-summary--content-excerpt"> {!! Str::limit($question->body,100) !!} </p>
         <!-- </details> -->
         <div class="s-post-summary--meta">
             <div class="s-post-summary--meta-tags">
@@ -148,15 +161,6 @@
 <p>
     Displaying {{$questions->count()}} of {{$questions->total()}} Questions(s).
 </p>
-<script>
 
-    $(document).ready(function()
-    {
-        $('#ordering').on("change",function(){
-            $('#orderby').val($(this).val())
-            $('#search').submit()
-        });
-    });
-</script>
 
 @endsection

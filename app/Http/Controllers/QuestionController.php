@@ -23,6 +23,7 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     { 
+
         
         $search = $request->input('search');  
 
@@ -52,8 +53,7 @@ class QuestionController extends Controller
             // ->orWhere('created_by', 'LIKE', "%{$questions}%")
             // ->latest()->paginate(5);
         //    ->get();
-        //    dd($questions->createdby());
-          
+        
            
         // $questions=Question::latest()->paginate(5);
         
@@ -159,10 +159,10 @@ class QuestionController extends Controller
         if($question->created_by !==auth()->id()){     //this condition restrict user to maniplate URL
             abort('403');
         }
-        $question->update($input);
-        $question->tag()->sync($request->input('tag_id'));
-        return redirect()->route('questions.index')
-        ->with('success','Questions updated successfully.');
+            $question->update($input);
+            $question->tag()->sync($request->input('tag_id'));
+            return redirect()->route('questions.index')
+            ->with('success','Questions updated successfully.');
     }
 
 

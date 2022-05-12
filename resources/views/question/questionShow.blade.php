@@ -202,18 +202,37 @@
     @endif--}}
    @if($question->created_by == auth()->id()) 
 
-    <input  data-id="$ans->id" id="textbox1" class="toggle-class" type="checkbox"  data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Accept" data-off="UnAccept" {{ $ans->type ? '' : 'checked' }}> 
-
+    <input  data-id="$ans->id" id="togglechkbox{{ $ans->id }}" class="toggle-class" type="checkbox"  data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Accept" data-off="UnAccept"  {{ $ans->type ? '' : 'checked' }}>  {{--onchange="onclickcheckbox();"--}}
     
-            
-    <script>    
-  $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    <!-- <script>
+ 
+        function onclickcheckbox()
+        {    
+            alert($("#togglechkbox{{ $ans->id }}").is(':checked'));         
+            var type = $("#togglechkbox{{ $ans->id }}").bootstrapToggle('on') == true ? "Accept" : "Un-Accept";
+            alert(type);             
+            var answer_id = $("#togglechkbox{{ $ans->id }}").data('$ans->id'); 
+            var question_id=$("#togglechkbox{{ $ans->id }}").data('$question->id') ;
+            var headers= {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')};
+                                
+            $.ajax({ 
+                type: "POST", 
+                dataType: "json", 
+                url: "{{ route('accept-answer',['type' =>'Accept', 'id' => $ans->id]) }}", 
+                data: {'headers':'{{ csrf_token() }}','question_id' : '{{ $question->id }}', 'type': type, 'answer_id': "$ans->id"}, 
+                success: function(data){ 
+                    console.log(data.success) 
+                } 
+            });
         }
-    });
-   $(document).ready(function(){
-        $('.toggle-class ').change(function() { alert("true")
+    </script>
+     -->
+    <script> 
+       
+  
+//    $(document).ready(function(){alert("true")
+    $(function() {
+        $('.toggle-class').change(function() { alert("true")
             var type = $(this).prop('checked') == true ? Accept : Un-Accept;  
             var answer_id = $(this).data('$ans->id'); 
             var question_id=$(this).data('$question->id') ;
