@@ -54,8 +54,10 @@ Route::post('vote-down/{uptype}/{qid}',[App\Http\Controllers\QuestionController:
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/create', [App\Http\Controllers\HomeController::class, 'create'])->name('create');
 Route::post('/store', [App\Http\Controllers\AnswerController::class, 'storeanswer'])->name('submit');
-Route::get('/answers/{id}/edit', [App\Http\Controllers\AnswerController::class, 'editanswer'])->name('answers');
-Route::post('accept-answer/{type}/{id}', [App\Http\Controllers\AnswerController::class, 'acceptAnswer'])->name('accept-answer');
+Route::post('/answers/{id}/edit', [App\Http\Controllers\AnswerController::class, 'editanswer'])->name('answers');
+// Route::post('accept-answer/{type}/{id}', [App\Http\Controllers\AnswerController::class, 'acceptAnswer'])->name('accept-answer');
+Route::post('accept-answer/{id}', [App\Http\Controllers\AnswerController::class, 'acceptAnswer'])->name('accept-answer');
+
 Route::put('/answersupdate/{id}',[App\Http\Controllers\AnswerController::class, 'updateanswer'])->name('answersupdate');
 Route::delete('/deleteanswer/{id}',[App\Http\Controllers\AnswerController::class, 'answerdelete'])->name('deleteanswer');
 // // Route::get('/create', [CustomerController::class, 'create'])->name('create');

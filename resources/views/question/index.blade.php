@@ -26,8 +26,8 @@
                     <select id="ordering" >
                         
                     <option value="Slect" disabled>select sortng</option>
-                        <option value="asc" @if($sort == 'Asc') ? selected : null @endif >A-Z</option>
-                        <option value="desc" @if($sort == 'desc') ? selected : null @endif>Z-A</option>
+                        <option value="asc" @if($sort == 'Asc') ? selected : "" @endif >A-Z</option>
+                        <option value="desc" @if($sort == 'desc') ? selected : "" @endif>Z-A</option>
                     </select>
                 </div>
                 <div class="s-topbar--searchbar--input-group">
@@ -45,7 +45,7 @@
 
     $(document).ready(function()
     {
-        $('#ordering').on("change",function(){
+        $('#ordering').on("change",function(){                                          // for id #
             $('#orderby').val($(this).val())
             $('#search').submit()
         });
@@ -109,8 +109,6 @@
                 <a class="s-tag" href="#">{{$tag->tag_name}}</a>
                @endforeach
             </div>
-    
-
 
             <div class="s-user-card s-user-card__minimal">
                 <a href="" class="s-avatar s-user-card--avatar">

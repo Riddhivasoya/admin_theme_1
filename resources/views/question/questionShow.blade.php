@@ -1,10 +1,10 @@
 @extends('layouts.layout')
 @section('pagecontent')
 
-<style>
+<!-- <style>
     .button-clicked {
     background:green;
-}
+} -->
 </style>
 <div class="container-fluid px-4">
 <h1 class="mt-4">Review Question</h1>
@@ -202,8 +202,16 @@
     @endif--}}
    @if($question->created_by == auth()->id()) 
 
-    <input  data-id="$ans->id" id="togglechkbox{{ $ans->id }}" class="toggle-class" type="checkbox"  data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Accept" data-off="UnAccept"  {{ $ans->type ? '' : 'checked' }}>  {{--onchange="onclickcheckbox();"--}}
-    
+
+   <div class="toggle-btn">
+   <button  data-answer="{{ $ans->id }}" data-question="{{ $question->id }}"  class="toggle-class-data btn btn-primary">
+       {{ $ans->type }}
+   </button>
+   </div>
+   
+   @endif
+    <!-- <input  data-id="$ans->id" id="togglechkbox{{ $ans->id }}" class="toggle-class" type="checkbox"  data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Accept" data-off="UnAccept"  {{ $ans->type ? '' : 'checked' }}>  {{--onchange="onclickcheckbox();"--}} -->
+
     <!-- <script>
  
         function onclickcheckbox()
@@ -227,10 +235,9 @@
         }
     </script>
      -->
-    <script> 
+    <!-- <script>  -->
        
-  
-//    $(document).ready(function(){alert("true")
+  <!-- $(document).ready(function(){alert("true")
     $(function() {
         $('.toggle-class').change(function() { alert("true")
             var type = $(this).prop('checked') == true ? Accept : Un-Accept;  
@@ -249,8 +256,8 @@
             }); 
         }); 
 });
-</script>
-    @endif
+</script> -->
+ 
 
     <p class="s-post-summary--content-excerpt">{!! $ans->answer !!}</p>
         <div class="s-post-summary--content-type">
@@ -312,10 +319,40 @@
 </form>
 {{--dd($question->answer)--}}
 {{--dd($ans)--}}
-<script>
+<!-- <script>
     $("#button").click(function() {
   $("#button").addClass('button-clicked');
 });
+</script> -->
+
+
+<script>
+    
+$(document).on('click','.toggle-class-data', function(){ //alert('{{$ans->type}}');
+var $this = $(this),
+
+        answerId = $this.attr('data-answer'),
+        questionId =  $this.attr('data-question'),
+        urlMain = "{{ route('accept-answer',':id') }}",
+        url = urlMain.replace(':id', answerId);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({ 
+                type: "POST", 
+                dataType: "json", 
+                //url: "{{ route('accept-answer',['type' =>'Accept', 'id' => $ans->id]) }}", 
+                url:url,
+                data: {'question_id' : questionId, 'answer_id': answerId}, 
+                success: function(data){ 
+                    // console.log(data.success);
+                    $this.html(data.type);
+                } 
+            }); 
+});
+
 </script>
 
 <style type="text/css">
