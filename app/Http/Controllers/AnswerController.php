@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use App\Models\Question;
 use App\Models\Answer;
+use Exception;
 use DB;
 
 use Illuminate\Http\Request;
@@ -12,14 +13,20 @@ class AnswerController extends Controller
 {
    public function storeanswer(Request $request) 
    {
+     try {
         $request->validate([
             'answer' => 'required',                
         ]);
-        $input = $request->all();// dd($input);
+        $input  = $request->all();// dd($input);
         $input['created_by'] = auth()->id();
         $answers=Answer::create($input);// dd($input);
         return redirect()->route('questions.show',$input['question_id'])
         ->with('success','Answer updated successfully.');
+     }
+     catch (\Exception $e) {
+
+          dd("something wrong");
+      }
    }
 
    public function editanswer($id)
