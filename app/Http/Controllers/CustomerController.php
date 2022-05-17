@@ -6,6 +6,8 @@ use App\Models\Customer;
 use App\Models\Mobile;
 use DB;
 use Illuminate\Http\Request;
+use App\Http\Requests\CustomerRequest;
+
 
 class CustomerController extends Controller
 {
@@ -44,53 +46,21 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
-        $request->validate([    
+       
 
-            'first_name'=>'required|max:20',
-            'last_name'=>'required|max:25',
-            'birthdate'=>'required',
-            'email'=>'required|string|email|max:255|unique:customers',
-            'address'=>'required    ',
-            'gender'=>'required',
-            'hobby'=>'required',
-            'mobile'=>'required|digits:10|numeric',
-            'image'=>'required|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
-           
-
-        ]);
-        // dump($input);
             $input = $request->all();
-       // $input['profession']=$request->{'profession'};
-// dd($input);
-           
-        $input['hobby']=implode(",",$request->hobby);
-        //dd($input);
-    //     if($image = $request->file('image')) {
-    //         $destinationPath = 'customer_image/';
-    //         $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-    //         $image->move($destinationPath, $profileImage);
-    //         $input['image'] = "$profileImage";
-    //     }
-    //   $profileImage= $request->image;
-      if($image = $request->file('image')) {
-        $input['image'] = insert_image($image);
-        }
-        // dd($input);
-    //    $input['image'] = "$profileImage";
-    // dd($input);
-    // Customer::create($input); only for input
-        $customer=Customer::create($input);  // this is for join  $customer is object(variable)
-        // dd($customer);
-        $input['customer_id']=$customer->id;// pass krava mate $input 
-        // // dd($input);  
-        Mobile::create($input);
-        // $input['mobile'] = Mobile::create($input);
-        // dd($input);
-        // Post::create($input);
-        return redirect()->route('customers.index')
-                        ->with('success','customer created successfully.');
+            $input['hobby']=implode(",",$request->hobby);
+            if($image = $request->file('image')) 
+            {
+                $input['image'] = insert_image($image);
+            }
+            $customer=Customer::create($input);  // this is for join  $customer is object(variable)
+            $input['customer_id']=$customer->id;// pass krava mate $input  
+            Mobile::create($input);
+            return redirect()->route('customers.index')
+            ->with('success','customer created successfully.');
     }
 
     /**
@@ -113,9 +83,7 @@ class CustomerController extends Controller
     public function edit(Customer $customer)
     {
         $customer['hobby']=explode(",",$customer['hobby']);
-        //    dd(date('d-m-Y',strtotime($customer['birthdate'])));
-        //    $customer['birthday']=date('d-m-Y',strtotime($customer['birthdate']));
-            return view('customers.add_edit',compact('customer'));
+        return view('customers.add_edit',compact('customer'));
     }
 
     /**
@@ -125,53 +93,29 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(CustomerRequest $request, Customer $customer)
     {
-        $request->validate([
-
-            'first_name'=>'required',
-            'last_name'=>'required',
-            'birthdate'=>'required',
-            'email'=>'required|email|unique:customers,email,'.$customer->id,
-            'address'=>'required',
-            'gender'=>'required',
-            'hobby'=>'required',
-            'mobile'=>'required|digits:10|numeric',
-            // 'title'=>'required',
-            // 'description'=>'required',
-            'image'=>'sometimes',
-            
-
-        ]);
-        $input = $request->all();
        
-            // dump($input);
-            // dd($input->Customer);
-
+        $input = $request->all();
         $input['hobby']=implode(",",$request->hobby);
-        // dd($input);
-            if ($image = $request->file('image')) {
+        if ($image = $request->file('image')) {
             $destinationPath = 'customer_image/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             //$customer = Customer::find($customer->id);           
             unlink("customer_image/".$input['old_image']);
             $image->move($destinationPath, $profileImage);
             $input['image'] = "$profileImage";
-        }else{
+        }  
+        else
+        {
             unset($input['image']);
         }
-        $customer->update($input);
-
-        // dd($customer);   
+        $customer->update($input);  
         $input['customer_id']=$customer->id;
-        // dd($customer->mobile);
         $mobile=$customer->mobile;
-       
         $mobile->update($input);
-        // $input= Mobile::create($customer);
-        // dd($input);
         return redirect()->route('customers.index')
-                        ->with('success','customer updated successfully');
+        ->with('success','customer updated successfully');
     }
 
     /**
@@ -180,18 +124,11 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
-    {
-        //$customer = Customer::find($id);
-        // dd($customer);
-
+        public function destroy(Customer $customer)
+        {
         unlink("customer_image/".$customer->image);
-      
-        //Customer::where("id", $customer->id)->delete();
-       
-          
         $customer->delete();
         return redirect()->route('customers.index')
-                    ->with('success','Customer deleted successfully');
+        ->with('success','Customer deleted successfully');
     }
 }

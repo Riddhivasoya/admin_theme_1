@@ -33,21 +33,21 @@
         </div>
           
 </div>
-
+{{--dd($tags)--}}
 <div class="col-xs-12 col-sm-12 col-md-12"> 
-             <div class="form-group">
+             
             
              <label for="tag_name"><strong>Select Tags <span class="text-danger">*</span></strong></label> 
              <select  class="js-example-basic-multiple form-control" name="tag_id[]" multiple="multiple" required>
              <option value="" disabled>Select tag</option>
-             
+
             @foreach($tags as $tag=> $tag_id)
         
-          <option value="{{$tag_id}}" >{{$tag}}</option>
+          <option value="{{$tag_id}}" >{{ $tag }}</option>
 
             @endforeach
             </select>
-    </div>
+
     </div>
     <ol class="breadcrumb mb-4">
 </ol>

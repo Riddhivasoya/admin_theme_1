@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class AnswerController extends Controller
 {
-   public function storeanswer(Request $request) 
+   public function storeAnswer(Request $request) 
    {
      try {
         $request->validate([
@@ -29,7 +29,7 @@ class AnswerController extends Controller
       }
    }
 
-   public function editanswer($id)
+   public function editAnswer($id)
    {
                 // $input=$request->all();
                 // dd($request->toArray);
@@ -67,7 +67,7 @@ class AnswerController extends Controller
 
   
 
-   public function updateanswer(Request $request,$id)
+   public function updateAnswer(Request $request,$id)
    {
         $request->validate([
         'answer'=>'required',          
@@ -83,7 +83,7 @@ class AnswerController extends Controller
         ->with('success','Answer updated successfully.');
    }
 
-   public function answerdelete($id)
+   public function answerDelete($id)
    {
         $ans = Answer::where('id', $id)->firstOrFail();
         if($ans->created_by !==auth()->id()){     //this condition restrict user to maniplate URL

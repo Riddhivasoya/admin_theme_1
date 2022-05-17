@@ -3,7 +3,7 @@
 <style>
         label.error {
             color: #dc3545;
-            font-size: 20px;
+            font-size: 14px;
         }
     </style>
 <div class="container-fluid px-4">
@@ -125,5 +125,5 @@
     </div>
    
          
-         <script src="{{ asset('Jquery/crud_validation.js') }}?t={{time()}}"></script>
+         <!-- <script src="{{ asset('Jquery/crud_validation.js') }}?t={{time()}}"></script> -->
 @endsection

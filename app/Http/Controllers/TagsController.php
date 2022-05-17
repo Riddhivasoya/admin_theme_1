@@ -82,7 +82,7 @@ class TagsController extends Controller
         $input=$request->all(); 
         $tag->update($input);
         return redirect()->route('tags.index')
-                        ->with('success','Tags updated successfully.');
+        ->with('success','Tags updated successfully.');
     }
 
     /**
@@ -95,6 +95,6 @@ class TagsController extends Controller
     {
         $tag->delete();
         return redirect()->route('tags.index')
-                    ->with('success','Tags deleted successfully');
+        ->with('success','Tags deleted successfully');
     }
 }

@@ -66,7 +66,7 @@
         <script src="//cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
 
         <!--Custom jquery for add-edit--->
-        <script type="text/javascript" src="{{ asset('Jquery/crud_validation.js') }}?t={{time()}}"></script>
+        <!-- <script type="text/javascript" src="{{ asset('Jquery/crud_validation.js') }}?t={{time()}}"></script> -->
         <script type="text/javascript" src="{{ asset('Jquery/select2.js') }}?t={{time()}}"></script>
         
         <!--select tag---->

@@ -56,7 +56,7 @@ $(document).ready(function () {
 
         messages: {
             first_name: {
-                required: "First name is required",
+                required: "First name is required ",
                 maxlength: "First name cannot be more than 20 characters",
             },
             last_name: {

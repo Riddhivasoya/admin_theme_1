@@ -103,8 +103,6 @@ class QuestionController extends Controller
      */
     public function show(Question $question,Answer $ans)
     {
-
-  
         // dd($question->answer);
         $mvArr =array(
             'user_id'=>auth()->id(),
@@ -168,7 +166,7 @@ class QuestionController extends Controller
 
 
     
-    public function answercastvote(Request $request, $voteid=null)
+    public function answerCastVote(Request $request, $voteid=null)
     {
         //dd($voteid);
         // dd($request->all());
@@ -202,7 +200,7 @@ class QuestionController extends Controller
     }
 
 
-    public function questioncastvote(Request $request, $voteid=null)
+    public function questionCastVote(Request $request, $voteid=null)
     {
         //dd($voteid);
         //dd($request->all());
