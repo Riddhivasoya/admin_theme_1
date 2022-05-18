@@ -36,46 +36,6 @@
                     <!-- <a class="star" title="Mark as favorite. (Click again to undo)"></a> -->
             </div>
         </div>
-        
-        <script type="text/javascript">    
-                $(document).ready(function(){
-                    var params = [];
-                    params['vote_for'] = 'question';
-                    params['url'] = @if(count($questionvotes))'{{ route("questions.votes", $questionvotes[0]->id) }}'@else'{{ route("questions.votes") }}'@endif;
-                    params['headers'] = {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')};        
-                    params['type'] = 'GET';
-                
-                    params['count'] = {{ $question->count }};                                      
-                    params['data'] = {'question_id' : '{{ $question->id }}', 'user_id' : '{{ auth()->user()->id }}'};
-                    var callback = function(data) {
-                        data.question_id = params.data.question_id;
-                        data.user_id = params.data.user_id
-                        //data._method = 'PUT';
-                        $.ajax({                        
-                            url: params.url,
-                            headers: params.headers,
-                            type: params.type,
-                            data: data,
-                            success: function (data, status, xhr) {
-                                //$("#examples").load(location.href + " #examples > *");
-                                //$("#templates").load(location.href + " #templates > *");
-                                location.reload();
-                            },
-                        });
-                    };
-                    params['callback'] = callback;
-                    @if(count($questionvotes))
-                        @if($questionvotes[0]->vote_type=='upvote')
-                            params['upvoted'] = true;
-                        @elseif($questionvotes[0]->vote_type=='downvote')
-                            params['downvoted'] = true;
-                        @endif
-                    @endif
-                    $questionobj = initupvotejsobject('templates','upvotejs','{{ $question->id }}','#questionvotes','',params);
-                    //console.log($questionobj);
-                    //console.log($questionobj.upvote());
-                });    
-            </script>
     </div>             
 </div>
 
@@ -201,64 +161,13 @@
     </form>
     @endif--}}
    @if($question->created_by == auth()->id()) 
-
-
    <div class="toggle-btn">
    <button  data-answer="{{ $ans->id }}" data-question="{{ $question->id }}"  class="toggle-class-data btn btn-primary">
-       {{ $ans->type }}
+     {{ $ans->type }}
    </button>
    </div>
    
    @endif
-    <!-- <input  data-id="$ans->id" id="togglechkbox{{ $ans->id }}" class="toggle-class" type="checkbox"  data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Accept" data-off="UnAccept"  {{ $ans->type ? '' : 'checked' }}>  {{--onchange="onclickcheckbox();"--}} -->
-
-    <!-- <script>
- 
-        function onclickcheckbox()
-        {    
-            alert($("#togglechkbox{{ $ans->id }}").is(':checked'));         
-            var type = $("#togglechkbox{{ $ans->id }}").bootstrapToggle('on') == true ? "Accept" : "Un-Accept";
-            alert(type);             
-            var answer_id = $("#togglechkbox{{ $ans->id }}").data('$ans->id'); 
-            var question_id=$("#togglechkbox{{ $ans->id }}").data('$question->id') ;
-            var headers= {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')};
-                                
-            $.ajax({ 
-                type: "POST", 
-                dataType: "json", 
-                url: "{{ route('accept-answer',['type' =>'Accept', 'id' => $ans->id]) }}", 
-                data: {'headers':'{{ csrf_token() }}','question_id' : '{{ $question->id }}', 'type': type, 'answer_id': "$ans->id"}, 
-                success: function(data){ 
-                    console.log(data.success) 
-                } 
-            });
-        }
-    </script>
-     -->
-    <!-- <script>  -->
-       
-  <!-- $(document).ready(function(){alert("true")
-    $(function() {
-        $('.toggle-class').change(function() { alert("true")
-            var type = $(this).prop('checked') == true ? Accept : Un-Accept;  
-            var answer_id = $(this).data('$ans->id'); 
-            var question_id=$(this).data('$question->id') ;
-            var headers= {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')};
-                                
-            $.ajax({ 
-                type: "POST", 
-                dataType: "json", 
-                url: "{{ route('accept-answer',['type' =>'Accept', 'id' => $ans->id]) }}", 
-                data: {'headers':'{{ csrf_token() }}','question_id' : '{{ $question->id }}', 'type': type, 'answer_id': "$ans->id"}, 
-                success: function(data){ 
-                console.log(data.success) 
-                } 
-            }); 
-        }); 
-});
-</script> -->
- 
-
     <p class="s-post-summary--content-excerpt">{!! $ans->answer !!}</p>
         <div class="s-post-summary--content-type">
         <div class="s-user-card s-user-card__minimal">
@@ -354,7 +263,45 @@ var $this = $(this),
 });
 
 </script>
-
+<script type="text/javascript">    
+                $(document).ready(function(){
+                    var params = [];
+                    params['vote_for'] = 'question';
+                    params['url'] = @if(count($questionvotes))'{{ route("questions.votes", $questionvotes[0]->id) }}'@else'{{ route("questions.votes") }}'@endif;
+                    params['headers'] = {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')};        
+                    params['type'] = 'GET';
+                
+                    params['count'] = {{ $question->count }};                                      
+                    params['data'] = {'question_id' : '{{ $question->id }}', 'user_id' : '{{ auth()->user()->id }}'};
+                    var callback = function(data) {
+                        data.question_id = params.data.question_id;
+                        data.user_id = params.data.user_id
+                        //data._method = 'PUT';
+                        $.ajax({                        
+                            url: params.url,
+                            headers: params.headers,
+                            type: params.type,
+                            data: data,
+                            success: function (data, status, xhr) {
+                                //$("#examples").load(location.href + " #examples > *");
+                                //$("#templates").load(location.href + " #templates > *");
+                                location.reload();
+                            },
+                        });
+                    };
+                    params['callback'] = callback;
+                    @if(count($questionvotes))
+                        @if($questionvotes[0]->vote_type=='upvote')
+                            params['upvoted'] = true;
+                        @elseif($questionvotes[0]->vote_type=='downvote')
+                            params['downvoted'] = true;
+                        @endif
+                    @endif
+                    $questionobj = initupvotejsobject('templates','upvotejs','{{ $question->id }}','#questionvotes','',params);
+                    //console.log($questionobj);
+                    //console.log($questionobj.upvote());
+                });    
+            </script>
 <style type="text/css">
         <!--
         .hidden {

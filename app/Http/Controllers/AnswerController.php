@@ -13,59 +13,48 @@ class AnswerController extends Controller
 {
    public function storeAnswer(Request $request) 
    {
-     try {
-        $request->validate([
-            'answer' => 'required',                
-        ]);
-        $input  = $request->all();// dd($input);
-        $input['created_by'] = auth()->id();
-        $answers=Answer::create($input);// dd($input);
-        return redirect()->route('questions.show',$input['question_id'])
-        ->with('success','Answer updated successfully.');
-     }
-     catch (\Exception $e) {
-
-          dd("something wrong");
-      }
-   }
+          try
+          {
+          $request->validate([
+               'answer' => 'required',                
+          ]);
+          $input  = $request->all();// dd($input);
+          $input['created_by'] = auth()->id();
+          $answers=Answer::create($input);// dd($input);
+          return redirect()->route('questions.show',$input['question_id'])
+          ->with('success','Answer updated successfully.');
+          }
+          catch (\Exception $e)
+          {
+               dd("something wrong");
+          }
+    }
 
    public function editAnswer($id)
-   {
-                // $input=$request->all();
-                // dd($request->toArray);
+   {      
         $ans = Answer::where('id', $id)->firstOrFail();
         if($ans->created_by !== auth()->id())  //this condition restrict user to maniplate URL
         {    
-               abort('403');
+          abort('403');
         }
         return view('answer.edit',compact('ans'));
    }
+   
    public function acceptAnswer(Request $request,$id)
    {
-     $input['answer_id'] = $request['answer_id'];
-// dd($input);
-     $answer = Answer::find($input['answer_id']);
-     $st = "Un-Accept";
-    if($answer['type'] === "Un-Accept"){
-         $st = "Accept";
-    }
-    $answer->update(array(
-         'type' => $st
-    ));
-     return response()->json(['success'=>'Status change successfully.','type' => ucfirst($answer->type)]);
+          $input['answer_id'] = $request['answer_id'];
+               // dd($input);
+          $answer = Answer::find($input['answer_id']);
+          $st = "Un-Accept";
+     if($answer['type'] === "Un-Accept")
+     {
+          $st = "Accept";
      }
-
-     // return redirect()->route('questions.show',$input['question_id'])
-     //      ->with('success','Answer updated successfully.');
-// dd($request);
-     // $input = Answer::find($request->answer_id);
-   
-     //    $input->type = $request->type;
-     //    $input->save();
-     
-     //      return response()->json(['success'=>'Status change successfully.']);
-
-  
+          $answer->update(array(
+          'type' => $st
+     ));
+           return response()->json(['success'=>'Status change successfully.','type' => ucfirst($answer->type)]);
+     }
 
    public function updateAnswer(Request $request,$id)
    {
@@ -75,8 +64,8 @@ class AnswerController extends Controller
         $ans = Answer::where('id', $id)->firstOrFail();
         if($ans->created_by !==auth()->id())
         {     //this condition restrict user to maniplate URL
-               abort('403');
-          }
+          abort('403');
+        }
         $input = $request->all();   
         $ans->update($input);
         return redirect()->route('questions.index',$id)

@@ -5,7 +5,7 @@
                         <ol class="breadcrumb mb-4">
                         <a class="btn btn-primary" href="{{ route('customers.index') }}"> Back</a>
                         </ol>
-                        <div class="card mb-4">
+    <div class="card mb-4">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>First Name:</strong>
@@ -61,8 +61,7 @@
                 <img src="/customer_image/{{ $customer->image }}" width="200px">
             </div>
         </div>
-      </div>
     </div>
-
-    @endsection
+</div>
+@endsection
                     

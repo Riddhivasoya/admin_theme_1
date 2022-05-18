@@ -23,10 +23,7 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     { 
-
-        
         $search = $request->input('search');  
-
         $sort = $request->input('sort'); 
         if($sort==null)
         {
@@ -45,7 +42,6 @@ class QuestionController extends Controller
         ->latest()->paginate(5);
         //dd($questions->pluck('name')); 
         // dd($search);
-
         // Search in the title and body columns from the posts table
             // $questions = Question:: query()
             // ->where('title', 'LIKE', "%{$questions}%")
@@ -53,10 +49,7 @@ class QuestionController extends Controller
             // ->orWhere('created_by', 'LIKE', "%{$questions}%")
             // ->latest()->paginate(5);
         //    ->get();
-        
-           
         // $questions=Question::latest()->paginate(5);
-        
         return view('question.index',compact('questions','sort'));
     }
 
@@ -84,8 +77,7 @@ class QuestionController extends Controller
         'body'=>'required',            
         ]);
         $input = $request->all();
-        // dd($input);
-        
+        // dd($input)
         $input['created_by'] = auth()->id();
         $question = Question::create($input);
         $question->tag()->attach($request->input('tag_id'));
@@ -93,8 +85,6 @@ class QuestionController extends Controller
         return redirect()->route('questions.index')
         ->with('success','Questions Added successfully.');
     }
-
-   
     /**
      * Display the specified resource.
      *
@@ -108,15 +98,12 @@ class QuestionController extends Controller
             'user_id'=>auth()->id(),
             'question_id'=>$question['id'],
         );
-        
         $mv= ModelView::where($mvArr)->exists();
         if($mv !== true){
             ModelView::create(array(
             'user_id'=>auth()->id(),
             'question_id'=>$question['id'],
             ));
-
-
         }
         // $ans = Answer::find($id);  
         // $ans=Answer::get()->pluck('id');
@@ -124,10 +111,8 @@ class QuestionController extends Controller
         $ans= null;      
         $questionvotes = QuestionVote::where("question_id","=",$question['id'])->where("user_id","=",auth()->user()->id)->get();
         $answervotes = new AnswerVote; 
-        return view('question.questionShow',compact('question','ans','questionvotes','answervotes')); //
-        
+        return view('question.questionShow',compact('question','ans','questionvotes','answervotes'));   
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -154,13 +139,14 @@ class QuestionController extends Controller
     {
         $input = $request->all();
         // dd($input);
-        if($question->created_by !==auth()->id()){     //this condition restrict user to maniplate URL
+        if($question->created_by !==auth()->id())
+        {     //this condition restrict user to maniplate URL
             abort('403');
         }
-            $question->update($input);
-            $question->tag()->sync($request->input('tag_id'));
-            return redirect()->route('questions.index')
-            ->with('success','Questions updated successfully.');
+        $question->update($input);
+        $question->tag()->sync($request->input('tag_id'));
+        return redirect()->route('questions.index')
+        ->with('success','Questions updated successfully.');
     }
 
 
@@ -168,10 +154,6 @@ class QuestionController extends Controller
     
     public function answerCastVote(Request $request, $voteid=null)
     {
-        //dd($voteid);
-        // dd($request->all());
-        //return $request;   
-             
         $request->validate([
             'question_id' => 'required',
             'answer_id' => 'required',            
@@ -179,32 +161,22 @@ class QuestionController extends Controller
             'action' => 'required',
             'newState.count' => 'required',                        
         ]);
-
         $input['answer_id'] = $request['answer_id'];
         $input['user_id'] = $request['user_id'];
         $input['vote_type'] = $request['action'];
         $input['count'] = $request['newState.count'];
         //dd($input);
-        $answervotedetails = AnswerVote::updateOrCreate([
-            'id' => $voteid],                
-            //['title' => $request->name,],
-            $input
-        );
-        //dd($input['question_id']);
+        $answervotedetails = AnswerVote::updateOrCreate(['id' => $voteid],$input);
         $answerdetails = Answer::find($input['answer_id']);
-        //dd($answerdetails['votes']);
         $answerdetails['count'] = $input['count'];
         $answerdetails->save();
-
         return redirect()->route('questions.show',$request['question_id']);
     }
 
 
     public function questionCastVote(Request $request, $voteid=null)
     {
-        //dd($voteid);
-        //dd($request->all());
-        //return $request;        
+           
         $request->validate([
             'question_id' => 'required',
             'user_id' => 'required',
@@ -217,24 +189,8 @@ class QuestionController extends Controller
         $input['vote_type'] = $request['action'];
         $input['count'] = $request['newState.count'];
         //dd($input);
-        $questionvotedetails = QuestionVote::updateOrCreate([
-            'id' => $voteid],                
-            //['title' => $request->name,],
-            $input
-        );
-        //dd($input['question_id']);
+        $questionvotedetails = QuestionVote::updateOrCreate(['id' => $voteid],$input);
         $questiondetails = Question::find($input['question_id']);
-        //dd($questiondetails['votes']);
-        /*if($questionvotedetails['vote_type']=='upvote')
-        {            
-            $questiondetails['votes'] += 1;
-        }elseif($questionvotedetails['vote_type']=='downvote'){
-            $questiondetails['votes'] -= 1;
-        }elseif($questionvotedetails['vote_type']=='unupvote'){
-            $questiondetails['votes'] -= 1;
-        }elseif($questionvotedetails['vote_type']=='undownvote'){
-            $questiondetails['votes'] += 1;
-        }*/
         $questiondetails['count'] = $input['count'];
         $questiondetails->save();
 

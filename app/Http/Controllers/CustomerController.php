@@ -98,7 +98,8 @@ class CustomerController extends Controller
        
         $input = $request->all();
         $input['hobby']=implode(",",$request->hobby);
-        if ($image = $request->file('image')) {
+        if ($image = $request->file('image')) 
+        {
             $destinationPath = 'customer_image/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             //$customer = Customer::find($customer->id);           
@@ -124,8 +125,8 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-        public function destroy(Customer $customer)
-        {
+    public function destroy(Customer $customer)
+    {
         unlink("customer_image/".$customer->image);
         $customer->delete();
         return redirect()->route('customers.index')

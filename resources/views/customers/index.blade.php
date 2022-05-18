@@ -1,34 +1,30 @@
 @extends('layouts.layout')
 @section('pagecontent')
-<div class="container-fluid px-4">
-                <h1 class="mt-4">Add Customer</h1>
-                <ol class="breadcrumb mb-4">
-                <!-- <li class="breadcrumb-item active">Dashboard</li> -->
-                </ol>
-</div>
-<div class="container-fluid px-4">
-<a class="btn btn-primary" href="{{route('customers.create')}}"> Add Customer</a>
-
-                <ol class="breadcrumb mb-4">
-                <!-- <li class="breadcrumb-item active">Dashboard</li> -->
-                </ol>
-</div>
-                        
-           
-<div>
-    @if($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-</div>
-<div class="card mb-4">
-    <div class="card-header">
-                <i class="fas fa-table me-1"></i>
-                     DataTable Example
+    <div class="container-fluid px-4">
+                    <h1 class="mt-4">Add Customer</h1>
+                    <ol class="breadcrumb mb-4">
+                    <!-- <li class="breadcrumb-item active">Dashboard</li> -->
+                    </ol>
     </div>
+    <div class="container-fluid px-4">
+    <a class="btn btn-primary" href="{{route('customers.create')}}"> Add Customer</a>
+                    <ol class="breadcrumb mb-4">
+                    </ol>
+    </div>     
+    <div>
+        @if($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
+    </div>
+    <div class="card mb-4">
+        <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                DataTable Example
+        </div>
             <div class="card-body">
-                                <table id="datatablesSimple">
+                <table id="datatablesSimple">
                                     <thead>
                                         <tr>
                                         <th>No</th>
@@ -44,10 +40,9 @@
                                         <th>Image</th>   
                                         <th>Action</th>
                                         </tr>
-                                        </thead>
-                                    
-                                @foreach ($customers as $customer)
-                                        <tr>
+                                    </thead>                                    
+                    @foreach ($customers as $customer)
+                        <tr>
                                         <td>{{ ++$i }}</td>
                                         <td>{{$customer->first_name}}</td>
                                         <td>{{$customer->last_name}}</td>
@@ -59,23 +54,20 @@
                                         <td>{{$customer->hobby}}</td>
                                         <td>{{$customer->mobile['mobile']}}</td>
                                         <td><img src="/customer_image/{{ $customer->image }}" width="100px"></td>
-                                        <td>
-                                    <form action="{{ route('customers.destroy',$customer->id) }}" method="POST">
+                            <td>
+                                <form action="{{ route('customers.destroy',$customer->id) }}" method="POST">
                                     <a class="btn btn-info" href="{{ route('customers.show',$customer->id) }}">Show</a>
-
                                     <a class="btn btn-primary" href="{{ route('customers.edit',$customer->id) }}">Edit</a>
-
                                         @csrf
                                         @method('DELETE')
-
                                     <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
-                                    </td>
-                                    </tr>
-                                @endforeach
+                                </form>
+                            </td>
+                        </tr>
+                 @endforeach
             </table>
         </div>
-</div>
- @endsection
+    </div>
+@endsection
 
 
