@@ -55,6 +55,9 @@
                                         <td>{{$customer->mobile['mobile']}}</td>
                                         <td><img src="/customer_image/{{ $customer->image }}" width="100px"></td>
                             <td>
+                            @if(request()->has('trashed'))
+                                    <a href="{{ route('customers.restore', $customer->id) }}" class="btn btn-success">Restore</a>
+                                @else
                                 <form action="{{ route('customers.destroy',$customer->id) }}" method="POST">
                                     <a class="btn btn-info" href="{{ route('customers.show',$customer->id) }}">Show</a>
                                     <a class="btn btn-primary" href="{{ route('customers.edit',$customer->id) }}">Edit</a>
@@ -62,12 +65,31 @@
                                         @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
+                                @endif
                             </td>
                         </tr>
                  @endforeach
             </table>
+            <div class="float-end">
+                @if(request()->has('trashed'))
+                        <a href="{{ route('customers.index') }}" class="btn btn-info">View All posts</a>
+                    <a href="{{ route('customers.restoreAll') }}" class="btn btn-success">Restore All</a>
+                @else
+                    <a href="{{ route('customers.index', ['trashed' => 'customer']) }}" class="btn btn-primary">View Deleted posts</a>
+                @endif
+            </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+            $(document).ready(function() {
+                $('button').click(function(e) {
+                    if(!confirm('Are you sure you want to delete this post?')) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        </script>
 @endsection
 
 

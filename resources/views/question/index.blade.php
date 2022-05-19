@@ -126,8 +126,9 @@
 </div>
 
 @endforeach 
+{!! $questions->appends(Request::except('page'))->render() !!}
 
-{{$questions->links() }}
+<!-- {{$questions->links() }} -->
 <p>
     Displaying {{$questions->count()}} of {{$questions->total()}} Questions(s).
 </p>

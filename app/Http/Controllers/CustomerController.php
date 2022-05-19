@@ -21,10 +21,17 @@ class CustomerController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()  // this grab data from database directly
+    public function index(Request $request)  // this grab data from database directly
     {
-                    
+        // dd($request);
+        if ($request->has('trashed')) {
+            $customers = Customer::onlyTrashed()
+                ->get();
+               
+        } else {
+        //   dd($customers)          ;
         $customers = Customer::latest()->paginate();
+        }
         // dd($customers);
         return view('customers.index',compact('customers'))->with ('i',(request()->input('page',1)-1));
        
@@ -127,9 +134,23 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        unlink("customer_image/".$customer->image);
+        // unlink("customer_image/".$customer->image);
         $customer->delete();
         return redirect()->route('customers.index')
         ->with('success','Customer deleted successfully');
+    }
+
+    public function restore($id)
+    {
+        Customer::withTrashed()->find($id)->restore();
+  
+        return redirect()->back();
+    }  
+
+    public function restoreAll()
+    {
+        Customer::onlyTrashed()->restore();
+  
+        return redirect()->back();
     }
 }

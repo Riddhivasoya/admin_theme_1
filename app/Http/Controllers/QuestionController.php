@@ -23,7 +23,8 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     { 
-        $search = $request->input('search');  
+        $search = $request->input('search');
+        // $perPage = $request->input('limit');  
         $sort = $request->input('sort'); 
         if($sort==null)
         {

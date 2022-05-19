@@ -38,6 +38,8 @@ Route::get('/admin', function()
 // });
 
 Auth::routes();
+Route::get('customers/restore/{id?}', [App\Http\Controllers\CustomerController::class, 'restore'])->name('customers.restore');
+Route::get('customers/restore-all', [App\Http\Controllers\CustomerController::class, 'restoreAll'])->name('customers.restoreAll');
 Route::resource('customers', CustomerController::class);
 Route::resource('tags', TagsController::class);
     

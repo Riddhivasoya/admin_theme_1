@@ -77,7 +77,7 @@ class AnswerController extends Controller
         $ans = Answer::where('id', $id)->firstOrFail();
         if($ans->created_by !==auth()->id()){     //this condition restrict user to maniplate URL
         abort('403');
-        }
+          }
         $ans->delete();     
         return redirect()->route('questions.index')
         ->with('success','Answers Deleted successfully.');

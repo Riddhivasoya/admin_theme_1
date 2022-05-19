@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Customer extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
     protected $table= "customers";
     protected $fillable = [
         'first_name', 
@@ -64,11 +66,10 @@ class Customer extends Model
 
             // Get the phone record associated with the user.
 
-            //  public function locations()
+            // public function locations()
             // {
             // return $this->hasOne('locations::class');
             // }
-
             public function mobile()
             {
                 return $this->hasOne(Mobile::class,'customer_id','id');
