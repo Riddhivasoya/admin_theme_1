@@ -237,7 +237,7 @@
 
 <script>
     
-$(document).on('click','.toggle-class-data', function(){ //alert('{{$ans->type}}');
+$(document).on('click','.toggle-class-data', function(){   
 var $this = $(this),
 
         answerId = $this.attr('data-answer'),
@@ -252,7 +252,6 @@ var $this = $(this),
         $.ajax({ 
                 type: "POST", 
                 dataType: "json", 
-                //url: "{{ route('accept-answer',['type' =>'Accept', 'id' => $ans->id]) }}", 
                 url:url,
                 data: {'question_id' : questionId, 'answer_id': answerId}, 
                 success: function(data){ 

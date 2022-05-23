@@ -40,6 +40,7 @@ class QuestionController extends Controller
         ->orwhere('title', 'LIKE', "%{$search}%")
         ->orWhere('body', 'LIKE', "%{$search}%")
         ->orderBy('title',$sort)
+        ->orderBy('body',$sort)
         ->latest()->paginate(5);
         //dd($questions->pluck('name')); 
         // dd($search);

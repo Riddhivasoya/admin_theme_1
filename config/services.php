@@ -35,5 +35,10 @@ return [
         'client_secret' => 'UnwBy1DVpb1Vuksv',
         'redirect' => 'http://localhost:8000/auth/linkedin/callback'
     ],
+    'google' => [
+        'client_id' => '519139270182-omg74antk57ut5h9ji64uv66v8ga69pd.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'http://localhost:8000/auth/google/callback'
+    ],
 
 ];

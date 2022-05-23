@@ -61,7 +61,7 @@
             <div class="s-post-summary--stats-item has-answers has-accepted-answer">
                 
                 <span class="s-post-summary--stats-item-number">
-            {{(count($question->answer))}}
+            {{ (count($question->answer)) }}
                 </span>
                 <span class="s-post-summary--stats-item-unit">
                     answers
@@ -69,7 +69,7 @@
             </div>
             <div class="s-post-summary--stats-item is-supernova">
                 <span class="s-post-summary--stats-item-number">
-            {{(count( $question->qview)) }}
+            {{ (count( $question->qview)) }}
                 </span>
                 <span class="s-post-summary--stats-item-unit">
                     views
@@ -132,6 +132,5 @@
 <p>
     Displaying {{$questions->count()}} of {{$questions->total()}} Questions(s).
 </p>
-
 
 @endsection

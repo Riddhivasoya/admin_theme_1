@@ -9,35 +9,33 @@
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-bold my-4">Login</h3></div>
-                                    <div class="card-body">
-                                        <form method="POST" action="{{ route('login') }}">
-                                            @csrf
-                                            <label for="email"><b>Email address</b></label>
-                                            <!--<div class="form-floating mb-3">-->
-                                                <input class="form-control form-control-sm @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" type="email">
-                                                 @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                        <div class="card-body">
+                                            <form method="POST" action="{{ route('login') }}">
+                                                @csrf
+                                                    <label for="email"><b>Email address</b></label>
+                                                        <!--<div class="form-floating mb-3">-->
+                                                        <input class="form-control form-control-sm @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" type="email">
+                                                        @error('email')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
                                                  
-                                            <!--</div>-->
-                                            <label for="password"><b>Password</b></label>
-                                             
-                                                    <input class="form-control form-control-sm @error('password') is-invalid @enderror" id="password" name="password" value="{{ old('password') }}" type="password">
-                                                    @error('password')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                 
-                                                <br>
+                                                    <!--</div>-->
+                                                        <label for="password"><b>Password</b></label>
+                                                
+                                                        <input class="form-control form-control-sm @error('password') is-invalid @enderror" id="password" name="password" value="{{ old('password') }}" type="password">
+                                                        @error('password')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                        <br>
                                                 <div class="form-check mb-3">
                                                 <!--<input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
                                                 <label class="form-check-label" for="inputRememberPassword">Remember Password</label>-->
                                                 <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
- 
-                                            <label class="form-check-label" for="remember">
+                                                <label class="form-check-label" for="remember">
                                                     {{ __('Remember Me') }}
                                                 </label>
                                                 </div>
@@ -51,8 +49,11 @@
                                                 <button type="submit" class="btn btn-primary">
                                                     {{ __('Login') }}
                                                 </button>
-                                                        </div>
-                                                    </form>
+                                                                <a href="{{ url('auth/google') }}">
+                                                                    <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="margin-left: 3em;">
+                                                                </a>
+                                                            </div>
+                                                        </form>
                                                      </div>
                                                 </div>
                                             </div>
