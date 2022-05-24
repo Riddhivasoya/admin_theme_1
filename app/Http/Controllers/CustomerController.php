@@ -150,7 +150,7 @@ class CustomerController extends Controller
     public function restoreAll()
     {
         Customer::onlyTrashed()->restore();
-  
+        
         return redirect()->back();
     }
 }

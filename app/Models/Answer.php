@@ -19,7 +19,7 @@ class Answer extends Model
     ];
     public function question()
     {
-        return $this->belongstoMany(Question::class);
+        return $this->belongsto(Question::class);
     }
     public function createdby()
     {

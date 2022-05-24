@@ -81,6 +81,5 @@ class AnswerController extends Controller
         $ans->delete();     
         return redirect()->route('questions.index')
         ->with('success','Answers Deleted successfully.');
-    }
-   
+    } 
 }
