@@ -51,14 +51,11 @@ class GoogleController extends Controller
       
                 Auth::login($newUser);
       
-                return redirect('/home');
+                return redirect('/login');
             }
       
         } catch (Exception $e) {
-            // dd($e->getMessage());
-            // return redirect('/home');
-            dd("return");
-            // return redirect('/auth/google');
+            return redirect('/home');
         }
     }
 }

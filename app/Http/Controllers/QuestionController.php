@@ -151,8 +151,6 @@ class QuestionController extends Controller
         ->with('success','Questions updated successfully.');
     }
 
-
-
     
     public function answerCastVote(Request $request, $voteid=null)
     {

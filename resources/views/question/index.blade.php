@@ -44,10 +44,7 @@
                     <a  class="btn btn-primary" href="{{route('questions.create')}}"> Ask Question</a>
                     </ol>
     </div>
-
-     
 @foreach($questions as $question)
-
     <div class="s-post-summary">
         <div class="s-post-summary--stats">
             <div class="s-post-summary--stats-item s-post-summary--stats-item__emphasized">
@@ -76,7 +73,6 @@
                 </span>
             </div>
         </div>
-    
         <div class="s-post-summary--content">
             <div class="s-post-summary--content-type">
                 <a href="…" class="s-link s-link__grayscale">
@@ -110,7 +106,7 @@
             </div>
           </a>
     </div>
-<span>
+    <span>
             @if($question->created_by ==auth()->id())
                 <a class="btn btn-primary" title="you can edit your question" href="{{route('questions.edit',$question->id)}}">Edit</a>
                 <ol class="breadcrumb mb-4">
