@@ -6,6 +6,8 @@ use App\Models\Customer;
 use App\Models\Mobile;
 use DB;
 use Illuminate\Http\Request;
+use App\Mail\registration_mail;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\CustomerRequest;
 
 
@@ -58,14 +60,19 @@ class CustomerController extends Controller
        
 
             $input = $request->all();
+            $email=$input['email'];
+            // dd($email);
             $input['hobby']=implode(",",$request->hobby);
             if($image = $request->file('image')) 
             {
                 $input['image'] = insert_image($image);
             }
+            mail::to($email)->send(new registration_mail($input));
+            
             $customer=Customer::create($input);  // this is for join  $customer is object(variable)
             $input['customer_id']=$customer->id;// pass krava mate $input  
             Mobile::create($input);
+
             return redirect()->route('customers.index')
             ->with('success','customer created successfully.');
     }
