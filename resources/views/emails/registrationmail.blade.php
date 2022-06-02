@@ -9,12 +9,11 @@
 <body>
 <h4>Mail From Contact us Form</h4><br/>
 
-Name  :      {{ $input['first_name'] }}    <br/>
-Email :      {{ $input['email'] }}   <br/>
-Contact :    {{ $input['mobile'] }} <br/>
-birthdate :  {{ $input['birthdate'] }} <br/>
-
-<p>It would be appriciative, if you gone through this feedback.</p>
+    Name  :      {{ $input['first_name'] }}<br/>
+    Email :      {{ $input['email'] }}   <br/>
+    Contact :    {{ $input['mobile'] }} <br/>
+    birthdate :  {{ $input['birthdate'] }} <br/>
+    <p>It would be appriciative, if you gone through this feedback.</p>
 
 </body>
 </html>

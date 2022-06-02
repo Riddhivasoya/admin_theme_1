@@ -160,4 +160,13 @@ class CustomerController extends Controller
         
         return redirect()->back();
     }
+    public function delete($id)
+    {
+        Customer::onlyTrashed()->find($id)->forceDelete();
+
+        // unlink("customer_image/".$customer->image);
+        $id->delete();
+        return redirect()->route('customers.index')
+        ->with('success','Customer deleted successfully');
+    }
 }

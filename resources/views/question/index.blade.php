@@ -13,22 +13,22 @@
             <ol class="breadcrumb mb-4">
         </ol>
 <!-- Serach bar and sorting-->
-<header class="s-topbar">
-    <form id="search" class="s-topbar--searchbar" action="{{ route('questions.index') }}" method="GET" autocomplete="off">
-        <div class="s-select">
-            <input type="hidden" id="orderby" name="sort">
-                <select id="ordering" >
-                    <option value="Slect" disabled>select sortng</option>
-                    <option value="asc" @if($sort == 'Asc') ? selected : "" @endif >A-Z</option>
-                    <option value="desc" @if($sort == 'desc') ? selected : "" @endif>Z-A</option>
-                </select>
-        </div>
-        <div class="s-topbar--searchbar--input-group">    
-            <input class="s-input s-input__search"  type="text" name="search" placeholder="Search....." value="{!! request('search') !!}" />
-        </div>
-    </form>
-    <ol class="s-topbar--content"></ol>
-</header>
+    <header class="s-topbar">
+        <form id="search" class="s-topbar--searchbar" action="{{ route('questions.index') }}" method="GET" autocomplete="off">
+            <div class="s-select">
+                <input type="hidden" id="orderby" name="sort">
+                    <select id="ordering" >
+                        <option value="Slect" disabled>select sortng</option>
+                        <option value="asc" @if($sort == 'Asc') ? selected : "" @endif >A-Z</option>
+                        <option value="desc" @if($sort == 'desc') ? selected : "" @endif>Z-A</option>
+                    </select>
+                </div>
+                <div class="s-topbar--searchbar--input-group">    
+                    <input class="s-input s-input__search"  type="text" name="search" placeholder="Search....." value="{!! request('search') !!}" />
+            </div>
+        </form>
+        <ol class="s-topbar--content"></ol>
+    </header>
 <script>
     $(document).ready(function()
     {
