@@ -1,14 +1,14 @@
 @extends('layouts.layout')
 @section('pagecontent')
 
-<div>
+<div >
     @if($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>
     @endif
 </div>
-        <div class="container-fluid px-4">
+        <div class="container-fluid px-4" >
             <h1 class="mt-4">All Question</h1>
             <ol class="breadcrumb mb-4">
         </ol>
@@ -45,7 +45,7 @@
                     </ol>
     </div>
 @foreach($questions as $question)
-    <div class="s-post-summary">
+    <div class="s-post-summary" >
         <div class="s-post-summary--stats">
             <div class="s-post-summary--stats-item s-post-summary--stats-item__emphasized">
                 <span class="s-post-summary--stats-item-number">
@@ -123,7 +123,7 @@
 
 @endforeach 
 {!! $questions->appends(Request::except('page'))->render() !!}
-
+{{--!! $questions->render() !!--}}
 <!-- {{$questions->links() }} -->
 <p>
     Displaying {{$questions->count()}} of {{$questions->total()}} Questions(s).
