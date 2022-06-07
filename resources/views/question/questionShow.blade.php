@@ -225,10 +225,7 @@
             <button type="submit" class="btn btn-primary">Post Your Answer</button>
         </div>
 
-</form>
-{{--dd($question->answer)--}}
-{{--dd($ans)--}}
-<!-- <script>
+    {{--dd($ans)--}}
     $("#button").click(function() {
   $("#button").addClass('button-clicked');
 });
