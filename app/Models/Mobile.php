@@ -10,7 +10,7 @@ class Mobile extends Model
     use HasFactory;
     protected $table="mobiles";
     protected $fillable=[
-        'customer_id','mobile'
+        'mobile'
 
     ];
 

@@ -21,10 +21,7 @@
     
 </div>
 
-<div class="d-flex my48">
-
-
-                      
+<div class="d-flex my48">                    
 <div class="row">
         <div class="span6">
     <div class="examples" id="questionvotes"></div>
@@ -38,12 +35,8 @@
         </div>
     </div>             
 </div>
-
-
-
 <div class="s-post-summary">
 
-    
     <div class="s-post-summary--content">
         <div class="s-post-summary--content-type">
            
@@ -226,10 +219,7 @@
         </div>
 
     {{--dd($ans)--}}
-    $("#button").click(function() {
-  $("#button").addClass('button-clicked');
-});
-</script> -->
+  
 
 
 <script>

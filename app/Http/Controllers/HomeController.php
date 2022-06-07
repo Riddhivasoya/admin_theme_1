@@ -27,25 +27,27 @@ class HomeController extends Controller
     public function index()
     {
         // $customers = Customer::all();
+        // $user=User::first();
+
+        // $user->email;
         return view('admin.index');
     }
     public function create()
     {
         // return view('customers.create'); 
         // return view ('admin.add_edit');
-    
+
     }
     public function store(Request $request)
     {
         //dd($request);
-     
 
-       
-    
+
+
+
     }
     public function show($id)
     {
-        
     }
 
     /**
@@ -54,10 +56,8 @@ class HomeController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Customer $customer)// whatever parameter is passes here you have to call this into our edit-form
+    public function edit(Customer $customer) // whatever parameter is passes here you have to call this into our edit-form
     {
-   
-       
     }
 
     /**
@@ -69,12 +69,9 @@ class HomeController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        
-        
-    
     }
-   
-    
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -83,13 +80,5 @@ class HomeController extends Controller
      */
     public function destroy(Customer $customer, $id)
     {
-        
-       
-        
     }
 }
-
-
-
-    
-

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class AnswerVote extends Model
 {
     use HasFactory;
-    protected $fillable = ['answer_id', 'user_id', 'vote_type'];    
+    protected $fillable = ['vote_type'];    
 
     public function replyvote($answerid)
     {

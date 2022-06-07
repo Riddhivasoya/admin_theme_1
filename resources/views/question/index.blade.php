@@ -49,7 +49,7 @@
         <div class="s-post-summary--stats">
             <div class="s-post-summary--stats-item s-post-summary--stats-item__emphasized">
                 <span class="s-post-summary--stats-item-number">
-                {{(count($question->questionvotes))}}
+                {{ (count($question->questionvotes)) }}
                 </span>
                 <span class="s-post-summary--stats-item-unit">
                     votes
@@ -66,13 +66,13 @@
             </div>
             <div class="s-post-summary--stats-item is-supernova">
                 <span class="s-post-summary--stats-item-number">
-            {{ (count( $question->qview)) }}
+            {{ (count($question->qview)) }}
                 </span>
                 <span class="s-post-summary--stats-item-unit">
                     views
                 </span>
             </div>
-        </div>
+            </div>
         <div class="s-post-summary--content">
             <div class="s-post-summary--content-type">
                 <a href="…" class="s-link s-link__grayscale">
@@ -89,7 +89,7 @@
         <div class="s-post-summary--meta">
             <div class="s-post-summary--meta-tags">
                 @foreach($question->tag as $tag)
-                    <a class="s-tag" href="#">{{$tag->tag_name}}</a>
+                    <a class="s-tag" href="#">{{ $tag->tag_name }}</a>
                 @endforeach
             </div>
                 <div class="s-user-card s-user-card__minimal">
@@ -101,13 +101,13 @@
                     <ul class="s-user-card--awards">
                         <li class="s-user-card--rep"></li>
                     </ul>
-                    <time class="s-user-card--time">{{$question->created_at}}</time>
+                    <time class="s-user-card--time">{{ $question->created_at }}</time>
                </div>
             </div>
           </a>
     </div>
     <span>
-            @if($question->created_by ==auth()->id())
+            @if($question->created_by == auth()->id())
                 <a class="btn btn-primary" title="you can edit your question" href="{{route('questions.edit',$question->id)}}">Edit</a>
                 <ol class="breadcrumb mb-4">
                 </ol>

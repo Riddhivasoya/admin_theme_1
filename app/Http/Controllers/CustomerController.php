@@ -29,14 +29,12 @@ class CustomerController extends Controller
         if ($request->has('trashed')) {
             $customers = Customer::onlyTrashed()
                 ->get();
-               
         } else {
-        //   dd($customers)          ;
-        $customers = Customer::latest()->paginate();
+            //   dd($customers)          ;
+            $customers = Customer::with('mobile')->latest()->paginate();
         }
         // dd($customers);
-        return view('customers.index',compact('customers'))->with ('i',(request()->input('page',1)-1));
-       
+        return view('customers.index', compact('customers'))->with('i', (request()->input('page', 1) - 1));
     }
 
     /**
@@ -46,7 +44,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view ('customers.add_edit');
+        return view('customers.add_edit');
     }
 
     /**
@@ -57,24 +55,23 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request)
     {
-       
 
-            $input = $request->all();
-            $email=$input['email'];
-            // dd($email);
-            $input['hobby']=implode(",",$request->hobby);
-            if($image = $request->file('image')) 
-            {
-                $input['image'] = insert_image($image);
-            }
-            mail::to($email)->send(new registration_mail($input));
-            
-            $customer=Customer::create($input);  // this is for join  $customer is object(variable)
-            $input['customer_id']=$customer->id;// pass krava mate $input  
-            Mobile::create($input);
 
-            return redirect()->route('customers.index')
-            ->with('success','customer created successfully.');
+        $input = $request->all();
+        $email = $input['email'];
+        // dd($email);
+        $input['hobby'] = implode(",", $request->hobby);
+        if ($image = $request->file('image')) {
+            $input['image'] = insert_image($image);
+        }
+        mail::to($email)->send(new registration_mail($input));
+
+        $customer = Customer::create($input);  // this is for join  $customer is object(variable)
+        $input['customer_id'] = $customer->id; // pass krava mate $input  
+        Mobile::create($input);
+
+        return redirect()->route('customers.index')
+            ->with('success', 'customer created successfully.');
     }
 
     /**
@@ -85,7 +82,10 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        return view('customers.show',compact('customer'));
+
+        // dd($customer);
+
+        return view('customers.show', compact('customer'));
     }
 
     /**
@@ -96,8 +96,8 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        $customer['hobby']=explode(",",$customer['hobby']);
-        return view('customers.add_edit',compact('customer'));
+        $customer['hobby'] = explode(",", $customer['hobby']);
+        return view('customers.add_edit', compact('customer'));
     }
 
     /**
@@ -109,28 +109,25 @@ class CustomerController extends Controller
      */
     public function update(CustomerRequest $request, Customer $customer)
     {
-       
+
         $input = $request->all();
-        $input['hobby']=implode(",",$request->hobby);
-        if ($image = $request->file('image')) 
-        {
+        $input['hobby'] = implode(",", $request->hobby);
+        if ($image = $request->file('image')) {
             $destinationPath = 'customer_image/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             //$customer = Customer::find($customer->id);           
-            unlink("customer_image/".$input['old_image']);
+            unlink("customer_image/" . $input['old_image']);
             $image->move($destinationPath, $profileImage);
             $input['image'] = "$profileImage";
-        }  
-        else
-        {
+        } else {
             unset($input['image']);
         }
-        $customer->update($input);  
-        $input['customer_id']=$customer->id;
-        $mobile=$customer->mobile;
+        $customer->update($input);
+        $input['customer_id'] = $customer->id;
+        $mobile = $customer->mobile;
         $mobile->update($input);
         return redirect()->route('customers.index')
-        ->with('success','customer updated successfully');
+            ->with('success', 'customer updated successfully');
     }
 
     /**
@@ -144,20 +141,20 @@ class CustomerController extends Controller
         // unlink("customer_image/".$customer->image);
         $customer->delete();
         return redirect()->route('customers.index')
-        ->with('success','Customer deleted successfully');
+            ->with('success', 'Customer deleted successfully');
     }
 
     public function restore($id)
     {
         Customer::withTrashed()->find($id)->restore();
-  
+
         return redirect()->back();
-    }  
+    }
 
     public function restoreAll()
     {
         Customer::onlyTrashed()->restore();
-        
+
         return redirect()->back();
     }
     public function delete($id)
@@ -167,6 +164,6 @@ class CustomerController extends Controller
         // unlink("customer_image/".$customer->image);
         $id->delete();
         return redirect()->route('customers.index')
-        ->with('success','Customer deleted successfully');
+            ->with('success', 'Customer deleted successfully');
     }
 }
