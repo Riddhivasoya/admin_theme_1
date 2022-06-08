@@ -42,12 +42,10 @@ class HomeController extends Controller
     {
         //dd($request);
 
-
-
-
     }
     public function show($id)
     {
+        
     }
 
     /**

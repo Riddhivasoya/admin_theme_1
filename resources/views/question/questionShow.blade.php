@@ -217,11 +217,7 @@
              <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <button type="submit" class="btn btn-primary">Post Your Answer</button>
         </div>
-
     {{--dd($ans)--}}
-  
-
-
 <script>
     
 $(document).on('click','.toggle-class-data', function(){   
@@ -246,9 +242,9 @@ var $this = $(this),
                     $this.html(data.type);
                 } 
             }); 
-});
-
+        });
 </script>
+
 <script type="text/javascript">    
                 $(document).ready(function(){
                     var params = [];
@@ -260,8 +256,8 @@ var $this = $(this),
                     params['count'] = {{ $question->count }};                                      
                     params['data'] = {'question_id' : '{{ $question->id }}', 'user_id' : '{{ auth()->user()->id }}'};
                     var callback = function(data) {
-                        data.question_id = params.data.question_id;
-                        data.user_id = params.data.user_id
+                    data.question_id = params.data.question_id;
+                    data.user_id = params.data.user_id
                         //data._method = 'PUT';
                         $.ajax({                        
                             url: params.url,
