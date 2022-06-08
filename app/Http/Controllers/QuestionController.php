@@ -31,16 +31,15 @@ class QuestionController extends Controller
             $sort = "asc";
         }
         // dd($sort);
-        $questions = Question::with('questionvotes', 'answer', 'qview', 'tag', 'createdby')->whereHas('createdby', function ($q) use ($search) {
+        $questions = Question::with('questionvotes', 'answer', 'qview', 'tag', 'createdby')
+            ->whereHas('createdby', function ($q) use ($search) {
             $q->where('name', 'like', '%' . $search . '%')->orderBy('name');
-        })
-            ->orwhereHas('tag', function ($q) use ($search) {
-                $q->where('tag_name', 'like', '%' . $search . '%');
             })
-            ->orwhere('title', 'LIKE', "%{$search}%")
-            ->orWhere('body', 'LIKE', "%{$search}%")
-            ->orderBy('title', $sort)
-            ->orderBy('body', $sort)
+            ->orwhereHas('tag', function ($q) use ($search) {
+            $q->where('tag_name', 'like', '%' . $search . '%')->orderBy('tag_name');
+            })
+            ->orwhere('title', 'LIKE', "%{$search}%")->orderBy('title', $sort)
+            ->orWhere('body', 'LIKE', "%{$search}%")->orderBy('body', $sort)
             ->latest()->paginate(5);
 
         //dd($questions->pluck('name')); 
