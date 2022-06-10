@@ -252,7 +252,6 @@ var $this = $(this),
                     params['url'] = @if(count($questionvotes))'{{ route("questions.votes", $questionvotes[0]->id) }}'@else'{{ route("questions.votes") }}'@endif;
                     params['headers'] = {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')};        
                     params['type'] = 'GET';
-                
                     params['count'] = {{ $question->count }};                                      
                     params['data'] = {'question_id' : '{{ $question->id }}', 'user_id' : '{{ auth()->user()->id }}'};
                     var callback = function(data) {

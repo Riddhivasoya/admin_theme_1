@@ -13,6 +13,7 @@ class Question extends Model
 {
     use HasFactory;
     // use \Conner\Tagging\Taggable;
+    // protected $with = ['tag','answer', 'createdby','qview','questionvotes'];
     protected $fillable = ['title', 
                             'body',
                             'created_by',

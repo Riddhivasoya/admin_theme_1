@@ -9,11 +9,13 @@
     @endif
 </div>
         <div class="container-fluid px-4" >
-            <h1 class="mt-4">All Question</h1>
+            <h1 class="mt-4">All Question </h1> {{$date->toRfc850String();}}  
             <ol class="breadcrumb mb-4">
         </ol>
+    
 <!-- Serach bar and sorting-->
     <header class="s-topbar">
+  
         <form id="search" class="s-topbar--searchbar" action="{{ route('questions.index') }}" method="GET" autocomplete="off">
             <div class="s-select">
                 <input type="hidden" id="orderby" name="sort">
@@ -58,7 +60,7 @@
             <div class="s-post-summary--stats-item has-answers has-accepted-answer">
                 
                 <span class="s-post-summary--stats-item-number">
-            {{ (count($question->answer)) }}
+                {{ (count($question->answer)) }}
                 </span>
                 <span class="s-post-summary--stats-item-unit">
                     answers
@@ -66,7 +68,7 @@
             </div>
             <div class="s-post-summary--stats-item is-supernova">
                 <span class="s-post-summary--stats-item-number">
-            {{ (count($question->qview)) }}
+                {{ (count($question->qview)) }}
                 </span>
                 <span class="s-post-summary--stats-item-unit">
                     views
@@ -107,11 +109,11 @@
           </a>
     </div>
     <span>
-            @if($question->created_by == auth()->id())
+                @if($question->created_by == auth()->id())
                 <a class="btn btn-primary" title="you can edit your question" href="{{route('questions.edit',$question->id)}}">Edit</a>
                 <ol class="breadcrumb mb-4">
                 </ol>
-            <form action="{{ route('questions.destroy',$question->id) }}" method="POST">
+                <form action="{{ route('questions.destroy',$question->id) }}" method="POST">
                 <input name="_method" type="hidden" value="DELETE">
                 <button title="your question will be deleted permenantly "type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Delete</button>
                 @csrf

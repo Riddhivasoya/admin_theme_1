@@ -10,6 +10,9 @@ use App\Models\User;
 use App\Models\Answer;
 use App\Models\AnswerVote;
 use App\Models\QuestionVote;
+// use Carbon\Carbon; 
+Use \Carbon\Carbon;
+// use App\Http\Controllers\Carbon\Carbon;
 use DB;
 
 use Illuminate\Http\Request;
@@ -41,7 +44,10 @@ class QuestionController extends Controller
             ->orwhere('title', 'LIKE', "%{$search}%")->orderBy('title', $sort)
             ->orWhere('body', 'LIKE', "%{$search}%")->orderBy('body', $sort)
             ->latest()->paginate(5);
-
+            
+            $date = Carbon::now();
+           
+       
         //dd($questions->pluck('name')); 
         // dd($search);
         // Search in the title and body columns from the posts table
@@ -52,7 +58,7 @@ class QuestionController extends Controller
         // ->latest()->paginate(5);
         //    ->get();
         // $questions=Question::latest()->paginate(5);
-        return view('question.index', compact('questions', 'sort'));
+        return view('question.index', compact('questions', 'sort','date'));
     }
 
     /**
@@ -84,6 +90,7 @@ class QuestionController extends Controller
         $question = Question::create($input);
         $question->tag()->attach($request->input('tag_id'));
         // dd($request->input('tag'));
+        
         return redirect()->route('questions.index')
             ->with('success', 'Questions Added successfully.');
     }
@@ -115,6 +122,8 @@ class QuestionController extends Controller
         $ans = null;
         $questionvotes = QuestionVote::where("question_id", "=", $question['id'])->where("user_id", "=", auth()->user()->id)->get();
         $answervotes = new AnswerVote;
+        // dd($answervotes->replyvotes);
+      
         return view('question.questionShow', compact('question', 'ans', 'questionvotes', 'answervotes'));
     }
     /**

@@ -13,21 +13,17 @@ class AnswerController extends Controller
 {
    public function storeAnswer(Request $request) 
    {
-          try
-          {
+         
           $request->validate([
                'answer' => 'required',                
           ]);
-          $input  = $request->all();// dd($input);
+          $input  = $request->all();//dd($input);
           $input['created_by'] = auth()->id();
           $answers=Answer::create($input);// dd($input);
           return redirect()->route('questions.show',$input['question_id'])
           ->with('success','Answer updated successfully.');
-          }
-          catch (\Exception $e)
-          {
-               dd("something wrong");
-          }
+          
+          
     }
 
    public function editAnswer($id)
