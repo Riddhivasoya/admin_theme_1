@@ -42,13 +42,13 @@ class AnswerController extends Controller
                // dd($input);
           $answer = Answer::find($input['answer_id']);
           $st = "Un-Accept";
-     if($answer['type'] === "Un-Accept")
-     {
-          $st = "Accept";
-     }
-          $answer->update(array(
-          'type' => $st
-     ));
+          if($answer['type'] === "Un-Accept")
+          {
+               $st = "Accept";
+          }
+               $answer->update(array(
+               'type' => $st
+          ));
            return response()->json(['success'=>'Status change successfully.','type' => ucfirst($answer->type)]);
      }
 

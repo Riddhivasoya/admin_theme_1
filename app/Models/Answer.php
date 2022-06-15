@@ -19,10 +19,10 @@ class Answer extends Model
 
     ];
 
-   public function votes()
-   {
-       return $this->belongsto(Question::class);
-   }
+        public function votes()
+        {
+            return $this->belongsto(Question::class);
+        }
         public function question()
         {
             return $this->belongsto(Question::class);

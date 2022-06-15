@@ -36,13 +36,15 @@ class QuestionController extends Controller
         // dd($sort);
         $questions = Question::with('questionvotes', 'answer', 'qview', 'tag', 'createdby')
             ->whereHas('createdby', function ($q) use ($search) {
-            $q->where('name', 'like', '%' . $search . '%')->orderBy('name');
+            $q->where('name', 'like', '%' . $search . '%');
             })
             ->orwhereHas('tag', function ($q) use ($search) {
-            $q->where('tag_name', 'like', '%' . $search . '%')->orderBy('tag_name');
+            $q->where('tag_name', 'like', '%' . $search . '%');
             })
-            ->orwhere('title', 'LIKE', "%{$search}%")->orderBy('title', $sort)
-            ->orWhere('body', 'LIKE', "%{$search}%")->orderBy('body', $sort)
+            ->orwhere('title', 'LIKE', "%{$search}%")
+            ->orWhere('body', 'LIKE', "%{$search}%")
+            ->orderBy('title', $sort)
+            ->orderBy('body', $sort)
             ->latest()->paginate(5);
             
             $date = Carbon::now();

@@ -19,8 +19,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
-
     <!--Custom Scripts and Css-->
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="{{ asset('/sbadmin/css/styles.css') }}" rel="stylesheet" />

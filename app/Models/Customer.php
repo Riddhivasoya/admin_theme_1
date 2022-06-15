@@ -25,7 +25,7 @@ class Customer extends Model
 
     ];
     
-    protected $appends = ['full_name'];
+            protected $appends = ['full_name'];
 
 
             public function getFirstNameAttribute()

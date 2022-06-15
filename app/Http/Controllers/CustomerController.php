@@ -57,7 +57,7 @@ class CustomerController extends Controller
     {
 
 
-        $input = $request->all();
+        $input = $request->validated();
         $email = $input['email'];
         // dd($email);
         $input['hobby'] = implode(",", $request->hobby);
