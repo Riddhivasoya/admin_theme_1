@@ -48,7 +48,7 @@ class QuestionController extends Controller
             ->latest()->paginate(5);
             
             $date = Carbon::now();
-           
+        //    dd($questions);
        
         //dd($questions->pluck('name')); 
         // dd($search);
@@ -109,12 +109,14 @@ class QuestionController extends Controller
         $mvArr = array(
             'user_id' => auth()->id(),
             'question_id' => $question['id'],
-        );
-        $mv = ModelView::where($mvArr)->exists();
-        if ($mv !== true) {
+        );//dd($mvArr);
+        $mv = ModelView::where($mvArr)->exists(); //exist mean true false
+        // dd($mv);
+        if ($mv !== true)    {
             ModelView::create(array(
                 'user_id' => auth()->id(),
                 'question_id' => $question['id'],
+                
             ));
         }
 

@@ -44,15 +44,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="{{ asset('sbadmin/js/scripts.js') }}"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="{{ asset('/sbadmin/assets/demo/chart-area-demo.js') }}"></script>
-<script src="{{ asset('/sbadmin/assets/demo/chart-bar-demo.js') }}"></script> -->
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-<script src="{{ asset('/sbadmin/js/datatables-simple-demo.js') }}"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
-<script type="text/javascript" src="{{ asset('Jquery/crud_validation.js') }}?t={{time()}}"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="{{ asset('/sbadmin/assets/demo/chart-area-demo.js') }}"></script>
+    <script src="{{ asset('/sbadmin/assets/demo/chart-bar-demo.js') }}"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+    <script src="{{ asset('/sbadmin/js/datatables-simple-demo.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
+    <script type="text/javascript" src="{{ asset('Jquery/crud_validation.js') }}?t={{time()}}"></script>
 <!--- CK editor---->
 <!-- <script src="//cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script> -->
 </body>

@@ -28,7 +28,7 @@ class CustomerRequest extends FormRequest
             'last_name'=>'required|max:25',
             'birthdate'=>'required',
             'email'=>'required|email|unique:customers,email,'.$this->id,
-            'address'=>'required    ',
+            'address'=>'required',
             'gender'=>'required',
             'hobby'=>'required',
             'mobile'=>'required|digits:10|numeric',

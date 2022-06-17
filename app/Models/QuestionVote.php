@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class QuestionVote extends Model
 {
     use HasFactory;
-    protected $fillable = [ 'vote_type'];
+    protected $fillable = [ 'vote_type' ];
 
     public function questions()
     {

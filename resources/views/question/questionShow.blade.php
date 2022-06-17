@@ -47,9 +47,7 @@
                     <div class="s-post-summary--meta-tags">
                     @foreach($question->tag as $tag)
                     <a class="s-tag" href="#">{{$tag->tag_name}}</a>
-                    @endforeach
-
-                    
+                    @endforeach 
             </div>
 
         </div>

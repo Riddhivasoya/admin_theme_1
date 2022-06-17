@@ -34,7 +34,7 @@
 <script>
     $(document).ready(function()
     {
-        $('#ordering').on("change",function(){                                          // for id #
+        $('#ordering').on("change",function(){  // for id #
             $('#orderby').val($(this).val())
             $('#search').submit()
         });
@@ -46,6 +46,7 @@
                     <a  class="btn btn-primary" href="{{route('questions.create')}}"> Ask Question</a>
                     </ol>
     </div>
+    
 @foreach($questions as $question)
     <div class="s-post-summary" >
         <div class="s-post-summary--stats">
@@ -94,28 +95,25 @@
                     <a class="s-tag" href="#">{{ $tag->tag_name }}</a>
                 @endforeach
             </div>
-                <div class="s-user-card s-user-card__minimal">
-                    <a href="" class="s-avatar s-user-card--avatar">
-                        <img class="s-avatar--image" src="" />
-                    </a>
-                    <strong> Created By:</strong>
-                        <a href="" class="s-user-card--link"> {{  $question->createdby['name'] }}</a>
-                    <ul class="s-user-card--awards">
-                        <li class="s-user-card--rep"></li>
-                    </ul>
+
+        <div class="s-post-summary--meta">
+            <div class="s-post-summary--meta-tags">
+                <strong> Created By:</strong>
+                    <a  href="#">{{  $question->createdby['name'] }}</a>
                     <time class="s-user-card--time">{{ $question->created_at }}</time>
-               </div>
             </div>
-          </a>
+        </div>
+
     </div>
+    
+</div>
     <span>
+    <!-- <a href="https://demo.getcraftable.com/admin/tags/3/edit" title="Edit" role="button" class="btn btn-sm btn-spinner btn-info"><i class="fa fa-edit"></i></a> -->
                 @if($question->created_by == auth()->id())
-                <a class="btn btn-primary" title="you can edit your question" href="{{route('questions.edit',$question->id)}}">Edit</a>
-                <ol class="breadcrumb mb-4">
-                </ol>
+                <a class="btn btn-primary" title="you can edit your question" href="{{route('questions.edit',$question->id)}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>               
                 <form action="{{ route('questions.destroy',$question->id) }}" method="POST">
                 <input name="_method" type="hidden" value="DELETE">
-                <button title="your question will be deleted permenantly "type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Delete</button>
+                <button title="your question will be deleted permenantly "type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'><i class="fa fa-trash-o"></i></button>
                 @csrf
                 @method('DELETE')
             </form>

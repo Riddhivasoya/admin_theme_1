@@ -17,7 +17,8 @@ class Question extends Model
     protected $fillable = ['title', 
                             'body',
                             'created_by',
-                            'count'
+                            'count',
+                            
                         ];
 
     public function tag()

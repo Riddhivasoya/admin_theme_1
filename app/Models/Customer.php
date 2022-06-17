@@ -11,7 +11,8 @@ class Customer extends Model
 {
     use HasFactory,SoftDeletes;
     protected $table= "customers";
-    protected $fillable = [
+    protected $fillable = 
+[
         'first_name', 
         'last_name',
         'birthdate',
@@ -23,7 +24,7 @@ class Customer extends Model
        // 'profession'
 
 
-    ];
+];
     
             protected $appends = ['full_name'];
 
@@ -41,7 +42,7 @@ class Customer extends Model
             {
                 return ucfirst($this->attributes['last_name']);
             }
-            public function setLastNameAttribute($value)
+                public function setLastNameAttribute($value)
             {
                return $this->attributes['last_name'] = ucfirst($value);
                
