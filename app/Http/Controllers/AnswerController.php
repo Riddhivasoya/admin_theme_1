@@ -13,17 +13,14 @@ class AnswerController extends Controller
 {
    public function storeAnswer(Request $request) 
    {
-         
           $request->validate([
                'answer' => 'required',                
           ]);
-          $input  = $request->all();//dd($input);
+          $input = $request->all();//dd($input);
           $input['created_by'] = auth()->id();
-          $answers=Answer::create($input);// dd($input);
+          $answers = Answer::create($input);// dd($input);
           return redirect()->route('questions.show',$input['question_id'])
-          ->with('success','Answer updated successfully.');
-          
-          
+          ->with('success','Answer updated successfully.');  
     }
 
    public function editAnswer($id)
@@ -38,6 +35,7 @@ class AnswerController extends Controller
    
    public function acceptAnswer(Request $request,$id)
    {
+     //    dd($request);
           $input['answer_id'] = $request['answer_id'];
                // dd($input);
           $answer = Answer::find($input['answer_id']);
@@ -69,6 +67,7 @@ class AnswerController extends Controller
    }
 
    public function answerDelete($id)
+   
    {
         $ans = Answer::where('id', $id)->firstOrFail();
         if($ans->created_by !==auth()->id()){     //this condition restrict user to maniplate URL

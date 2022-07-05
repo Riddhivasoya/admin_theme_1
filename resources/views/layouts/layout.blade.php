@@ -35,7 +35,7 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="{{ asset('/sbadmin/css/styles.css') }}" rel="stylesheet" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
-    </head>
+    </head> 
 <body class="sb-nav-fixed">  
         @include('layouts.sidenav') 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>

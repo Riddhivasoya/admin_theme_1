@@ -18,7 +18,6 @@ class Question extends Model
                             'body',
                             'created_by',
                             'count',
-                            
                         ];
 
     public function tag()

@@ -51,15 +51,10 @@
                             <a class="nav-link" href="{{route('questions.index')}}">
                         <div class="sb-nav-link-icon"><i class="fa fa-question" aria-hidden="true"></i></div>
                             Questions
-                    
                     <div class="sb-sidenav-menu-heading"></div>
-                   
-                       
                     </a>
                 </div>
-           
-
-        <div class="sb-sidenav-footer">
+                <div class="sb-sidenav-footer">
                 <div class="small">Logged in as:</div>
                 {{ Auth::user()->name }}
             </div>

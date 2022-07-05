@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
+
 use Illuminate\Http\Request;
 use App\Models\Tag;
+use App\Actions\StoreTagAction;
 use DB;
 class TagsController extends Controller
 {
@@ -34,13 +37,12 @@ class TagsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,StoreTagAction $tagaction)
     {
-        $request->validate([
-            'tag_name'=>'required|max:20|unique:tags',
-        ]);
-        $input=$request->all();
-        Tag::create($input);
+        // dd($request);
+         $tagaction->execute($request);
+        // $storeTagAction->StoreTag($request);
+    //   dd($request);
         return redirect()->route('tags.index')
         ->with('success','Tags created successfully.');
     }

@@ -141,7 +141,7 @@
 {{--dump($ans->id)--}}
     <div class="s-post-summary--content"> 
         {{--@if($question->created_by == auth()->id()) 
-        <form action=" {{ route('accept-answer',['type' =>'Accept', 'id' => $ans->id]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('accept-answer',['type' =>'Accept', 'id' => $ans->id]) }}" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="question_id" value="{{ $question->id }}" />
         <input type="hidden" name="answer_id" value="{{ $ans->id }}" />
         <input  class="s-btn s-btn__outlined" type="submit" name="type" value="Accept" /> 
